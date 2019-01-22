@@ -55,7 +55,6 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
   
     
     //MARK:- View Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackButton()
@@ -69,10 +68,6 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-   
     //MARK: - Custom
     func showLoader(){
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
@@ -180,6 +175,7 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.webView.tag = indexPath.row
             cell.webView.delegate = self
             cell.webView.loadHTMLString(htmlString!, baseURL: nil)
+            cell.webView.scrollView.isScrollEnabled = false
             cell.webView.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: htmlHeight)
             return cell
         }
@@ -329,7 +325,7 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         else if section == 1 {
-            height = contentHeight[indexPath.row]
+            height = contentHeight[indexPath.row] + 10
         }
         else if section == 2 {
             height = UITableViewAutomaticDimension

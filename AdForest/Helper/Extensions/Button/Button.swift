@@ -9,6 +9,17 @@
 import Foundation
 import UIKit
 
+class ButtonWithImage: UIButton {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if imageView != nil {
+            imageEdgeInsets = UIEdgeInsets(top: 5, left: 4, bottom: 5, right: (bounds.width - 35))
+            titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+    }
+}
+
+
 extension UIButton {
     func roundCornors(radius: CGFloat = 5) {
         layer.masksToBounds = true
@@ -54,10 +65,6 @@ extension UIButton {
         self.setAttributedTitle(attributedString, for: .normal)
     }
 }
-
-
-
-
 
 class UnderlineTextButton: UIButton {
     override func setTitle(_ title: String?, for state: UIControlState) {

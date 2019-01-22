@@ -24,6 +24,9 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     //MARK:- Properties
     var dataArray = [SellersAuthor]()
     let defaults = UserDefaults.standard
+    var currentPage = 0
+    var maximumPage = 0
+    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -76,6 +79,13 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         let objData = dataArray[indexPath.row]
+        let publicProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "UserPublicProfile") as! UserPublicProfile
+        publicProfileVC.userID = String(objData.authorId)
+        self.navigationController?.pushViewController(publicProfileVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
@@ -87,6 +97,11 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
                 cell.transform = CGAffineTransform.identity
             })
         }
+        if indexPath.row == dataArray.count && currentPage < maximumPage  {
+            currentPage = currentPage + 1
+            let param: [String: Any] = ["page_number": currentPage]
+            adForest_loadMoreData(param: param as NSDictionary)
+        }
     }
 
     //MARK:- API Call
@@ -96,6 +111,8 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
             self.stopAnimating()
             if successResponse.success {
                 self.title = successResponse.data.pageTitle
+                self.currentPage = successResponse.data.pagination.currentPage
+                self.maximumPage = successResponse.data.pagination.maxNumPages
                 self.dataArray = successResponse.data.authors
                 self.tableView.reloadData()
             } else {
@@ -109,5 +126,21 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
     
-    
+    func adForest_loadMoreData(param: NSDictionary) {
+        self.showLoader()
+        ShopHandler.sellerListLoadMore(param: param, success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                self.dataArray.append(contentsOf: successResponse.data.authors)
+                self.tableView.reloadData()
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            self.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
 }

@@ -94,7 +94,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- Properties
     
     var defaults = UserDefaults.standard
-    var guestImagesArray = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "search-magnifier"), #imageLiteral(resourceName: "packages"), #imageLiteral(resourceName: "logout")]
+    var guestImagesArray = [UIImage(named: "home"), UIImage(named: "search-magnifier"), UIImage(named: "packages"), UIImage(named: "logout")]
     var othersArrayImages = [#imageLiteral(resourceName: "blog"),#imageLiteral(resourceName: "settings") , #imageLiteral(resourceName: "logout")]
     var guestOtherArray = [#imageLiteral(resourceName: "blog"), #imageLiteral(resourceName: "settings")]
     var msgPkgArray = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "profile"), #imageLiteral(resourceName: "search-magnifier"), #imageLiteral(resourceName: "myads"), #imageLiteral(resourceName: "inactiveads"), #imageLiteral(resourceName: "featuredAds"), #imageLiteral(resourceName: "favourite")]
@@ -189,7 +189,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- Change Controller When click on side menu
     func changeViewController(controllerName: String) {
-        switch controllerName {
+        switch controllerName.lowercased() {
         case "home":
             self.slideMenuController()?.changeMainViewController(self.viewHome, close: true)
         case "profile":
@@ -283,7 +283,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.viewAdvancedSearch = UINavigationController(rootViewController: searchView)
         
         let messagesView = storyboard?.instantiateViewController(withIdentifier: "MessagesController") as! MessagesController
-        messagesView.delegate = self
+        messagesView.menuDelegate = self
         self.viewMessages = UINavigationController(rootViewController: messagesView)
         
         let packageView = storyboard?.instantiateViewController(withIdentifier: "PackagesController") as! PackagesController
@@ -387,7 +387,6 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK-: Logout user
     func logoutUser() {
         let param: [String: Any] = ["firebase_id": ""]
-        print(param)
         self.showLoader()
         AddsHandler.sendFirebaseToken(parameter: param as NSDictionary, success: { (successResponse) in
             self.stopAnimating()
@@ -413,14 +412,13 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentVC(alert)
         }
     }
-    
     //MARK:- Table View Delegate Methods
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var value = 0
+        let settingArr = UserDefaults.standard.array(forKey: "setArr")
         if section == 0 {
             if defaults.bool(forKey: "isLogin") == false {
                 if (UserHandler.sharedInstance.objSettings?.menu.isShowMenu.packageField)! == false {
@@ -440,7 +438,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         else if section == 2 {
             if defaults.bool(forKey: "isLogin") == false {
-                return 2
+                print(settingArr!.count)
+                return (settingArr?.count)!
             }
             if (UserHandler.sharedInstance.objSettings?.menu.isShowMenu.blog)! {
                 value = 3
@@ -497,7 +496,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let img = UserHandler.sharedInstance.menuKeysArray[indexPath.row]
                 cell.lblName.text = objData
                 
-                switch img {
+                switch img.lowercased() {
                 case "home" :
                     cell.imgPicture.image = #imageLiteral(resourceName: "home")
                 case "profile":
@@ -534,18 +533,56 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)
             }
         }
+            
         else if section == 2 {
+            let settingArr = UserDefaults.standard.array(forKey: "setArr")
+            let images = UserDefaults.standard.imageArray(forKey: "setArrImg")
+           
             if defaults.bool(forKey: "isLogin") == false {
-                cell.imgPicture.image = guestOtherArray[indexPath.row]
-                if (objData?.menu.isShowMenu.blog)! {
-                    if row == 0 {
-                        cell.lblName.text = objData?.menu.blog
-                    }
-                    else if row == 1 {
-                        cell.lblName.text = objData?.menu.appSettings
-                    }
-                }
+               // let isSet = UserDefaults.standard.bool(forKey: "isSet")
+               // let isBlog = UserDefaults.standard.bool(forKey: "isBlog")
+              
+                cell.lblName.text = settingArr![indexPath.row] as? String
+                cell.imgPicture.image = images![indexPath.row]
+                
+//                    if isBlog == true{
+//                        cell.lblName.text = settingArr![indexPath.row] as? String
+//                        cell.imgPicture.image = UIImage(named: "blog")
+//                    }
+//
+//
+//                    if isBlog == true{
+//                        cell.lblName.text = settingArr![0] as? String
+//                        cell.imgPicture.image = UIImage(named: "blog")
+//                    }
+                
+//                if row == 0{
+//                    if isSet == true{
+//                        cell.lblName.text = settingArr![1] as? String
+//                        cell.imgPicture.image = UIImage(named: "settings")
+//                    }
+//                }
+//
+//                 if row == 1{
+//                    if isSet == true{
+//                        cell.lblName.text = settingArr![1] as? String
+//                        cell.imgPicture.image = UIImage(named: "settings")
+//                    }
+//                }
+                
+                //cell.imgPicture.image = guestOtherArray[indexPath.row]
+//                if (objData?.menu.isShowMenu.blog)! {
+//                    if row == 0 {
+//                        cell.lblName.text = objData?.menu.blog
+//                        cell.imgPicture.image = UIImage(named: "blog")
+//                    }
+//                    else if row == 1 {
+//                        cell.lblName.text = objData?.menu.appSettings
+//                        cell.imgPicture.image = UIImage(named: "settings")
+//                    }
+//                }
             }
+                
             else {
                 var isShowBlog = false
                 if let isBlog = objData?.menu.isShowMenu.blog {
@@ -598,7 +635,10 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
             else if section == 2 {
-                title = (objData?.menu.others)!
+                let settingArr = UserDefaults.standard.array(forKey: "setArr")
+                if settingArr?.count != 0{
+                    title = (objData?.menu.others)!
+                }
             }
         }
         else {
@@ -619,7 +659,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         return title
     }
-    
+   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = indexPath.section
         let objData = UserHandler.sharedInstance.objSettings
@@ -658,22 +698,32 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
         else if section == 2 {
+          
+            var isShowBlog = false
+            var isShowSetting = false
+            
+            if let isBlog = objData?.menu.isShowMenu.blog {
+                isShowBlog = isBlog
+            }
+            if let isSetting = objData?.menu.isShowMenu.settings {
+                isShowSetting = isSetting
+            }
+            
             if defaults.bool(forKey: "isLogin") == false {
                 if let menu = OtherGuestMenues(rawValue: indexPath.row+1) {
                     self.changeGuestMenu(menu)
                 }
             }
-            var isShowBlog = false
-            if let isBlog = objData?.menu.isShowMenu.blog {
-                isShowBlog = isBlog
-            }
+            
             if isShowBlog {
                 if let menu = OtherMenues(rawValue: indexPath.row) {
                     self.changeMenu(menu)
                 }
             }
+            
             else {
                 if let menu = OtherMenues(rawValue: indexPath.row+1) {
+                    
                     self.changeMenu(menu)
                 }
             }

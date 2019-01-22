@@ -13,7 +13,7 @@ struct settingsIsShowMenu{
     var blog : Bool!
     var message : Bool!
     var packageField : Bool!
-    
+    var settings : Bool!
     var sellers : Bool!
     var shop : Bool!
     
@@ -26,6 +26,7 @@ struct settingsIsShowMenu{
         packageField = dictionary["package"] as? Bool
         sellers = dictionary["sellers"] as? Bool
         shop = dictionary["shop"] as? Bool
+        settings = dictionary["settings"] as? Bool
     }
     
     /**
@@ -48,6 +49,9 @@ struct settingsIsShowMenu{
         }
         if shop != nil{
             dictionary["shop"] = shop
+        }
+        if settings != nil{
+            dictionary["settings"] = settings
         }
         return dictionary
     }

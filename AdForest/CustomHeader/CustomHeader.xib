@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="53" id="KGk-i7-Jjw" customClass="CustomHeader" customModule="AdForest" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iuf-xD-SjY">
+                        <rect key="frame" x="4" y="4" width="312" height="44.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPj-HK-Rkq">
+                                <rect key="frame" x="8" y="8" width="156" height="28.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="8lg-KV-sqN">
+                                <rect key="frame" x="282" y="15" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="llw-ly-pb6"/>
+                                    <constraint firstAttribute="width" constant="15" id="xyd-u4-V8U"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgU-5M-B9D">
+                                <rect key="frame" x="178" y="8" width="100" height="28.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="oms-Py-IN3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionOrder:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZeO-Yc-dd8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="tPj-HK-Rkq" secondAttribute="bottom" constant="8" id="5WP-l6-Why"/>
+                            <constraint firstItem="JgU-5M-B9D" firstAttribute="top" secondItem="Iuf-xD-SjY" secondAttribute="top" constant="8" id="8KT-8J-Ae4"/>
+                            <constraint firstItem="tPj-HK-Rkq" firstAttribute="leading" secondItem="Iuf-xD-SjY" secondAttribute="leading" constant="8" id="bXu-cX-Hp2"/>
+                            <constraint firstItem="tPj-HK-Rkq" firstAttribute="top" secondItem="Iuf-xD-SjY" secondAttribute="top" constant="8" id="ijh-vC-P7c"/>
+                            <constraint firstAttribute="bottom" secondItem="JgU-5M-B9D" secondAttribute="bottom" constant="8" id="qCr-Z7-hKv"/>
+                            <constraint firstItem="8lg-KV-sqN" firstAttribute="centerY" secondItem="Iuf-xD-SjY" secondAttribute="centerY" id="sqF-yV-qdG"/>
+                            <constraint firstItem="8lg-KV-sqN" firstAttribute="leading" secondItem="JgU-5M-B9D" secondAttribute="trailing" constant="4" id="wgn-Yk-YoF"/>
+                            <constraint firstItem="tPj-HK-Rkq" firstAttribute="width" secondItem="Iuf-xD-SjY" secondAttribute="width" multiplier="0.5" id="xcY-Ek-Y7P"/>
+                            <constraint firstAttribute="trailing" secondItem="8lg-KV-sqN" secondAttribute="trailing" constant="15" id="zl4-s3-wKr"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Iuf-xD-SjY" secondAttribute="trailing" constant="4" id="4mN-hU-sp7"/>
+                    <constraint firstItem="Iuf-xD-SjY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="ZOc-9P-Jzr"/>
+                    <constraint firstItem="Iuf-xD-SjY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="doA-Rh-EXw"/>
+                    <constraint firstAttribute="bottom" secondItem="Iuf-xD-SjY" secondAttribute="bottom" constant="4" id="kQA-e4-HnJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="containerView" destination="Iuf-xD-SjY" id="3fN-dy-U31"/>
+                <outlet property="imgIcon" destination="8lg-KV-sqN" id="xNh-d7-OFh"/>
+                <outlet property="lblTotalAds" destination="tPj-HK-Rkq" id="AWW-FL-zIr"/>
+                <outlet property="oltOrder" destination="JgU-5M-B9D" id="jij-r6-UkZ"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="158.77061469265368"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="DownArrow" width="32" height="32"/>
+    </resources>
+</document>

@@ -77,6 +77,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         }
     }
     
+    @IBAction func btnBackClicked(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
     @IBOutlet weak var viewRegisterWithUs: UIView!
     @IBOutlet weak var containerViewSocialButton: UIView!
     
@@ -99,7 +104,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        
         defaults.removeObject(forKey: "isGuest")
         defaults.synchronize()
     }

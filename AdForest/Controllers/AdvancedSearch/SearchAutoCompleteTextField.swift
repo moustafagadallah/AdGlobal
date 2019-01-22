@@ -32,6 +32,12 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+           txtAutoComplete.textAlignment = .right
+        } else {
+            txtAutoComplete.textAlignment = .left
+        }
     }
     
     func adjustUITextViewHeight(arg : UITextView)

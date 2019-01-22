@@ -54,6 +54,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var isShowBlog = false
     var isShowNearby = false
     var isShowFeature = false
+    var isShowLocationButton = false
+    var isShowCategoryButton = false
     
     var featurePosition = ""
     var animalSectionTitle = ""
@@ -70,12 +72,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var latitude: Double = 0
     var longitude: Double = 0
     var searchDistance:CGFloat = 0
-    var homeTitle = ""
+    //var homeTitle = ""
     var numberOfColumns:CGFloat = 0
     
     
     //MARK:- View Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
@@ -137,14 +138,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- Near by search Delaget method
-    func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat) {
-        let param: [String: Any] = ["nearby_latitude": lat, "nearby_longitude": long, "nearby_distance": searchDistance]
-        print(param)
+    func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool) {
         self.latitude = lat
         self.longitude = long
         self.searchDistance = searchDistance
-        self.adForest_nearBySearch(param: param as NSDictionary)
+        if isSearch {
+            let param: [String: Any] = ["nearby_latitude": lat, "nearby_longitude": long, "nearby_distance": searchDistance]
+            print(param)
+            self.adForest_nearBySearch(param: param as NSDictionary)
+        } else {
+            let param: [String: Any] = ["nearby_latitude": 0.0, "nearby_longitude": 0.0, "nearby_distance": searchDistance]
+            print(param)
+            self.adForest_nearBySearch(param: param as NSDictionary)
+        }
     }
+    
     
     func navigationButtons() {
         //Location Search
@@ -365,13 +373,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     if let placeHolder = objData.placeholder {
                         cell.txtSearch.placeholder = placeHolder
                     }
-                    cell.btnSearchAction = { () in
-                        guard let searchText = cell.txtSearch.text else {return}
-                        let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-                        categoryVC.searchText = searchText
-                        categoryVC.isFromTextSearch = true
-                        self.navigationController?.pushViewController(categoryVC, animated: true)
-                    }
                 }
                 return cell
             case "blogNews":
@@ -395,12 +396,18 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             case "cat_icons":
                 let cell: CategoriesTableCell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableCell", for: indexPath) as! CategoriesTableCell
                 let data = AddsHandler.sharedInstance.objHomeData
-                if let viewAllText = data?.viewAll {
-                    cell.oltViewAll.setTitle(viewAllText, for: .normal)
-                }
-                cell.btnViewAll = { () in
-                    let categoryDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryDetailController") as! CategoryDetailController
-                    self.navigationController?.pushViewController(categoryDetailVC, animated: true)
+                
+                if self.isShowCategoryButton {
+                    cell.oltViewAll.isHidden = false
+                    if let viewAllText = data?.catIconsColumnBtn.text {
+                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                    }
+                    cell.btnViewAll = { () in
+                        let categoryDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryDetailController") as! CategoryDetailController
+                        self.navigationController?.pushViewController(categoryDetailVC, animated: true)
+                    }
+                } else {
+                    cell.oltViewAll.isHidden = true
                 }
                 cell.numberOfColums = self.numberOfColumns
                 cell.categoryArray  = self.categoryArray
@@ -443,13 +450,18 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             case "cat_locations":
                 let cell: HomeNearAdsCell = tableView.dequeueReusableCell(withIdentifier: "HomeNearAdsCell", for: indexPath) as! HomeNearAdsCell
                 let data = AddsHandler.sharedInstance.objHomeData
-                if let viewAllText = data?.viewAll {
-                    cell.oltViewAll.setTitle(viewAllText, for: .normal)
-                }
                 
-                cell.btnViewAction = { () in
-                    let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationDetailController") as! LocationDetailController
-                    self.navigationController?.pushViewController(detailVC, animated: true)
+                if self.isShowLocationButton {
+                    cell.oltViewAll.isHidden = false
+                    if let viewAllText = data?.catLocationsBtn.text {
+                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                    }
+                    cell.btnViewAction = { () in
+                        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationDetailController") as! LocationDetailController
+                        self.navigationController?.pushViewController(detailVC, animated: true)
+                    }
+                } else {
+                    cell.oltViewAll.isHidden = true
                 }
                 cell.lblTitle.text = catLocationTitle
                 cell.dataArray = catLocationsArray
@@ -509,13 +521,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if let placeHolder = objData.placeholder {
                             cell.txtSearch.placeholder = placeHolder
                         }
-                        cell.btnSearchAction = { () in
-                            guard let searchText = cell.txtSearch.text else {return}
-                            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-                            categoryVC.searchText = searchText
-                            categoryVC.isFromTextSearch = true
-                            self.navigationController?.pushViewController(categoryVC, animated: true)
-                        }
                     }
                     return cell
                 }
@@ -535,7 +540,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 else if section == 2 {
                     let cell: CategoriesTableCell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableCell", for: indexPath) as! CategoriesTableCell
                     let data = AddsHandler.sharedInstance.objHomeData
-                    if let viewAllText = data?.viewAll {
+                    if let viewAllText = data?.catIconsColumnBtn.text {
                         cell.oltViewAll.setTitle(viewAllText, for: .normal)
                     }
                     cell.btnViewAll = { () in
@@ -589,20 +594,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if let placeHolder = objData.placeholder {
                             cell.txtSearch.placeholder = placeHolder
                         }
-                        cell.btnSearchAction = { () in
-                            guard let searchText = cell.txtSearch.text else {return}
-                            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-                            categoryVC.searchText = searchText
-                            categoryVC.isFromTextSearch = true
-                            self.navigationController?.pushViewController(categoryVC, animated: true)
-                        }
                     }
                     return cell
                 }
                 else  if section == 1 {
                     let cell: CategoriesTableCell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableCell", for: indexPath) as! CategoriesTableCell
                     let data = AddsHandler.sharedInstance.objHomeData
-                    if let viewAllText = data?.viewAll {
+                    if let viewAllText = data?.catIconsColumnBtn.text {
                         cell.oltViewAll.setTitle(viewAllText, for: .normal)
                     }
                     cell.btnViewAll = { () in
@@ -671,19 +669,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if let placeHolder = objData.placeholder {
                             cell.txtSearch.placeholder = placeHolder
                         }
-                        cell.btnSearchAction = { () in
-                            guard let searchText = cell.txtSearch.text else {return}
-                            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-                            categoryVC.searchText = searchText
-                            categoryVC.isFromTextSearch = true
-                            self.navigationController?.pushViewController(categoryVC, animated: true)
-                        }
                     }
                     return cell
                 } else if section == 1 {
                     let cell: CategoriesTableCell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableCell", for: indexPath) as! CategoriesTableCell
                     let data = AddsHandler.sharedInstance.objHomeData
-                    if let viewAllText = data?.viewAll {
+                    if let viewAllText = data?.catIconsColumnBtn.text {
                         cell.oltViewAll.setTitle(viewAllText, for: .normal)
                     }
                     cell.btnViewAll = { () in
@@ -781,7 +772,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if categoryArray.isEmpty {
                     height = 0
                 } else {
-                    height = 250
+                    if self.isShowLocationButton {
+                        height = 250
+                    } else {
+                        height = 225
+                    }
                 }
             } else if position == "nearby" {
                 if isShowNearby {
@@ -971,10 +966,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- IBActions
-    
-    @IBAction func actionAddPost(_ sender: Any) {
+    @IBAction func actionAddPost(_ sender: UIButton) {
         let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-        self.navigationController?.pushViewController(adPostVC, animated: true)        
+        self.navigationController?.pushViewController(adPostVC, animated: true)
     }
     
     //MARK:- API Call
@@ -984,69 +978,74 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         AddsHandler.homeData(success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-                DispatchQueue.main.async {
-                    self.title = successResponse.data.pageTitle
-                    if let column = successResponse.data.catIconsColumn {
-                        let columns = Int(column)
-                        self.numberOfColumns = CGFloat(columns!)
+                self.title = successResponse.data.pageTitle
+                if let column = successResponse.data.catIconsColumn {
+                    let columns = Int(column)
+                    self.numberOfColumns = CGFloat(columns!)
+                }
+                //To Show Title After Search Bar Hidden
+                self.viewAllText = successResponse.data.viewAll
+    
+                //Get value of show/hide buttons of location and categories
+                if successResponse.data.catIconsColumnBtn != nil {
+                    self.isShowCategoryButton = successResponse.data.catIconsColumnBtn.isShow
+                }
+                if successResponse.data.catLocationsBtn != nil {
+                    self.isShowLocationButton = successResponse.data.catLocationsBtn.isShow
+                }
+                
+                if let feature = successResponse.data.isShowFeatured {
+                    self.isShowFeature = feature
+                }
+                if let feature = successResponse.data.featuredPosition {
+                    self.featurePosition = feature
+                }
+                self.categoryArray = successResponse.data.catIcons
+                self.dataArray = successResponse.data.sliders
+                
+                //Check Feature Ads is on or off and set add Position Sorter
+                if self.isShowFeature {
+                    self.featuredArray = successResponse.data.featuredAds.ads
+                }
+                if let isSort = successResponse.data.adsPositionSorter {
+                    self.isAdPositionSort = isSort
+                }
+                if self.isAdPositionSort {
+                    self.addPosition += successResponse.data.adsPosition
+                    if let latest = successResponse.data.isShowLatest {
+                        self.isShowLatest = latest
                     }
-                    //To Show Title After Search Bar Hidden
-                    self.homeTitle = successResponse.data.pageTitle
+                    if self.isShowLatest {
+                        self.latestAdsArray = successResponse.data.latestAds.ads
+                    }
                     
-                    self.viewAllText = successResponse.data.viewAll
+                    if let showBlog = successResponse.data.isShowBlog {
+                        self.isShowBlog = showBlog
+                    }
+                    if self.isShowBlog {
+                        self.blogObj = successResponse.data.latestBlog
+                    }
                     
-                    if let feature = successResponse.data.isShowFeatured {
-                        self.isShowFeature = feature
+                    if let showNearAds = successResponse.data.isShowNearby {
+                        self.isShowNearby = showNearAds
                     }
-                    if let feature = successResponse.data.featuredPosition {
-                        self.featurePosition = feature
-                    }
-                    self.categoryArray = successResponse.data.catIcons
-                    self.dataArray = successResponse.data.sliders
-                    
-                    //Check Feature Ads is on or off and set add Position Sorter
-                    if self.isShowFeature {
-                        self.featuredArray = successResponse.data.featuredAds.ads
-                    }
-                    if let isSort = successResponse.data.adsPositionSorter {
-                        self.isAdPositionSort = isSort
-                    }
-                    if self.isAdPositionSort {
-                        self.addPosition += successResponse.data.adsPosition
-                        if let latest = successResponse.data.isShowLatest {
-                            self.isShowLatest = latest
-                        }
-                        if self.isShowLatest {
-                            self.latestAdsArray = successResponse.data.latestAds.ads
-                        }
-                        
-                        if let showBlog = successResponse.data.isShowBlog {
-                            self.isShowBlog = showBlog
-                        }
-                        if self.isShowBlog {
-                            self.blogObj = successResponse.data.latestBlog
-                        }
-                        
-                        if let showNearAds = successResponse.data.isShowNearby {
-                            self.isShowNearby = showNearAds
-                        }
-                        if self.isShowNearby {
-                             self.nearByTitle = successResponse.data.nearbyAds.text
-                            if successResponse.data.nearbyAds.ads.isEmpty == false {
-                                self.nearByAddsArray = successResponse.data.nearbyAds.ads
-                            }
-                        }
-                        if successResponse.data.catLocations.isEmpty == false {
-                            self.catLocationsArray = successResponse.data.catLocations
-                            if let locationTitle = successResponse.data.catLocationsTitle {
-                                self.catLocationTitle = locationTitle
-                            }
+                    if self.isShowNearby {
+                        self.nearByTitle = successResponse.data.nearbyAds.text
+                        if successResponse.data.nearbyAds.ads.isEmpty == false {
+                            self.nearByAddsArray = successResponse.data.nearbyAds.ads
                         }
                     }
-                    AddsHandler.sharedInstance.objHomeData = successResponse.data
-                    AddsHandler.sharedInstance.objLatestAds = successResponse.data.latestAds
-                    
-                    // Set Up AdMob Banner & Intersitial ID's
+                    if successResponse.data.catLocations.isEmpty == false {
+                        self.catLocationsArray = successResponse.data.catLocations
+                        if let locationTitle = successResponse.data.catLocationsTitle {
+                            self.catLocationTitle = locationTitle
+                        }
+                    }
+                }
+                AddsHandler.sharedInstance.objHomeData = successResponse.data
+                AddsHandler.sharedInstance.objLatestAds = successResponse.data.latestAds
+                
+                // Set Up AdMob Banner & Intersitial ID's
                     UserHandler.sharedInstance.objAdMob = successResponse.settings.ads
                     var isShowAd = false
                     if let adShow = successResponse.settings.ads.show {
@@ -1069,36 +1068,34 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             if successResponse.settings.ads.position == "top" {
                                 self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
                                 SwiftyAd.shared.showBanner(from: self, at: .top)
-                            }
-                            else {
+                            } else {
                                 self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
                                 SwiftyAd.shared.showBanner(from: self, at: .bottom)
                             }
                         }
                         if isShowInterstital {
                             SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
-                           SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+                            SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
                         }
                     }
-                    // Here I set the Google Analytics Key
-                    var isShowAnalytic = false
-                    if let isShow = successResponse.settings.analytics.show {
-                        isShowAnalytic = isShow
-                    }
-                    if isShowAnalytic {
-                        if let analyticKey = successResponse.settings.analytics.id {
-                            guard let gai = GAI.sharedInstance() else {
-                                assert(false, "Google Analytics not configured correctly")
-                                return
-                            }
-                            gai.tracker(withTrackingId: analyticKey)
-                            gai.trackUncaughtExceptions = true
-                        }
-                    }
-                    //Search Section Data
-                    self.searchSectionArray = [successResponse.data.searchSection]
-                    self.tableView.reloadData()
+                // Here I set the Google Analytics Key
+                var isShowAnalytic = false
+                if let isShow = successResponse.settings.analytics.show {
+                    isShowAnalytic = isShow
                 }
+                if isShowAnalytic {
+                    if let analyticKey = successResponse.settings.analytics.id {
+                        guard let gai = GAI.sharedInstance() else {
+                            assert(false, "Google Analytics not configured correctly")
+                            return
+                        }
+                        gai.tracker(withTrackingId: analyticKey)
+                        gai.trackUncaughtExceptions = true
+                    }
+                }
+                //Search Section Data
+                self.searchSectionArray = [successResponse.data.searchSection]
+                self.tableView.reloadData()
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)

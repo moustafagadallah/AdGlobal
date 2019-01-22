@@ -25,5 +25,10 @@ class SearchTextField: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            txtType.textAlignment = .right
+        } else {
+            txtType.textAlignment = .left
+        }
     }
 }

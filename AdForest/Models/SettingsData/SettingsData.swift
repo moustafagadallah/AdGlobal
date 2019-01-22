@@ -41,8 +41,8 @@ struct SettingsData {
     
     var allowBlock : Bool!
     var featuredScroll : SettingsFeaturedScroll!
-    
     var shopMenu : [SettingsShopMenu]!
+    var appPageTestUrl: String!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -111,6 +111,7 @@ struct SettingsData {
                 shopMenu.append(value)
             }
         }
+        appPageTestUrl = dictionary["app_page_test_url"] as? String
     }
     
     /**
@@ -215,6 +216,9 @@ struct SettingsData {
                 dictionaryElements.append(shopMenuElement.toDictionary())
             }
             dictionary["shop_menu"] = dictionaryElements
+        }
+        if appPageTestUrl != nil {
+            dictionary["app_page_test_url"] = appPageTestUrl
         }
         return dictionary
     }

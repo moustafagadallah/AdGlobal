@@ -17,6 +17,18 @@ extension UIViewController {
     }
 }
 
+extension UIViewController {
+    func showNavigationActivity() {
+        let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let barButton = UIBarButtonItem(customView: activityIndicator)
+        self.navigationItem.setRightBarButton(barButton, animated: true)
+        activityIndicator.startAnimating()
+    }
+    
+    func hideNavigationActivity() {
+        navigationItem.rightBarButtonItem = nil
+    }
+}
 
 extension UIViewController {
     

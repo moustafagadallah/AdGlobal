@@ -10,7 +10,7 @@ import UIKit
 import SlideMenuControllerSwift
 import NVActivityIndicatorView
 
-class ProfileController: UIViewController , UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable {
+class ProfileController: UIViewController , UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, SwiftyAdDelegate {
     
     //MARK:- Outlets
     
@@ -34,14 +34,13 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     }
     
     //MARK:- Properties
-    
     var dataArray = [ProfileDetailsData]()
     let defaults = UserDefaults.standard
     
     //MARK:- View Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        SwiftyAd.shared.delegate = self 
         self.googleAnalytics(controllerName: "Profile Controller")
         self.adMob()
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.updateUserProfile), object: nil, queue: nil) { (notification) in
@@ -107,6 +106,21 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
             }
         }
     }
+    
+    //MARK:- AdMob Delegates
+    func swiftyAdDidOpen(_ swiftyAd: SwiftyAd) {
+        
+    }
+    
+    func swiftyAdDidClose(_ swiftyAd: SwiftyAd) {
+        
+    }
+    
+    func swiftyAd(_ swiftyAd: SwiftyAd, didRewardUserWithAmount rewardAmount: Int) {
+        
+    }
+    
+    
     //MARK:- Table View Delegate Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {

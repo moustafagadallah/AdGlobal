@@ -34,8 +34,9 @@ struct HomeData {
     var viewAll : String!
     
     var searchSection : HomeSearchSection!
+    var catIconsColumnBtn : CatIconsColumnBtn!
+    var catLocationsBtn : CatIconsColumnBtn!
 
-    
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -84,7 +85,7 @@ struct HomeData {
         pageTitle = dictionary["page_title"] as? String
         sliders = [HomeSlider]()
         if let slidersArray = dictionary["sliders"] as? [[String:Any]]{
-            for dic in slidersArray{
+            for dic in slidersArray {
                 let value = HomeSlider(fromDictionary: dic)
                 sliders.append(value)
             }
@@ -95,6 +96,12 @@ struct HomeData {
             searchSection = HomeSearchSection(fromDictionary: searchSectionData)
         }
         
+        if let catIconsColumnBtnData = dictionary["cat_icons_column_btn"] as? [String:Any]{
+            catIconsColumnBtn = CatIconsColumnBtn(fromDictionary: catIconsColumnBtnData)
+        }
+        if let catLocationsBtnData = dictionary["cat_locations_btn"] as? [String:Any]{
+            catLocationsBtn = CatIconsColumnBtn(fromDictionary: catLocationsBtnData)
+        }
     }
     
     /**
@@ -184,7 +191,12 @@ struct HomeData {
         if searchSection != nil{
             dictionary["search_section"] = searchSection.toDictionary()
         }
+        if catIconsColumnBtn != nil{
+            dictionary["cat_icons_column_btn"] = catIconsColumnBtn.toDictionary()
+        }
+        if catLocationsBtn != nil{
+            dictionary["cat_locations_btn"] = catLocationsBtn.toDictionary()
+        }
         return dictionary
     }
-    
 }

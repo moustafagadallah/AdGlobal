@@ -600,7 +600,4 @@ class AddsHandler {
               failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
-    
-    
-    
 }

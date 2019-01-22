@@ -10,6 +10,7 @@ import UIKit
 
 class WebViewCell: UITableViewCell {
 
+    @IBOutlet weak var heightWebView: NSLayoutConstraint!
     @IBOutlet weak var webView: UIWebView! {
         didSet {
            // webView.delegate = self

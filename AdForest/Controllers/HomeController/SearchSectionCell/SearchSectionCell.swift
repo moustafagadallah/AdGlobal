@@ -8,10 +8,14 @@
 
 import UIKit
 
-class SearchSectionCell: UITableViewCell {
+class SearchSectionCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var imgPicture: UIImageView!
-    @IBOutlet weak var txtSearch: UITextField!
+    @IBOutlet weak var txtSearch: UITextField!{
+        didSet {
+            txtSearch.delegate = self
+        }
+    }
     @IBOutlet weak var oltSearch: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblSubTitle: UILabel!
@@ -36,8 +40,10 @@ class SearchSectionCell: UITableViewCell {
     }
     
     //MARK:- Properties
-    var btnSearchAction : (()->())?
     
+    
+    
+    //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
@@ -47,11 +53,29 @@ class SearchSectionCell: UITableViewCell {
         } else {
             txtSearch.textAlignment = .left
         }
-        
-        
     }
-
-    @IBAction func actionSearch(_ sender: Any) {
-        btnSearchAction?()
+    
+    //MARK:- TextField Deletage
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == txtSearch {
+            txtSearch.resignFirstResponder()
+            categoryDetail()
+        }
+        return true
+    }
+    
+    //MARK:- Custom
+    func categoryDetail() {
+        guard let searchText = txtSearch.text else {return}
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let categoryVC = storyboard.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+        categoryVC.searchText = searchText
+        categoryVC.isFromTextSearch = true
+        self.viewController()?.navigationController?.pushViewController(categoryVC, animated: true)
+    }
+    
+    //MARK:- IBActions
+    @IBAction func actionSearch(_ sender: UIButton) {
+        categoryDetail()
     }
 }

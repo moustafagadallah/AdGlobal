@@ -12,32 +12,13 @@ import DropDown
 import NVActivityIndicatorView
 import StoreKit
 import SwiftyStoreKit
-
-class NetworkActivityIndicatorManager : NSObject {
-    private static var loadingCount = 0
-    
-    class func networkOperationStart() {
-        if loadingCount == 0 {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        }
-        loadingCount += 1
-    }
-    
-    class func networkOperationFinish() {
-        if loadingCount > 0 {
-            loadingCount -= 1
-        }
-        if loadingCount == 0 {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        }
-    }
-}
+import GoogleMobileAds
 
 protocol PaymentTypeDelegate {
     func paymentMethod(methodName: String, inAppID: String, packageID: String)
 }
 
-class PackagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, PaymentTypeDelegate {
+class PackagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, PaymentTypeDelegate, GADBannerViewDelegate, GADInterstitialDelegate {
   
     //MARK:- Outlets
     @IBOutlet weak var lblNoData: UILabel!{
@@ -64,39 +45,78 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     //MARK:- Properties
+    let addData = UserHandler.sharedInstance.objAdMob
     let defaults = UserDefaults.standard
     var dataArray = [PackagesDataProduct]()
     var isAppOpen = false
     var inAppSecretKey = ""
     var inApp_id = ""
     var package_id = ""
+    var interstitial: GADInterstitial?
     
     //MARK:- Application Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.adForest_pakcagesData()
-        self.adMob()
+        self.addLeftBarButtonWithImage(UIImage(named: "menu")!)
         self.googleAnalytics(controllerName: "Packages Controller")
         if defaults.bool(forKey: "isLogin") == false {
             self.oltAdPost.isHidden = true
         }
+       self.adMob()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if defaults.bool(forKey: "isRtl") {
-            self.addRightBarButtonWithImage(#imageLiteral(resourceName: "menu"))
-        }
-        else {
-            self.addLeftBarButtonWithImage(#imageLiteral(resourceName: "menu"))
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.adForest_pakcagesData()
+//        interstitial?.delegate = self
+//        interstitial = self.appDelegate.createAndLoadInterstitial()
+//        self.appDelegate.interstitial?.delegate = self
+//        self.appDelegate.interstitial = self.appDelegate.createAndLoadInterstitial()
     }
     
     //MARK: - Custom
-    func showLoader(){
+    func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
+    
+//    func createAndLoadInterstitial() -> GADInterstitial? {
+//        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3521346996890484/7679081330")
+//        guard let interstitial = interstitial else {
+//            return nil
+//        }
+//        let request = GADRequest()
+//        interstitial.delegate = self
+//        interstitial.load(request)
+//        return interstitial
+//    }
+    
+//    func adMobSetup() {
+//        self.appDelegate.adBannerView.delegate = self
+//        self.appDelegate.adBannerView.rootViewController = self
+//        self.appDelegate.adBannerView.load(GADRequest())
+//    }
+//
+//    //MARK:- AdMob Delegates
+//    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+//        let translateTransform = CGAffineTransform(translationX: 0, y: -bannerView.bounds.size.height)
+//        bannerView.transform = translateTransform
+//        UIView.animate(withDuration: 0.5) {
+//            bannerView.transform = CGAffineTransform.identity
+//        }
+//    }
+//
+//    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+//        print("Fail to receive ads")
+//        print(error)
+//    }
+//
+//    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+//        ad.present(fromRootViewController: self)
+//    }
+//
+//    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
+//        print("Fail to receive interstitial")
+//    }
     
     func adMob() {
         if UserHandler.sharedInstance.objAdMob != nil {
@@ -183,9 +203,7 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
         if let paymentTypeButton = objData.paymentTypesValue {
             cell.buttonSelectOption.setTitle(paymentTypeButton, for: .normal)
         }
-        
         cell.package_id = objData.productId
-        
         cell.dropShow = { () in
             if self.defaults.bool(forKey: "isLogin") == false {
                 if let msg = self.defaults.string(forKey: "notLogin") {
@@ -228,14 +246,30 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
         return 205
     }
     
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        return self.appDelegate.adBannerView
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return self.appDelegate.adBannerView.frame.height
+//    }
+//    
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return UIView()
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 0
+//    }
+    
+    
     //MARK:- Change Status delegate
     func paymentMethod(methodName: String, inAppID: String, packageID: String) {
          if methodName == "app_inapp" {
             self.inApp_id = inAppID
             self.package_id = packageID
             self.adForest_MoveToInAppPurchases()
-        }
-        else {
+        } else {
             print("Not Found")
         }
     }
@@ -246,19 +280,19 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func getInfo() {
-        NetworkActivityIndicatorManager.networkOperationStart()
+        self.showNavigationActivity()
         SwiftyStoreKit.retrieveProductsInfo([inApp_id], completion: {
             result in
-            NetworkActivityIndicatorManager.networkOperationFinish()
+            self.hideNavigationActivity()
             self.showAlert(alert: self.alertForProductRetrivalInfo(result: result))
         })
     }
     
     func purchaseProduct(productID: String) {
-        NetworkActivityIndicatorManager.networkOperationStart()
+        self.showNavigationActivity()
         SwiftyStoreKit.purchaseProduct(inApp_id, completion: {
             result in
-            NetworkActivityIndicatorManager.networkOperationFinish()
+            self.hideNavigationActivity()
             if case .success(let product) = result {
                 let parameters: [String: Any] = [
                     "package_id": self.package_id,
@@ -275,10 +309,10 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func restorePurchase() {
-        NetworkActivityIndicatorManager.networkOperationStart()
+        self.showNavigationActivity()
         SwiftyStoreKit.restorePurchases(atomically: true,  completion: {
             result in
-            NetworkActivityIndicatorManager.networkOperationFinish()
+            self.hideNavigationActivity()
             for product in result.restoredPurchases {
                 if product.needsFinishTransaction {
                     SwiftyStoreKit.finishTransaction(product.transaction)
@@ -289,11 +323,11 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func verifyReceipt() {
-        NetworkActivityIndicatorManager.networkOperationStart()
+        self.showNavigationActivity()
         let validator = AppleReceiptValidator(service: .production, sharedSecret: inAppSecretKey)
         SwiftyStoreKit.verifyReceipt(using: validator, completion: {
             result in
-            NetworkActivityIndicatorManager.networkOperationFinish()
+            self.hideNavigationActivity()
             self.showAlert(alert: self.alertForVerifyReceipt(result: result))
             
             if case .error(let error)  = result {
@@ -305,20 +339,18 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func verifyPurchase() {
-        NetworkActivityIndicatorManager.networkOperationStart()
+        self.showNavigationActivity()
         let validator = AppleReceiptValidator(service: .production, sharedSecret: inAppSecretKey)
         SwiftyStoreKit.verifyReceipt(using: validator, completion: {
             result in
+            self.hideNavigationActivity()
             switch result {
             case .success(let receipt):
                 let productID = self.inApp_id
-               
                 let purchaseResult = SwiftyStoreKit.verifyPurchase(productId: productID, inReceipt: receipt)
                 self.showAlert(alert: self.alertForVerifyPurchase(result: purchaseResult))
-                
             case .error(let error):
                 self.showAlert(alert: self.alertForVerifyReceipt(result: result))
-                
                 if case .noReceiptData = error {
                     self.refreshReceipt()
                 }

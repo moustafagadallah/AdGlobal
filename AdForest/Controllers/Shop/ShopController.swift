@@ -50,12 +50,13 @@ class ShopController: UIViewController, UIWebViewDelegate {
         super.viewDidAppear(animated)
         guard let userEmail = UserDefaults.standard.string(forKey: "email") else {return}
         guard let userPassword = UserDefaults.standard.string(forKey: "password") else {return}
-
+        guard let shopUrl = defaults.string(forKey: "shopUrl") else {return}
+        
         let emailPass = "\(userEmail):\(userPassword)"
         let encodedString = emailPass.data(using: String.Encoding.utf8)!
         let base64String = encodedString.base64EncodedString(options: [])
         print(base64String)
-        let url = URL(string: "http://adforest-testapp.scriptsbundle.com/shop/")
+        let url = URL(string: shopUrl)
         var request = URLRequest(url: url!)
         request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
         request.setValue("body", forHTTPHeaderField: "Adforest-Shop-Request")
@@ -115,11 +116,13 @@ class ShopController: UIViewController, UIWebViewDelegate {
             let objUser = NSKeyedUnarchiver.unarchiveObject(with: userInfo as! Data) as! [String: Any]
             let userModel = SettingsRoot(fromDictionary: objUser)
             for items in userModel.data.shopMenu {
+                if items.url == "" {
+                    continue
+                }
                 self.titleArray.append(items.title)
                 self.urlArray.append(items.url)
             }
         }
-        
         self.dropDownData()
         self.ShopButton()
     }

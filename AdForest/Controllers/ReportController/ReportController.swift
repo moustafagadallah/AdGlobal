@@ -19,7 +19,11 @@ protocol ReportPopToHomeDelegate {
 class ReportController: UIViewController , NVActivityIndicatorViewable {
     
     //MARK:- Outlets
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerView: UIView!{
+        didSet{
+            containerView.addShadowToView()
+        }
+    }
     
     @IBOutlet weak var containerViewImg: UIView! {
         didSet {
@@ -28,6 +32,7 @@ class ReportController: UIViewController , NVActivityIndicatorViewable {
     }
     @IBOutlet weak var oltCancel: UIButton!{
         didSet{
+            oltCancel.roundCornors()
             if let mainColor = defaults.string(forKey: "mainColor"){
                 oltCancel.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
             }
@@ -40,7 +45,8 @@ class ReportController: UIViewController , NVActivityIndicatorViewable {
         }
     }
     @IBOutlet weak var oltSend: UIButton! {
-        didSet{
+        didSet {
+            oltSend.roundCornors()
             if let mainColor = defaults.string(forKey: "mainColor"){
                 oltSend.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
             }
@@ -65,6 +71,7 @@ class ReportController: UIViewController , NVActivityIndicatorViewable {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.googleAnalytics(controllerName: "Report Controller")
+        self.hideKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,9 +113,17 @@ class ReportController: UIViewController , NVActivityIndicatorViewable {
             if let nameText = objData?.select.name {
                 self.dropDownArray = nameText
             }
+            
+            if defaults.bool(forKey: "isRtl") {
+                oltPopUp.contentHorizontalAlignment = .right
+                txtMessage.textAlignment = .right
+            } else {
+                oltPopUp.contentHorizontalAlignment = .left
+                txtMessage.textAlignment = .left
+            }
+            
             self.spamPopUp()
         }
-        
         else {
             print("Empty Data")
         }

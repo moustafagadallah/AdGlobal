@@ -20,6 +20,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
             tableView.separatorStyle = .singleLine
             tableView.separatorColor = UIColor.black
             tableView.showsVerticalScrollIndicator = false
+            //tableView.register(UINib(nibName: <#T##String#>, bundle: <#T##Bundle?#>), forCellReuseIdentifier: <#T##String#>)
         }
     }
     
@@ -113,7 +114,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         obj.fieldTypeName = fieldTitle
                         obj.fieldType = "select"
                         data.append(obj)
-                      
                         if fieldTitle == self.dataArray[index].fieldTypeName {
                             self.dataArray[index].fieldVal = selectedText
                             cell.oltPopup.setTitle(selectedText, for: .normal)
@@ -124,7 +124,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
         }
     }
   
-    
     @objc func onForwardButtonClciked() {
         var data = [AdPostField]()
         for index in  0..<dataArray.count {
@@ -136,7 +135,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         obj.fieldTypeName = cell.fieldName
                         obj.fieldType = "textfield"
                         data.append(obj)
-                        
                         guard let txtTitle = cell.txtType.text else {return}
                         if cell.fieldName == "ad_title" {
                             if txtTitle == "" {
@@ -145,7 +143,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                                 self.adTitle = txtTitle
                             }
                         }
-                        
                     }
                 }
                 else if objData.fieldType == "select" {
@@ -198,9 +195,9 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let objData = dataArray[indexPath.row]
+        
         if objData.fieldType == "textfield"  && objData.hasPageNumber == "1" {
-            let cell: AdPostCell = tableView.dequeueReusableCell(withIdentifier: "AdPostCell", for: indexPath) as! AdPostCell
-           
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AdPostCell", for: indexPath) as! AdPostCell
             if let title = objData.title  {
                 cell.txtType.placeholder = title
             }
@@ -310,7 +307,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                     print(param)
                     self.adForest_dynamicFields(param: param as NSDictionary)
                 }
-                self.tableView.reloadData()
+                self.tableView.reloadData() 
             } else {
                 let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
                   self.navigationController?.popViewController(animated: true)

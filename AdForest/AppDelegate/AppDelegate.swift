@@ -17,14 +17,13 @@ import SlideMenuControllerSwift
 import IQKeyboardManagerSwift
 import GoogleMaps
 import GooglePlacePicker
-import StoreKit
 import SwiftyStoreKit
+import NotificationBannerSwift
 import GoogleMobileAds
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, NotificationBannerDelegate {
   
-
     var window: UIWindow?
 
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -32,12 +31,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let defaults = UserDefaults.standard
     var deviceFcmToken = "0"
+    var interstitial: GADInterstitial?
+
     
-    var gViewController: UIViewController?
-    var mInterstitial: GADInterstitial!
+    func createAndLoadInterstitial() -> GADInterstitial? {
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3521346996890484/7679081330")
+        guard let interstitial = interstitial else {
+            return nil
+        }
+        let request = GADRequest()
+        interstitial.load(request)
+        return interstitial
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         keyboardManager.enable = true
         self.setUpGoogleMaps()
         FirebaseApp.configure()
@@ -50,8 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                   print("Granted \(granted)")
             }
             UIApplication.shared.registerForRemoteNotifications()
-        }
-        else {
+        } else {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in}
             UIApplication.shared.registerForRemoteNotifications()
             application.registerForRemoteNotifications()
@@ -78,78 +84,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             }
         }
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-6905547279452514/6461881125")
         return true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-        let willHandleByFacebook = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        let willHandleByFacebook = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
 
-      let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+      let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         
         return willHandleByGoogle || willHandleByFacebook
     }
     
-    //MARK:- For Google Places Search
-    func setUpGoogleMaps() {
-        let googleMapsApiKey = Constants.googlePlacesAPIKey.placesKey
-        GMSServices.provideAPIKey(googleMapsApiKey)
-        GMSPlacesClient.provideAPIKey(googleMapsApiKey)
-    }
-    
-    
     func applicationWillResignActive(_ application: UIApplication) {
-        print("App Resign Active")
         Messaging.messaging().shouldEstablishDirectChannel = true
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        print("App in Background")
-    
          Messaging.messaging().shouldEstablishDirectChannel = true
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        print("App in Foreground")
          Messaging.messaging().shouldEstablishDirectChannel = true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        print("App Become Active")
         Messaging.messaging().shouldEstablishDirectChannel = true
         FBSDKAppEvents.activateApp()
+        //To Check Deep Link
+        deepLinker.checkDeepLink()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
 
     // MARK: - Core Data stack
-
     lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
         let container = NSPersistentContainer(name: "AdForest")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
@@ -157,19 +130,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }()
 
     // MARK: - Core Data Saving support
-
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+}
+extension AppDelegate {
+    //MARK:- For Google Places Search
+    func setUpGoogleMaps() {
+        let googleMapsApiKey = Constants.googlePlacesAPIKey.placesKey
+        GMSServices.provideAPIKey(googleMapsApiKey)
+        GMSPlacesClient.provideAPIKey(googleMapsApiKey)
     }
 }
 
@@ -181,7 +159,7 @@ extension AppDelegate {
         appearance.isTranslucent = false
         appearance.barTintColor = barTintColor
         appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-        appearance.barStyle = .blackTranslucent
+        appearance.barStyle = .black
     }
     
     func moveToHome() {
@@ -196,7 +174,7 @@ extension AppDelegate {
             let navi : UINavigationController = UINavigationController(rootViewController: HomeVC)
             let slideMenuController = SlideMenuController(mainViewController: navi, leftMenuViewController: leftVC)
             self.window?.rootViewController = slideMenuController
-        }        
+        }
         self.window?.makeKeyAndVisible()
     }
     
@@ -225,18 +203,27 @@ extension AppDelegate {
 }
 
 extension AppDelegate  {
-    
     // MARK: UNUserNotificationCenter Delegate
-    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let content = notification.request.content
-        print("Data is \(content)")
-        completionHandler([.alert, .sound])
+      //  let content = notification.request.content
+        completionHandler([.alert, .sound, .badge])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("This method is called")
-        completionHandler()
+        switch response.actionIdentifier {
+        case UNNotificationDefaultActionIdentifier:
+            print("Open App")
+        case "chat":
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let obj = storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+            
+            window?.rootViewController = obj
+            window?.makeKeyAndVisible()
+            completionHandler()
+        default:
+            break
+        }
+        
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -286,6 +273,18 @@ extension AppDelegate  {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
+        switch application.applicationState {
+        case .active: break
+            
+        case .background: break
+            
+        case .inactive: break
+            
+        default:
+            break
+        }
+        
+        
         print("Firebase: user info \(userInfo)")
         switch application.applicationState {
         case .active:
@@ -298,7 +297,6 @@ extension AppDelegate  {
         if let messageID = userInfo[gcmMessageIDKey] {
             print("mtech Message ID: \(messageID)")
         }
-        
         Messaging.messaging().appDidReceiveMessage(userInfo)
         completionHandler(UIBackgroundFetchResult.newData)
     }
@@ -339,14 +337,70 @@ extension AppDelegate  {
             return
         }
         
-        let content = UNMutableNotificationContent()
-        content.title = textTitle
-        content.body = userMessage
-        content.badge = 1
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-        let request = UNNotificationRequest(identifier: "AdForest", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request) { (error) in
-            print(error)
+        let state = UIApplication.shared.applicationState
+         
+        if state == .background {
+            
+        }
+
+        else if state == .inactive {
+            
+        }
+            
+        else if state == .active {
+            
+        }
+        
+        
+//        let content = UNMutableNotificationContent()
+//        content.title = textTitle
+//        content.body = userMessage
+//        content.badge = 1
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+//        let request = UNNotificationRequest(identifier: "AdForest", content: content, trigger: trigger)
+//        UNUserNotificationCenter.current().add(request) { (error) in
+//            print(error)
+//        }
+        
+       let  banner = NotificationBanner(title: textTitle, subtitle: userMessage, style: .success)
+        banner.autoDismiss = true
+        banner.delegate = self
+        banner.show()
+        banner.onTap = {
+            if topic == "broadcast" {
+                banner.dismiss()
+                self.moveToHome()
+            }
+            if topic == "chat" {
+                banner.dismiss()
+                let chatVC = self.storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                chatVC.ad_id = adID
+                chatVC.sender_id = senderID
+                chatVC.receiver_id = receiverID
+                chatVC.messageType = type
+                self.presentController(ShowVC: chatVC)
+            }
+        }
+        banner.onSwipeUp = {
+            banner.dismiss()
         }
     }
+    func notificationBannerWillAppear(_ banner: BaseNotificationBanner) {
+        
+    }
+    
+    func notificationBannerDidAppear(_ banner: BaseNotificationBanner) {
+        
+    }
+    
+    func notificationBannerWillDisappear(_ banner: BaseNotificationBanner) {
+        
+    }
+    
+    func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
+        
+    }
+   
+   
+    
 }

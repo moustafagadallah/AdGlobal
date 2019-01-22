@@ -15,7 +15,7 @@ import GooglePlacePicker
 import GoogleMaps
 
 protocol NearBySearchDelegate {
-    func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat)
+    func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool)
 }
 
 class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndicatorViewable , CLLocationManagerDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate , UITextFieldDelegate {
@@ -88,7 +88,6 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
     }
     
     // Google Places Delegate Methods
-    
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         print("Place Name : \(place.name)")
         print("Place Address : \(place.formattedAddress ?? "null")")
@@ -105,7 +104,6 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         self.dismissVC(completion: nil)
     }
-    
     
     //MARK: - Custom
     func showLoader() {
@@ -128,7 +126,7 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
             }
         }
     }
-    
+
     func adForest_populateData() {
         if let settingsInfo = defaults.object(forKey: "settings") {
             let  settingObject = NSKeyedUnarchiver.unarchiveObject(with: settingsInfo as! Data) as! [String : Any]
@@ -201,7 +199,7 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
                 self.view.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
             }, completion: { (success) in
-                self.delegate?.nearbySearchParams(lat: self.latitude, long: self.longitude, searchDistance: self.nearByDistance)
+                self.delegate?.nearbySearchParams(lat: self.latitude, long: self.longitude, searchDistance: self.nearByDistance, isSearch: true)
             })
         }
     }
@@ -211,6 +209,7 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
             self.view.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
         }) { (success) in
             self.popVC(completion: nil)
+            self.delegate?.nearbySearchParams(lat: self.latitude, long: self.longitude, searchDistance: 0, isSearch: false)
         }
     }
 }

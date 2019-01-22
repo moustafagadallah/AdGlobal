@@ -115,7 +115,6 @@ class HomeNearAdsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVi
     //MARK:- IBActions
     @IBAction func actionViewAll(_ sender: Any) {
         self.btnViewAction?()
-        print("Clicked Viiew All")
     }
 }
 

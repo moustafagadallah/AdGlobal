@@ -122,8 +122,9 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //MARK:- After Message Sent, Move to messages Screen
     func isMoveMessages(isMove: Bool) {
-//        let messagesVC = self.storyboard?.instantiateViewController(withIdentifier: "MessagesController") as! MessagesController
-//        self.navigationController?.pushViewController(messagesVC, animated: true)
+        let messagesVC = self.storyboard?.instantiateViewController(withIdentifier: "MessagesController") as! MessagesController
+        messagesVC.isFromAdDetail = true
+        self.navigationController?.pushViewController(messagesVC, animated: true)
     }
     
     //MARK:- Similar Ads Delegate Move Forward From collection View
@@ -208,8 +209,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                     if objData?.position == "top" {
                         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
                         SwiftyAd.shared.showBanner(from: self, at: .top)
-                    }
-                    else {
+                    } else {
                         self.containerViewbutton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 60).isActive = true
                         SwiftyAd.shared.showBanner(from: self, at: .bottom)
                     }
@@ -221,7 +221,6 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
-    
     //MARK:- Counter
     func countDown(date: String) {
         let calendar = Calendar.current
@@ -322,12 +321,10 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.slideshow.translatesAutoresizingMaskIntoConstraints = false
                 cell.slideshow.topAnchor.constraint(equalTo: self.tableView.topAnchor, constant: 0).isActive = true
             }
-            
             var isFeature = false
             if let featureBool = objData.adDetail.isFeature {
                 isFeature = featureBool
             }
-            
             if isFeature {
                 if let featureText = objData.adDetail.isFeatureText {
                     cell.lblFeatured.backgroundColor = Constants.hexStringToUIColor(hex: "#E52D27")
@@ -337,13 +334,11 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             else {
                 cell.lblFeatured.isHidden = true
             }
-            
-            if let sliderImage = objData.adDetail.images {
-                cell.sourceImages = []
-                cell.imagesArray = sliderImage
+            if let sliderImage = objData.adDetail.sliderImages {
+                cell.localImages = []
+                cell.localImages = sliderImage
                 cell.imageSliderSetting()
             }
-            
             cell.btnMakeFeature = { () in
                 let param: [String: Any] = ["ad_id": objData.adDetail.adId]
                 self.adForest_makeAddFeature(Parameter: param as NSDictionary)
@@ -474,12 +469,16 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             
             if objData.staticText.sendMsgBtnType == "receive" {
-                cell.containerViewEdit.isHidden = false
-                cell.btnEdit = { () in
-                    let editAdVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-                    editAdVC.isFromEditAd = true
-                    editAdVC.ad_id = self.ad_id
-                    self.navigationController?.pushViewController(editAdVC, animated: true)
+                if self.defaults.bool(forKey: "isLogin") == false {
+                    cell.containerViewEdit.isHidden = true
+                } else {
+                    cell.containerViewEdit.isHidden = false
+                    cell.btnEdit = { () in
+                        let editAdVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+                        editAdVC.isFromEditAd = true
+                        editAdVC.ad_id = self.ad_id
+                        self.navigationController?.pushViewController(editAdVC, animated: true)
+                    }
                 }
             } else {
                  cell.containerViewEdit.isHidden = true
@@ -509,6 +508,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                     cell.lblTagTitle.attributedText = attributedString
                 }
             }
+            
             if let locationText = objData?.adDetail.location.title {
                 cell.locationTitle.text = locationText
             }
@@ -518,9 +518,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             
             cell.fieldsArray = self.fieldsArray
             cell.frame = tableView.bounds
-            cell.layoutIfNeeded()
             cell.adForest_reload()
-            cell.cstCollectionHeight.constant = cell.collectionView.contentSize.height
+            cell.layoutIfNeeded()
             return cell
         }
             
@@ -663,9 +662,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         else if section == 7 {
             let cell: AddDetailProfileCell = tableView.dequeueReusableCell(withIdentifier: "AddDetailProfileCell", for: indexPath) as! AddDetailProfileCell
-            
+    
             let objData = dataArray[indexPath.row]
-            
             if let imgUrl = URL(string: objData.profileDetail.profileImg) {
                 cell.imgProfile.sd_setShowActivityIndicatorView(true)
                 cell.imgProfile.sd_setIndicatorStyle(.gray)
@@ -851,7 +849,6 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 height = 270
             }
         }
-            
         else if section == 1 {
             height = 210
         }
@@ -887,8 +884,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             let objData = dataArray[indexPath.row]
             if objData.adRatting.canRate && buttonText != "receive"  {
                 height = 220
-            }
-            else {
+            } else {
                 height = 50
             }
         }
@@ -959,8 +955,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 let alert = Constants.showBasicAlert(message: msg)
                 self.presentVC(alert)
             }
-        }
-        else {
+        } else {
             if sendMsgbuttonType == "receive" {
                 let msgVC = self.storyboard?.instantiateViewController(withIdentifier: "MessagesController") as! MessagesController
                 msgVC.isFromAdDetail = true
@@ -1135,89 +1130,5 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
-    }
-}
-
-
-class AddDetailCell: UITableViewCell {
-    
-    @IBOutlet weak var viewAddApproval: UIView!
-    @IBOutlet weak var lblAddApproval: UILabel!
-    @IBOutlet weak var viewFeaturedAdd: UIView!
-    @IBOutlet weak var lblFeaturedAdd: UILabel!
-    @IBOutlet weak var buttonFeatured: UIButton! {
-        didSet{
-            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                buttonFeatured.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
-            }
-        }
-    }
-    @IBOutlet weak var slideshow: ImageSlideshow!
-    @IBOutlet weak var lblFeatured: UILabel!
-    @IBOutlet weak var oltDirection: UIButton!
-    @IBOutlet weak var lblTimer: UILabel! {
-        didSet {
-            lblTimer.isHidden = true
-            lblTimer.backgroundColor = Constants.hexStringToUIColor(hex: "90000000")
-        }
-    }
-    
-    //MARK:- Properties
-    
-    var btnMakeFeature: (()->())?
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var imagesArray = [AddDetailImage]()
-    var objImage : AddDetailImage?
-    var isFeature = false
-    var featureText = ""
-    var stringValue = ""
-    var btnDirectionAction: (()->())?
-    var sourceImages = [InputSource]()
-    
-    //MARK:- Properties
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        selectionStyle = .none
-    }
-    
-    func imageSliderSetting() {
-        for image in imagesArray {
-            let alamofireSource = AlamofireSource(urlString: image.full)!
-            sourceImages.append(alamofireSource)
-        }
-        slideshow.backgroundColor = UIColor.white
-        slideshow.slideshowInterval = 5.0
-        slideshow.pageControlPosition = PageControlPosition.insideScrollView
-        slideshow.pageControl.currentPageIndicatorTintColor = UIColor.white
-        slideshow.pageControl.pageIndicatorTintColor = UIColor.lightGray
-        slideshow.contentScaleMode = UIViewContentMode.scaleToFill
-        
-        // optional way to show activity indicator during image load (skipping the line will show no activity indicator)
-        slideshow.activityIndicator = DefaultActivityIndicator()
-        slideshow.currentPageChanged = { page in
-        }
-        
-        // can be used with other sample sources as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
-        slideshow.setImageInputs(sourceImages)
-        
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
-        slideshow.addGestureRecognizer(recognizer)
-    }
-    
-    @objc func didTap() {
-        let fullScreenController = slideshow.presentFullScreenController(from: viewController()!)
-        // set the activity indicator for full screen controller (skipping the line will show no activity indicator)
-        fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: .white, color: nil)
-    }
-    
-    //MARK:- IBActions
-    @IBAction func actionFeatured(_ sender: UIButton) {
-        self.btnMakeFeature?()
-    }
-    
-    
-    @IBAction func actionDirection(_ sender: Any) {
-        self.btnDirectionAction?()
     }
 }
