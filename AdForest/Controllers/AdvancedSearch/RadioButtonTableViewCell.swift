@@ -14,7 +14,6 @@ class RadioButtonTableViewCell : UITableViewCell {
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var buttonRadio: UIButton!
     
-    
     // var dataArray = [SearchValue]()
     var data : SearchValue?
     var radioButtonCell: RadioButtonCell!

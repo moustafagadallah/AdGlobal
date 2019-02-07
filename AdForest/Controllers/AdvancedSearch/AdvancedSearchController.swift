@@ -288,9 +288,55 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 let cell: CalendarCell = tableView.dequeueReusableCell(withIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
                 if let title = objData.title {
                     cell.oltDate.setTitle(title, for: .normal)
+                    cell.btnDateMax.setTitle(title, for: .normal)
                 }
                 return cell
             }
+            else if objData.fieldType == "checkbox" {
+                let cell: CheckBoxButtonCell = tableView.dequeueReusableCell(withIdentifier: "CheckBoxButtonCell", for: indexPath) as! CheckBoxButtonCell
+             
+                if let title = objData.title {
+                    cell.lblTitle.text = title
+                    cell.title = title
+                }
+               
+                cell.dataArray = objData.values
+                cell.tableView.reloadData()
+                
+                return cell
+            }
+            else if objData.fieldType == "radio_color" {
+                let cell: RadioColorTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadioColorTableViewCell", for: indexPath) as! RadioColorTableViewCell
+                
+                if let title = objData.title {
+                    cell.lblTitle.text = title
+                    cell.title = title
+                }
+                
+                cell.dataArray = objData.values
+                cell.collectionView.reloadData()
+                
+                return cell
+            }
+            else if objData.fieldType == "number_range" {
+                let cell: RangeValuesTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RangeValuesTableViewCell", for: indexPath) as! RangeValuesTableViewCell
+                if let title = objData.title {
+                    cell.lblTitle.text = title
+                }
+                
+                if let min = objData.searchValDict.min{
+                    cell.txtMinPrice.placeholder = "0"
+                }
+                if let max = objData.searchValDict.max{
+                    cell.txtMaxPrice.placeholder = "250"
+                }
+    
+                cell.fieldName = objData.fieldTypeName
+                
+                
+                return cell
+            }
+          
             
         case 1:
             let cell: SearchNowButtonCell = tableView.dequeueReusableCell(withIdentifier: "SearchNowButtonCell", for: indexPath) as! SearchNowButtonCell
@@ -361,15 +407,60 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                                 self.data.append(obj)
                             }
                         }
+                        
                         if objData.fieldType == "textfield_date" {
                             if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? CalendarCell {
                                 var obj = SearchData()
                                 obj.fieldType = "textfield_date"
                                 obj.fieldTypeName = cell.fieldName
-                                obj.fieldVal = cell.currentDate
+                                //obj.fieldVal = cell.currentDate
+                                let rangeTF = cell.currentDate + "-" + cell.maxDate
+                                obj.fieldVal = rangeTF
                                 self.data.append(obj)
                             }
                         }
+                        
+                        if objData.fieldType == "checkbox" {
+                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? CheckBoxesTableViewCell {
+                                var obj = SearchData()
+                                obj.fieldType = "checkbox"
+                                obj.fieldTypeName = "ad_check_box"
+                                print(cell.arrCheckValue)
+                                self.data.append(obj)
+                            }
+                        }
+                        
+                        if objData.fieldType == "radio_color" {
+                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RadioColorTableViewCell {
+                                var obj = SearchData()
+                                obj.fieldType = "radio_color"
+                                obj.fieldTypeName = "select_color"
+                                obj.fieldVal = cell.id
+                                self.data.append(obj)
+                            }
+                        }
+                        
+                        
+                        if objData.fieldType == "number_range" {
+                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RangeValuesTableViewCell {
+                                var obj = SearchData()
+                                
+                                obj.fieldType = "number_range"
+                                obj.fieldTypeName = cell.fieldName
+                                guard let minTF = cell.txtMinPrice.text else {
+                                    return
+                                }
+                                guard let maxTF = cell.txtMaxPrice.text else {
+                                    return
+                                }
+                                let rangeTF = minTF + "-" + maxTF
+                                obj.fieldVal = rangeTF
+                                self.data.append(obj)
+                            }
+                        }
+                        
+                      
+    
                     }
                 }
                 self.setUpData()
@@ -388,7 +479,16 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         case 0:
             let objData = dataArray[indexPath.row]
             if objData.fieldType == "radio" {
-                return 120
+                return 130
+            }
+            if objData.fieldType == "checkbox"{
+            return 90
+        }
+            if objData.fieldType == "radio_color"{
+                return 90
+            }
+            if objData.fieldType == "number_range"{
+                return 140
             }
             return 80
         case 1:

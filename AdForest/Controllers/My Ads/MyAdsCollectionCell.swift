@@ -90,6 +90,8 @@ class MyAdsCollectionCell: UICollectionViewCell {
     //MARK:- Custom
     
     func selectCategory() {
+    
+        
         addTypeDropDown.anchorView = buttonAddType
         addTypeDropDown.dataSource = dropDownDataArray
         

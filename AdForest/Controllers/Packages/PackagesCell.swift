@@ -67,9 +67,18 @@ class PackagesCell: UITableViewCell {
         super.awakeFromNib()
         selectionStyle = .none
         self.adForest_settingsData()
+        buttonWithRtl()
     }
     
     //MARK:- Custom
+    
+    func buttonWithRtl(){
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            buttonSelectOption.contentHorizontalAlignment = .right
+        } else {
+            buttonSelectOption.contentHorizontalAlignment = .left
+        }
+    }
     
     func selectCategory() {
         categoryDropDown.anchorView = buttonSelectOption

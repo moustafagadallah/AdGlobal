@@ -45,6 +45,7 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
+            collectionView.addSubview(refreshControl)
         }
     }
     
@@ -78,6 +79,15 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
     var popUpText = ""
     var popUpCancelButton = ""
     var popUpOkButton = ""
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(refreshTableView),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
     
     //MARK:- View Life Cycle
     
@@ -89,15 +99,24 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
         if defaults.bool(forKey: "isGuest") {
             self.oltAdPost.isHidden = true
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.adForest_settingsData()
         self.adForest_favouriteAdsData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        if AddsHandler.sharedInstance.objMyAds == nil{
+//            self.adForest_settingsData()
+//            self.adForest_favouriteAdsData()
+//        }
+    }
+    
     //MARK: - Custom
+    
+    @objc func refreshTableView() {
+        adForest_favouriteAdsData()
+    }
+    
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
@@ -337,6 +356,7 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
         self.showLoader()
         AddsHandler.favouriteAds(success: { (successResponse) in
             self.stopAnimating()
+            self.refreshControl.endRefreshing()
             if successResponse.success {
                 self.noAddTitle = successResponse.message
                 self.currentPage = successResponse.data.pagination.currentPage
@@ -361,6 +381,7 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
         self.showLoader()
         AddsHandler.moreFavouriteData(param: param, success: { (successResponse) in
             self.stopAnimating()
+            self.refreshControl.endRefreshing()
             if successResponse.success {
                 AddsHandler.sharedInstance.objMyAds = successResponse.data
                 self.dataArray.append(contentsOf: successResponse.data.ads)

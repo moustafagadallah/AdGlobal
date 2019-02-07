@@ -86,7 +86,6 @@ extension String {
     }
 }
 
-
 extension UIViewController {
     func showToast(message : String) {
         let toastLabel = UILabel(frame: CGRect(x: 50, y: self.view.frame.size.height-100, width: self.view.frame.width - 100, height: 35))

@@ -424,13 +424,16 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.lblPrice.text = priceText
             }
             if let shareText = objData.staticText.shareBtn {
-                cell.buttonShare.setTitle(shareText, for: .normal)
+                //cell.buttonShare.setTitle(shareText, for: .normal)
+                cell.lblShareOrig.text = shareText
             }
             if let favouriteText = objData.staticText.favBtn {
-                cell.buttonFavourite.setTitle(favouriteText, for: .normal)
+                //cell.buttonFavourite.setTitle(favouriteText, for: .normal)
+                cell.lblShare.text = favouriteText
             }
             if let reportText = objData.staticText.reportBtn {
-                cell.buttonReport.setTitle(reportText, for: .normal)
+                //cell.buttonReport.setTitle(reportText, for: .normal)
+                cell.lblReport.text = reportText
             }
             cell.btnFavouriteAdd = { ()
                 if self.defaults.bool(forKey: "isLogin") == false {

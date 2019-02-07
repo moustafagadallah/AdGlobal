@@ -13,7 +13,7 @@ import Alamofire
 import OpalImagePicker
 import UITextField_Shake
 
-class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate, textViewValueDelegate {
+class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate, textViewValueDelegate,UIImagePickerControllerDelegate {
   
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -29,6 +29,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     }
     
     //MARK:- Properties
+    
+    var imageUrl:URL?
+    
     var photoArray = [UIImage]()
    
     var imageArray = [AdPostImageArray]()
@@ -149,15 +152,21 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
-    
+
     func changeTextViewCharacters(value: String, fieldTitle: String) {
         for index in 0..<dataArray.count {
             if let objData = dataArray[index] as? AdPostField {
                 if objData.fieldType == "textarea" {
                     if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DescriptionTableCell {
+                        cell.delegate = self
                         var obj = AdPostField()
                         obj.fieldType = "textarea"
                         obj.fieldVal = value
+                        
+                        print(value)
+                       
+                        
+                        cell.txtDescription.text = value
                         obj.fieldTypeName = fieldTitle
                         objArray.append(obj)
                         customArray.append(obj)
@@ -335,20 +344,45 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             cell.lblPicNumber.text = String(photoArray.count)
           
             cell.btnUploadImage = { () in
-                let imagePicker = OpalImagePickerController()
-              
-                imagePicker.navigationBar.tintColor = UIColor.white
                 
-                imagePicker.maximumSelectionsAllowed = self.maximumImagesAllowed
-                print(self.maximumImagesAllowed)
-                imagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
-                // maximum message
-                let configuration = OpalImagePickerConfiguration()
-                configuration.maximumSelectionsAllowedMessage = NSLocalizedString((objData?.data.images.message)!, comment: "")
-                imagePicker.configuration = configuration
-                imagePicker.imagePickerDelegate = self
-                self.present(imagePicker, animated: true, completion: nil)
+                let actionSheet = UIAlertController(title: "Select", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+                actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) -> Void in
+                    let imagePickerConroller = UIImagePickerController()
+                    imagePickerConroller.delegate = self
+                    if UIImagePickerController.isSourceTypeAvailable(.camera){
+                        imagePickerConroller.sourceType = .camera
+                    }else{
+                        let alert = UIAlertController(title: "Alert", message: "camera not available", preferredStyle: UIAlertControllerStyle.alert)
+                        let OkAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
+                        alert.addAction(OkAction)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    self.present(imagePickerConroller,animated:true, completion:nil)
+                }))
+                actionSheet.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action) -> Void in
+                  
+                    let imagePicker = OpalImagePickerController()
+                    imagePicker.navigationBar.tintColor = UIColor.white
+                    imagePicker.maximumSelectionsAllowed = self.maximumImagesAllowed
+                    print(self.maximumImagesAllowed)
+                    imagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
+                    // maximum message
+                    let configuration = OpalImagePickerConfiguration()
+                    configuration.maximumSelectionsAllowedMessage = NSLocalizedString((objData?.data.images.message)!, comment: "")
+                    imagePicker.configuration = configuration
+                    imagePicker.imagePickerDelegate = self
+                    self.present(imagePicker, animated: true, completion: nil)
+                    
+                    
+                }))
+                actionSheet.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in
+                }))
+                self.present(actionSheet, animated: true, completion: nil)
+                
+                
+                
             }
+        
             return cell
         }
             
@@ -524,6 +558,20 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         self.dismissVC(completion: nil)
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if (info[UIImagePickerControllerOriginalImage] as? UIImage) != nil {
+            if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    
+                    self.photoArray = [pickedImage]
+                    let param: [String: Any] = [ "ad_id": String(adID)]
+                    print(param)
+                    self.adForest_uploadImages(param: param as NSDictionary, images: self.photoArray)
+        
+            }
+            dismiss(animated: true, completion: nil)
+        }
+    }
+
     //MARK:- API Call
     
     //post images

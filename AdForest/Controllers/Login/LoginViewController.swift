@@ -76,15 +76,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             buttonRegisterWithUs.layer.borderColor = UIColor.lightGray.cgColor
         }
     }
-    
-    @IBAction func btnBackClicked(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    
+
     @IBOutlet weak var viewRegisterWithUs: UIView!
     @IBOutlet weak var containerViewSocialButton: UIView!
-    
     
     
     //MARK:- Properties
@@ -99,6 +93,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         self.adForest_loginDetails()
+        txtFieldsWithRtl()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,6 +123,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     }
     
     //MARK: - Custom
+    
+    func txtFieldsWithRtl(){
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            txtEmail.textAlignment = .right
+            txtPassword.textAlignment = .right
+        } else {
+            txtEmail.textAlignment = .left
+            txtPassword.textAlignment = .left
+        }
+    }
+    
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }

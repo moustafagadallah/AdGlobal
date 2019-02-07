@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07891CAB22017960002C8D7D /* CheckBoxesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */; };
+		07891CAD22017D53002C8D7D /* CheckBoxButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */; };
+		07891CB022019609002C8D7D /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAF22019609002C8D7D /* CheckBox.swift */; };
+		07DF08BA2202DD24008F9736 /* RadioColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF08B92202DD24008F9736 /* RadioColorTableViewCell.swift */; };
+		07DF08BC2202DD3A008F9736 /* RadioColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF08BB2202DD3A008F9736 /* RadioColorCollectionViewCell.swift */; };
+		07EF456B2204173B000570E6 /* RangeValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EF456A2204173B000570E6 /* RangeValuesTableViewCell.swift */; };
+		07EF456D220425AB000570E6 /* SearchValueDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EF456C220425AB000570E6 /* SearchValueDict.swift */; };
 		180519CE215A0B2800F74662 /* AppSettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180519CD215A0B2800F74662 /* AppSettingSection.swift */; };
 		180519D0215A0B5100F74662 /* AppSettingFaq.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180519CF215A0B5100F74662 /* AppSettingFaq.swift */; };
 		180519D2215A0B6C00F74662 /* AppSettingVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180519D1215A0B6C00F74662 /* AppSettingVersion.swift */; };
@@ -537,6 +544,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxesTableViewCell.swift; sourceTree = "<group>"; };
+		07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButtonCell.swift; sourceTree = "<group>"; };
+		07891CAF22019609002C8D7D /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		07DF08B92202DD24008F9736 /* RadioColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorTableViewCell.swift; sourceTree = "<group>"; };
+		07DF08BB2202DD3A008F9736 /* RadioColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		07EF456A2204173B000570E6 /* RangeValuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeValuesTableViewCell.swift; sourceTree = "<group>"; };
+		07EF456C220425AB000570E6 /* SearchValueDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchValueDict.swift; sourceTree = "<group>"; };
 		08D03E8A013A66348DFF0F03 /* Pods-AdForest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdForest.release.xcconfig"; path = "Pods/Target Support Files/Pods-AdForest/Pods-AdForest.release.xcconfig"; sourceTree = "<group>"; };
 		180519CD215A0B2800F74662 /* AppSettingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingSection.swift; sourceTree = "<group>"; };
 		180519CF215A0B5100F74662 /* AppSettingFaq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingFaq.swift; sourceTree = "<group>"; };
@@ -1098,6 +1112,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07891CAE220195F2002C8D7D /* CheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				07891CAF22019609002C8D7D /* CheckBox.swift */,
+			);
+			path = CheckBox;
+			sourceTree = "<group>";
+		};
 		0F8C772C85EC76F33C55B54F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1619,6 +1641,7 @@
 				18392417209C352800BC35F7 /* SearchExtra.swift */,
 				18392419209C353F00BC35F7 /* SearchData.swift */,
 				1839241B209C407900BC35F7 /* SearchValue.swift */,
+				07EF456C220425AB000570E6 /* SearchValueDict.swift */,
 			);
 			path = SearchRoot;
 			sourceTree = "<group>";
@@ -2406,6 +2429,7 @@
 		18BBFAE120510FEF0067662F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				07891CAE220195F2002C8D7D /* CheckBox */,
 				18A93098212850850003336F /* Timer */,
 				1853C8C520F89F6E00176B7B /* TextField */,
 				185EAAC72099A34300E412DB /* Dictionary */,
@@ -2525,6 +2549,11 @@
 				18605F91214F7DB800B3B567 /* RadioButtonTableViewCell.swift */,
 				187467F2214F828400B7F28E /* SearchNowButtonCell.swift */,
 				187467F3214F828400B7F28E /* SearchNowButtonCell.xib */,
+				07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */,
+				07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */,
+				07DF08B92202DD24008F9736 /* RadioColorTableViewCell.swift */,
+				07DF08BB2202DD3A008F9736 /* RadioColorCollectionViewCell.swift */,
+				07EF456A2204173B000570E6 /* RangeValuesTableViewCell.swift */,
 			);
 			path = AdvancedSearch;
 			sourceTree = "<group>";
@@ -3046,6 +3075,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftCheckboxDialog/SwiftCheckboxDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextField+Shake/UITextField_Shake.framework",
@@ -3080,6 +3110,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCheckboxDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextField_Shake.framework",
@@ -3149,6 +3180,7 @@
 				180519D2215A0B6C00F74662 /* AppSettingVersion.swift in Sources */,
 				182690E32087641A00E2C966 /* CategoryTopBar.swift in Sources */,
 				182690C0208729BF00E2C966 /* AddVideo.swift in Sources */,
+				07DF08BA2202DD24008F9736 /* RadioColorTableViewCell.swift in Sources */,
 				186A9F932080D9C8008E646C /* PublicProfileIntro.swift in Sources */,
 				18196DF42148F90D00F6515E /* LocationDetailPagination.swift in Sources */,
 				18392414209C347B00BC35F7 /* SearchTopBar.swift in Sources */,
@@ -3179,6 +3211,7 @@
 				182C7FE02068D2FA0080A391 /* ProfileDetailsSelectPic.swift in Sources */,
 				18BBFADD20510FA90067662F /* SettingsGpsPopup.swift in Sources */,
 				18BBFB05205166290067662F /* ProfileController.swift in Sources */,
+				07EF456D220425AB000570E6 /* SearchValueDict.swift in Sources */,
 				181B19EC20AF024A0016BA7B /* LocationSearch.swift in Sources */,
 				184EDADC207895FE00A25228 /* AddDetailShareInfo.swift in Sources */,
 				185B3C8D207E53A000EDBBB4 /* BidsBid.swift in Sources */,
@@ -3329,6 +3362,7 @@
 				182690C820872A1700E2C966 /* AddPrice.swift in Sources */,
 				18C2CCF4206A4F1C00235E0E /* MyAdsText.swift in Sources */,
 				180519D6215A0BA300F74662 /* AppSettingRating.swift in Sources */,
+				07891CB022019609002C8D7D /* CheckBox.swift in Sources */,
 				184EDAEE2078979300A25228 /* AddDetailNotification.swift in Sources */,
 				180DC40B2057F21500A75C60 /* BlogDetailController.swift in Sources */,
 				18AD93C0206D199200330ABF /* BlogDetailPagination.swift in Sources */,
@@ -3365,6 +3399,7 @@
 				183A70FD20B6A9020082F7AA /* BlockedUsers.swift in Sources */,
 				18BBFADF20510FA90067662F /* SettingsInternetDialogue.swift in Sources */,
 				182690C620872A0300E2C966 /* AddSaved.swift in Sources */,
+				07DF08BC2202DD3A008F9736 /* RadioColorCollectionViewCell.swift in Sources */,
 				184EDAF0207897AC00A25228 /* AddDetailCallPopup.swift in Sources */,
 				182690E92087646500E2C966 /* CategoryExtra.swift in Sources */,
 				1818C5942060D2FD001E41B2 /* UserRegisterRoot.swift in Sources */,
@@ -3403,10 +3438,12 @@
 				184EDAE0207896A500A25228 /* AddDetailSelect.swift in Sources */,
 				181C881D2052679C0067B176 /* View.swift in Sources */,
 				184EDB002078989600A25228 /* AddDetailAddSaved.swift in Sources */,
+				07EF456B2204173B000570E6 /* RangeValuesTableViewCell.swift in Sources */,
 				18392416209C351400BC35F7 /* SearchSortArray.swift in Sources */,
 				18247CD220974C9A000B9303 /* BidOnOffCell.swift in Sources */,
 				182652C9207656CB007F6A21 /* StripePaymentError.swift in Sources */,
 				18605F86214F7C9600B3B567 /* SearchDropDown.swift in Sources */,
+				07891CAB22017960002C8D7D /* CheckBoxesTableViewCell.swift in Sources */,
 				18AD93B1206CD7B500330ABF /* ChangePasswordController.swift in Sources */,
 				1852B0EA208354020014AF99 /* OfferOnAdDetailItem.swift in Sources */,
 				18BBFA872051098B0067662F /* AppDelegate.swift in Sources */,
@@ -3501,6 +3538,7 @@
 				18A31FE6213E95A200A5B6EB /* PublicUserRatingController.swift in Sources */,
 				182B4B4B2090696200324D4E /* AdPostData.swift in Sources */,
 				185B13C7207CB2E300914AF0 /* CommentCell.swift in Sources */,
+				07891CAD22017D53002C8D7D /* CheckBoxButtonCell.swift in Sources */,
 				18AD93BA206D193800330ABF /* BlogDetailCommentForm.swift in Sources */,
 				18BBFA8F2051098C0067662F /* AdForest.xcdatamodeld in Sources */,
 				181CDE2C214A2D7200BD0B0C /* FeaturedAddsCell.swift in Sources */,
@@ -3794,7 +3832,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = AdForestDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = AdforestDevelopment;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -3819,7 +3857,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = AdForestDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = AdforestDevelopment;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

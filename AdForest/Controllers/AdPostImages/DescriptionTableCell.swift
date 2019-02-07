@@ -51,6 +51,7 @@ class DescriptionTableCell: UITableViewCell, UITextViewDelegate {
         delegate?.changeTextViewCharacters(value: txtDescription.text, fieldTitle: fieldName)
     }
     
+
     //MARK:- Custom
 //    func richEditorSetting(placeHolder: String) {
 //        richEditorView.delegate = self

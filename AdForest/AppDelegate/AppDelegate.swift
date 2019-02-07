@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    
         keyboardManager.enable = true
         self.setUpGoogleMaps()
         FirebaseApp.configure()
@@ -97,10 +98,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func applicationWillResignActive(_ application: UIApplication) {
         Messaging.messaging().shouldEstablishDirectChannel = true
+        UserDefaults.standard.set("3", forKey: "fromNotification")
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
          Messaging.messaging().shouldEstablishDirectChannel = true
+         UserDefaults.standard.set("3", forKey: "fromNotification")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -116,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()
+        UserDefaults.standard.set("3", forKey: "fromNotification")
     }
 
     // MARK: - Core Data stack
@@ -374,11 +378,13 @@ extension AppDelegate  {
             if topic == "chat" {
                 banner.dismiss()
                 let chatVC = self.storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                UserDefaults.standard.set("1", forKey: "fromNotification")
                 chatVC.ad_id = adID
                 chatVC.sender_id = senderID
                 chatVC.receiver_id = receiverID
                 chatVC.messageType = type
                 self.presentController(ShowVC: chatVC)
+                
             }
         }
         banner.onSwipeUp = {

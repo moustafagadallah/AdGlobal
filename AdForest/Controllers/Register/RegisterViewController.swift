@@ -96,6 +96,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         self.adForest_registerData()
+        txtFieldsWithRtl()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -127,6 +128,22 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     }
     
     //MARK: - Custom
+    
+    func txtFieldsWithRtl(){
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            txtEmail.textAlignment = .right
+            txtPassword.textAlignment = .right
+            txtName.textAlignment = .right
+            txtPhone.textAlignment = .right
+            
+        } else {
+            txtEmail.textAlignment = .left
+            txtPassword.textAlignment = .left
+            txtName.textAlignment = .left
+            txtPhone.textAlignment = .left
+        }
+    }
+    
     func showLoader(){
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }

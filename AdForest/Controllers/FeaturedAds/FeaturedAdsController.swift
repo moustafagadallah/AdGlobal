@@ -46,6 +46,7 @@ class FeaturedAdsController: UIViewController, UIScrollViewDelegate, UICollectio
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
+            collectionView.addSubview(refreshControl)
         }
     }
     
@@ -70,6 +71,16 @@ class FeaturedAdsController: UIViewController, UIScrollViewDelegate, UICollectio
     let defaults = UserDefaults.standard
     var currentPage = 0
     var maximumPage = 0
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(refreshTableView),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
+    
     
     //MARK:- View Life Cycle
     
@@ -77,17 +88,26 @@ class FeaturedAdsController: UIViewController, UIScrollViewDelegate, UICollectio
         super.viewDidLoad()
         self.addLeftBarButtonWithImage(UIImage(named: "menu")!)
         self.adMob()
+        self.adForest_featuredAdsData()
         self.googleAnalytics(controllerName: "Featured Ads Controller")
         if defaults.bool(forKey: "isGuest") {
             self.oltAdPost.isHidden = true
         }
+        self.adForest_featuredAdsData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-         self.adForest_featuredAdsData()
+//        if AddsHandler.sharedInstance.objMyAds == nil{
+//            self.adForest_featuredAdsData()
+//        }
     }
     //MARK: - Custom
+    
+    @objc func refreshTableView() {
+        adForest_featuredAdsData()
+    }
+    
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
@@ -284,6 +304,7 @@ class FeaturedAdsController: UIViewController, UIScrollViewDelegate, UICollectio
         self.showLoader()
         AddsHandler.featuredAds(success: { (successResponse) in
             self.stopAnimating()
+            self.refreshControl.endRefreshing()
             if successResponse.success {
                 self.noAddTitle = successResponse.message
                 self.currentPage = successResponse.data.pagination.currentPage
@@ -309,6 +330,7 @@ class FeaturedAdsController: UIViewController, UIScrollViewDelegate, UICollectio
         self.showLoader()
         AddsHandler.moreFeaturedAdsData(param: param, success: { (successResponse) in
             self.stopAnimating()
+            self.refreshControl.endRefreshing()
             if successResponse.success {
                 AddsHandler.sharedInstance.objMyAds = successResponse.data
                 self.dataArray.append(contentsOf: successResponse.data.ads)

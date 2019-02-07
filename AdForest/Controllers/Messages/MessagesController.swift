@@ -27,6 +27,7 @@ class MessagesController: ButtonBarPagerTabStripViewController, NVActivityIndica
             self.title = messageTitle
         }
         self.googleAnalytics(controllerName: "Messages Controller")
+       
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +40,8 @@ class MessagesController: ButtonBarPagerTabStripViewController, NVActivityIndica
     }
     
     //MARK: - Custom
+    
+    
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }

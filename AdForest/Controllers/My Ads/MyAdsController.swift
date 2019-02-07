@@ -67,6 +67,7 @@ class MyAdsController: UIViewController, UICollectionViewDelegate, UICollectionV
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.showsVerticalScrollIndicator = false
+            collectionView.addSubview(refreshControl)
         }
     }
     
@@ -87,6 +88,16 @@ class MyAdsController: UIViewController, UICollectionViewDelegate, UICollectionV
     var currentPage = 0
     var maximumPage = 0
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(refreshTableView),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
+    
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
@@ -97,14 +108,25 @@ class MyAdsController: UIViewController, UICollectionViewDelegate, UICollectionV
         if defaults.bool(forKey: "isGuest") {
             self.oltAdPost.isHidden = true
         }
+        self.adForest_settingsData()
+        self.adForest_getAddsData()
+       
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.adForest_settingsData()
-        self.adForest_getAddsData()
+//        if AddsHandler.sharedInstance.objMyAds == nil{
+//            self.adForest_settingsData()
+//            self.adForest_getAddsData()
+//        }
     }
     //MARK: - Custom
+    
+    @objc func refreshTableView() {
+       adForest_getAddsData()
+    }
+    
+    
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
@@ -388,6 +410,7 @@ class MyAdsController: UIViewController, UICollectionViewDelegate, UICollectionV
         self.showLoader()
         AddsHandler.myAds(success: { (successResponse) in
             self.stopAnimating()
+            self.refreshControl.endRefreshing()
             if successResponse.success {
                 self.noAddTitle = successResponse.message
                 self.currentPage = successResponse.data.pagination.currentPage
@@ -412,6 +435,7 @@ class MyAdsController: UIViewController, UICollectionViewDelegate, UICollectionV
         self.showLoader()
         AddsHandler.moreMyAdsData(param: param, success: { (successResponse) in
             self.stopAnimating()
+            self.refreshControl.endRefreshing()
             if successResponse.success {
                 AddsHandler.sharedInstance.objMyAds = successResponse.data
                 self.dataArray.append(contentsOf: successResponse.data.ads)

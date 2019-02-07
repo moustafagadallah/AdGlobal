@@ -28,6 +28,7 @@ class InactiveAdsController: UIViewController, UIScrollViewDelegate, UICollectio
     @IBOutlet weak var containerViewProfile: UIView! {
         didSet {
             containerViewProfile.addShadowToView()
+            collectionView.addSubview(refreshControl)
         }
     }
     
@@ -55,6 +56,7 @@ class InactiveAdsController: UIViewController, UIScrollViewDelegate, UICollectio
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.showsVerticalScrollIndicator = false
+            collectionView.addSubview(refreshControl)
         }
     }
     @IBOutlet weak var lblNoData: UILabel! {
@@ -78,25 +80,47 @@ class InactiveAdsController: UIViewController, UIScrollViewDelegate, UICollectio
     let defaults = UserDefaults.standard
     var currentPage = 0
     var maximumPage = 0
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(refreshTableView),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
+    
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.adMob()
+        self.adForest_inactiveAdsData()
         self.addLeftBarButtonWithImage(UIImage(named: "menu")!)
         self.googleAnalytics(controllerName: "Inactive Ads Controller")
         if defaults.bool(forKey: "isGuest") {
             self.oltAdPost.isHidden = true
         }
+        self.adForest_inactiveAdsData()
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.adForest_inactiveAdsData()
+   
+//        if AddsHandler.sharedInstance.objInactiveAds == nil{
+//             self.adForest_inactiveAdsData()
+//        }
+      
     }
     
     //MARK: - Custom
+    
+    @objc func refreshTableView() {
+        adForest_inactiveAdsData()
+    }
+    
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
@@ -293,6 +317,7 @@ class InactiveAdsController: UIViewController, UIScrollViewDelegate, UICollectio
         self.showLoader()
         AddsHandler.inactiveAds(success: { (successResponse) in
             self.stopAnimating()
+            self.refreshControl.endRefreshing()
             if successResponse.success {
                 self.noAddTitle = successResponse.message
                 self.currentPage = successResponse.data.pagination.currentPage
@@ -316,6 +341,7 @@ class InactiveAdsController: UIViewController, UIScrollViewDelegate, UICollectio
         self.showLoader()
         AddsHandler.moreInactiveAdsdata(param: param, success: { (successResponse) in
             self.stopAnimating()
+            self.refreshControl.endRefreshing()
             if successResponse.success {
                 AddsHandler.sharedInstance.objInactiveAds = successResponse.data
                 self.dataArray.append(contentsOf: successResponse.data.ads)

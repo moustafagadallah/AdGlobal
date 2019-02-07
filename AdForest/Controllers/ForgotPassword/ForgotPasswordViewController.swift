@@ -47,6 +47,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
         else{
              self.adForest_ForgotData()
         }
+        txtFieldsWithRtl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +70,15 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
     }
     
     //MARK: - Custom
+    
+    func txtFieldsWithRtl(){
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            emailField.textAlignment = .right
+        } else {
+            emailField.textAlignment = .left
+        }
+    }
+    
     func showLoader(){
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }

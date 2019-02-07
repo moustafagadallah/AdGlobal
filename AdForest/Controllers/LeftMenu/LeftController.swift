@@ -400,6 +400,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     FacebookAuthentication.signOut()
                     GoogleAuthenctication.signOut()
                     self.appDelegate.moveToLogin()
+                    //self.appDelegate.moveToHome()()
                     self.stopAnimating()
                 }
             } else {

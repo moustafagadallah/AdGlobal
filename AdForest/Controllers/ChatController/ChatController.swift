@@ -46,6 +46,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnClose: UIButton!
+    @IBAction func btnCloseClicked(_ sender: UIButton) {
+        UserDefaults.standard.set("3", forKey: "fromNotification")
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBOutlet weak var containerViewSendMessage: UIView! {
         didSet {
             if let mainColor = defaults.string(forKey: "mainColor") {
@@ -100,8 +106,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         return refreshControl
     }()
-    
-    
+
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,6 +117,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
         txtMessage.delegate = self
+        if UserDefaults.standard.string(forKey: "fromNotification") == "1"{
+            btnClose.isHidden = false
+            topConstraint.constant += 10
+        }else{
+            topConstraint.constant -= 30
+            btnClose.isHidden = true
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -271,18 +283,32 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let message = objData.text {
                 cell.txtMessage.text = message
                 //cell.label.text = message
+                if UserDefaults.standard.bool(forKey: "isRtl") {
+                    let image = UIImage(named: "bubble_se")
+                    cell.imgPicture.image = image!
+                        .resizableImage(withCapInsets:
+                            UIEdgeInsetsMake(17, 21, 17, 21),
+                                        resizingMode: .stretch)
+                        .withRenderingMode(.alwaysTemplate)
+                    cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
+                    cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
+                    cell.txtMessage.text = message
+                    //let height = cell.heightConstraint.constant + 20
+                    cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                }else{
+                    let image = UIImage(named: "bubble_sent")
+                    cell.imgPicture.image = image!
+                        .resizableImage(withCapInsets:
+                            UIEdgeInsetsMake(17, 21, 17, 21),
+                                        resizingMode: .stretch)
+                        .withRenderingMode(.alwaysTemplate)
+                    cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
+                    cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
+                    cell.txtMessage.text = message
+                    //let height = cell.heightConstraint.constant + 20
+                    cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                }
                 
-                let image = UIImage(named: "bubble_sent")
-                cell.imgPicture.image = image!
-                    .resizableImage(withCapInsets:
-                        UIEdgeInsetsMake(17, 21, 17, 21),
-                                    resizingMode: .stretch)
-                    .withRenderingMode(.alwaysTemplate)
-                cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
-                cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
-                cell.txtMessage.text = message
-                //let height = cell.heightConstraint.constant + 20
-                cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
                 
             }
             if let imgUrl = URL(string: objData.img) {
@@ -296,18 +322,36 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let cell: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
          
-            if let message = objData.text {
-                let image = UIImage(named: "bubble_se")
-                cell.imgBackground.image = image!
-                    .resizableImage(withCapInsets:
-                        UIEdgeInsetsMake(17, 21, 17, 21),
-                                    resizingMode: .stretch)
-                    .withRenderingMode(.alwaysTemplate)
-               cell.txtMessage.text = message
-               //let height = cell.heightConstraint.constant + 20
-               cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
-               
+            
+            if UserDefaults.standard.bool(forKey: "isRtl") {
+                if let message = objData.text {
+                    let image = UIImage(named: "bubble_sent")
+                    cell.imgBackground.image = image!
+                        .resizableImage(withCapInsets:
+                            UIEdgeInsetsMake(17, 21, 17, 21),
+                                        resizingMode: .stretch)
+                        .withRenderingMode(.alwaysTemplate)
+                    cell.txtMessage.text = message
+                    //let height = cell.heightConstraint.constant + 20
+                    cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                    
+                }
+            }else{
+                if let message = objData.text {
+                    let image = UIImage(named: "bubble_se")
+                    cell.imgBackground.image = image!
+                        .resizableImage(withCapInsets:
+                            UIEdgeInsetsMake(17, 21, 17, 21),
+                                        resizingMode: .stretch)
+                        .withRenderingMode(.alwaysTemplate)
+                    cell.txtMessage.text = message
+                    //let height = cell.heightConstraint.constant + 20
+                    cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                    
+                }
             }
+            
+            
             if let imgUrl = URL(string: objData.img) {
                 cell.imgIcon.sd_setShowActivityIndicatorView(true)
                 cell.imgIcon.sd_setIndicatorStyle(.gray)
@@ -348,7 +392,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         addDetailVc.ad_id = Int(ad_id)!
         self.navigationController?.pushViewController(addDetailVc, animated: true)
     }
-    
     
     //MARK:- API Call
     

@@ -110,6 +110,7 @@ PODS:
   - SDWebImage/Core (4.2.3)
   - SlideMenuControllerSwift (4.0.0)
   - SnapKit (4.0.1)
+  - SwiftCheckboxDialog (1.0.0)
   - SwiftyStoreKit (0.12.0)
   - TextFieldEffects (1.4.0)
   - "UITextField+Shake (1.2.1)"
@@ -144,6 +145,7 @@ DEPENDENCIES:
   - RangeSeekSlider
   - SDWebImage
   - SlideMenuControllerSwift
+  - SwiftCheckboxDialog
   - SwiftyStoreKit
   - TextFieldEffects
   - "UITextField+Shake"
@@ -190,6 +192,7 @@ SPEC REPOS:
     - SDWebImage
     - SlideMenuControllerSwift
     - SnapKit
+    - SwiftCheckboxDialog
     - SwiftyStoreKit
     - TextFieldEffects
     - "UITextField+Shake"
@@ -235,12 +238,13 @@ SPEC CHECKSUMS:
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftCheckboxDialog: 961526e6a278298b2c7857cd4a5a1e7f034ddb6b
   SwiftyStoreKit: 59c57f4aa11d3c564e7e5f589eae8bf98ac59f3d
   TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
   XLPagerTabStrip: 22d4c58200d7c105e0e407ab6bfd01a5d85014be
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 0dbea59a9128d7f4ec6252d6fb77d2b89e516b43
+PODFILE CHECKSUM: 3041df387d2c3c984df819b37179f6ad219e4529
 
 COCOAPODS: 1.5.3

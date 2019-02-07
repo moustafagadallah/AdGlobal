@@ -63,7 +63,16 @@ class AdPostCell: UITableViewCell , UITextFieldDelegate {
             delegateText?.changeText(value: text, fieldTitle: fieldName)
         }
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+        delegateText?.changeText(value: result, fieldTitle: fieldName)
+        return true
+    }
+    
 }
+
+
 
 
 class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategoryDelegate {

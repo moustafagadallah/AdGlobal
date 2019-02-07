@@ -13,7 +13,7 @@ import DeviceKit
 class Constants {
     struct  URL {
     
-       //static let ipAddress = "https://adsqat.com/"
+       //static let ipAddress = "https://www.bazariazad.com/"
         static let ipAddress =  "http://adforest-testapp.scriptsbundle.com/"
 //      static let ipAddress =    "http://adforest-api.scriptsbundle.com/"
         
@@ -97,7 +97,7 @@ class Constants {
         static let appSettings = "app_extra"
         static let feedback = "app_extra/feedback"
     }
-    
+   
     struct customCodes {
         //Live
 //        static let purchaseCode = "aaBMQWH8vIWZjZOR07nEyJbOnqrzWbHk-ios"

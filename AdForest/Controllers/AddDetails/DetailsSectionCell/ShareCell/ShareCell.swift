@@ -54,6 +54,10 @@ class ShareCell: UITableViewCell {
     }
     
     @IBOutlet weak var containerViewButton: UIView!
+    
+    @IBOutlet weak var lblShareOrig: UILabel!
+    @IBOutlet weak var lblShare: UILabel!
+    @IBOutlet weak var lblReport: UILabel!
     @IBOutlet weak var buttonShare: UIButton!{
         didSet{
             buttonShare.layer.borderWidth = 0.5
@@ -104,6 +108,15 @@ class ShareCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            lblShare.textAlignment = .right
+            lblReport.textAlignment = .right
+            lblShareOrig.textAlignment = .right
+        }else{
+            lblShare.textAlignment = .left
+            lblReport.textAlignment = .left
+            lblShareOrig.textAlignment = .left
+        }
     }
     
     @IBAction func actionShare(_ sender: UIButton) {

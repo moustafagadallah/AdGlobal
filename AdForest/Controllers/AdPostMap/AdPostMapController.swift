@@ -555,6 +555,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             ]
             print(parameter)
             let dataArray = objArray
+            print(objArray)
             
             for (_, value) in dataArray.enumerated() {
                 if value.fieldVal == "" {
