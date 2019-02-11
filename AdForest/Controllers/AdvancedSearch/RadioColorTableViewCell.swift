@@ -12,7 +12,7 @@ class RadioColorTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     
     //MARK:- Outlets
     
-    var id = ""
+   
     
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet{
@@ -34,6 +34,8 @@ class RadioColorTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     //MARK:- Properties
     var dataArray = [SearchValue]()
     var title = ""
+    var id = ""
+    var fieldName = ""
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -50,16 +52,44 @@ class RadioColorTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         let cell: RadioColorCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "RadioColorCollectionViewCell", for: indexPath) as! RadioColorCollectionViewCell
         
         let objData = dataArray[indexPath.row]
-        cell.buttonRadio.imageView?.image = cell.buttonRadio.imageView?.image!.withRenderingMode(.alwaysTemplate)
-        cell.buttonRadio.tintColor = UIColor(hex: objData.id)
-        cell.buttonRadio.titleLabel?.text = cell.id     //objData.id
+        //cell.buttonRadio.
+        //cell.imgViewRadio.image = cell.imgViewRadio.image!.withRenderingMode(.alwaysTemplate)
+        //cell.buttonRadio.layer.borderColor = UIColor(hex: objData.id!).cgColor
+        //cell.buttonRadio.titleLabel?.text = cell.id     //objData.id
         cell.dataArray = dataArray
         id = cell.id
+        
+        print(objData.id)
+        cell.reloadInputViews()
         cell.initializeData(value: objData, radioButtonCellRef: self, index: indexPath.row)
         
         return cell
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! RadioColorCollectionViewCell
+        
+       let objData = dataArray[indexPath.row]
+       cell.imgViewRadio.backgroundColor = UIColor(hex: objData.id)
+       //cell.imgViewRadio.image = UIImage(named: "")
+        //cell.containerView.backgroundColor = UIColor.orange
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as!
+        RadioColorCollectionViewCell
+        //let objData = dataArray[indexPath.row]
+        cell.imgViewRadio.backgroundColor = UIColor.clear
+        //let objData = dataArray[indexPath.row]
+        //cell.imgViewRadio.backgroundColor = UIColor(hex: objData.id)
+        //let objData = dataArray[indexPath.row]
+       // cell.imgViewRadio.image = cell.imgViewRadio.image!.withRenderingMode(.alwaysTemplate)
+        //cell.imgViewRadio.tintColor = UIColor.clear
+      
+      
+    }
+    
     
 }
 

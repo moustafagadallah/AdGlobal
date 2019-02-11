@@ -31,6 +31,7 @@ class CheckBoxButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataS
     //MARK:- Properties
     var dataArray = [SearchValue]()
     var title = ""
+    var fieldName = ""
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {

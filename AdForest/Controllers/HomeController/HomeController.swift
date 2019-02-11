@@ -138,6 +138,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- Near by search Delaget method
+    
     func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool) {
         self.latitude = lat
         self.longitude = long

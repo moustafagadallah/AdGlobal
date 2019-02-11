@@ -290,6 +290,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.oltDate.setTitle(title, for: .normal)
                     cell.btnDateMax.setTitle(title, for: .normal)
                 }
+                cell.fieldName = objData.fieldTypeName // it can be change to resolve
                 return cell
             }
             else if objData.fieldType == "checkbox" {
@@ -299,7 +300,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.lblTitle.text = title
                     cell.title = title
                 }
-               
+                cell.fieldName = objData.fieldTypeName
                 cell.dataArray = objData.values
                 cell.tableView.reloadData()
                 
@@ -312,7 +313,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.lblTitle.text = title
                     cell.title = title
                 }
-                
+                cell.fieldName = objData.fieldTypeName
                 cell.dataArray = objData.values
                 cell.collectionView.reloadData()
                 
@@ -325,10 +326,10 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 }
                 
                 if let min = objData.searchValDict.min{
-                    cell.txtMinPrice.placeholder = "0"
+                    cell.txtMinPrice.placeholder =  min //"0"
                 }
                 if let max = objData.searchValDict.max{
-                    cell.txtMaxPrice.placeholder = "250"
+                    cell.txtMaxPrice.placeholder =  max //"250"
                 }
     
                 cell.fieldName = objData.fieldTypeName
@@ -425,6 +426,11 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                                 var obj = SearchData()
                                 obj.fieldType = "checkbox"
                                 obj.fieldTypeName = "ad_check_box"
+                                for var obj in obj.values{
+                                    for checkArr in cell.arrCheckValue{
+                                         obj.name = checkArr
+                                    }
+                                }
                                 print(cell.arrCheckValue)
                                 self.data.append(obj)
                             }
@@ -458,9 +464,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                                 self.data.append(obj)
                             }
                         }
-                        
-                      
-    
+                    
                     }
                 }
                 self.setUpData()
