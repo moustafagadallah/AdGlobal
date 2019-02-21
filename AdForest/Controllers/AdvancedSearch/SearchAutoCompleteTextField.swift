@@ -11,6 +11,11 @@ import GooglePlaces
 import GoogleMaps
 import GooglePlacePicker
 
+
+protocol SearchAutoDelegate {
+    func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int)
+}
+
 class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate, GMSAutocompleteViewControllerDelegate, UITextViewDelegate {
     
     //MARK:- Outlets
@@ -28,6 +33,10 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     //MARK:- Properties
     let appDel = UIApplication.shared.delegate as! AppDelegate
     var fieldName = ""
+    var delegate : SearchAutoDelegate?
+    var index = 0
+    
+    
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,6 +69,7 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
         print("Place Name : \(place.name)")
         print("Place Address : \(place.formattedAddress ?? "null")")
         txtAutoComplete.text = place.formattedAddress
+        self.delegate?.searchAutoValue(searchAuto:txtAutoComplete.text! , fieldType: "glocation_textfield", indexPath: index)
         self.appDel.dissmissController()
     }
     

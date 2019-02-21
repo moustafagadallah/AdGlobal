@@ -12,6 +12,10 @@ protocol AddDataDelegate {
     func addToFieldsArray(obj: AdPostField, index: Int, isFrom: String, title: String)
 }
 
+protocol textValDelegate {
+    func textVal(value: String,indexPath: Int, fieldType:String, section: Int)
+}
+
 class TextFieldCell: UITableViewCell, UITextFieldDelegate {
 
     //MARK:- Outlets
@@ -31,9 +35,10 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
     var fieldName = ""
     var objSaved = AdPostField()
     var selectedIndex = 0
-    var delegate : textFieldValueDelegate?
-    
-    
+    //var delegate : textFieldValueDelegate?
+    var index = 0
+    var section = 0
+    var delegate : textValDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,7 +56,8 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
     
     @IBAction func txtEditingChanged(_ sender: UITextField) {
         if let text = sender.text {
-            delegate?.changeText(value: text, fieldTitle: fieldName)
+            //delegate?.changeText(value: text, fieldTitle: fieldName)
+            delegate?.textVal(value: text, indexPath: index,fieldType: "textfield",section:section)
         }
     }
 }

@@ -72,9 +72,6 @@ class AdPostCell: UITableViewCell , UITextFieldDelegate {
     
 }
 
-
-
-
 class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategoryDelegate {
     
     //MARK:- Outlets

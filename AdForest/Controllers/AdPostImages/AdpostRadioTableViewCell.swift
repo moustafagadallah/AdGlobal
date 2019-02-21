@@ -1,15 +1,19 @@
 //
-//  RadioButtonCell.swift
+//  AdpostRadioTableViewCell.swift
 //  AdForest
 //
-//  Created by Apple on 9/17/18.
-//  Copyright © 2018 apple. All rights reserved.
+//  Created by Furqan Nadeem on 12/02/2019.
+//  Copyright © 2019 apple. All rights reserved.
 //
 
 import UIKit
 
 
-class RadioButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
+protocol radioDelegateAdpost {
+    func radVal(rVal: String, fieldType: String, indexPath: Int,isSelected: Bool)
+}
+
+class AdpostRadioTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
     
     //MARK:- Outlets
     @IBOutlet weak var containerView: UIView!{
@@ -27,11 +31,14 @@ class RadioButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBOutlet weak var lblTitle: UILabel!
+    var seletedRad = ""
     
     
     //MARK:- Properties
-    var dataArray = [SearchValue]()
-    
+    var dataArray = [AdPostValue]()
+    var index = 0
+    var section = 0
+    var delegate : radioDelegateAdpost?
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -39,6 +46,9 @@ class RadioButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSour
         self.selectionStyle = .none
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -49,21 +59,24 @@ class RadioButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: RadioButtonTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadioButtonTableViewCell", for: indexPath) as! RadioButtonTableViewCell
+        let cell: AdpostradioInnerTableViewCell = tableView.dequeueReusableCell(withIdentifier: "AdpostradioInnerTableViewCell", for: indexPath) as! AdpostradioInnerTableViewCell
         let objData = dataArray[indexPath.row]
         if let title = objData.name {
             cell.lblName.text = title
+            cell.buttonRadio.titleLabel?.text = title
         }
-        print(objData.isSelected, indexPath.row)
+        //print(objData.isSelected, indexPath.row)
         
-        if objData.isSelected {
+        if objData.isChecked {
             cell.buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "radio-on-button"), for: .normal)
+            cell.buttonRadio.isSelected = true
+            delegate?.radVal(rVal: seletedRad, fieldType: "radio", indexPath: index, isSelected: objData.isChecked)
         }else {
             cell.buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "empty (1)"), for: .normal)
         }
-        
+        seletedRad = cell.seletedRadio
         cell.initializeData(value: objData, radioButtonCellRef: self, index: indexPath.row)
-        //cell.initCellItem()
+        
         return cell
     }
 }

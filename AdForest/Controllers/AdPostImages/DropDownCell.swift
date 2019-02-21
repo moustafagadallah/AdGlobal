@@ -9,6 +9,10 @@
 import UIKit
 import DropDown
 
+protocol textSelectDropDown {
+    func textValSelecrDrop(value: String,indexPath: Int, fieldType:String, section: Int)
+}
+
 class DropDownCell: UITableViewCell {
 
     //MARK:- Outlets
@@ -31,6 +35,9 @@ class DropDownCell: UITableViewCell {
     var selectedKey = ""
     var selectedValue = ""
     var param = ""
+    var index = 0
+    var section = 0
+    var delegate:textSelectDropDown?
     
     var selectedIndex = 0
     var objSaved = AdPostField()
@@ -71,6 +78,7 @@ class DropDownCell: UITableViewCell {
             self.objSaved.fieldVal = item
             //self.delegate?.addToFieldsArray(obj: self.objSaved, index: self.selectedIndex, isFrom: "select", title: item)
             self.defaults.set(item, forKey: "value")
+            self.delegate?.textValSelecrDrop(value: self.selectedKey, indexPath: index, fieldType: "select", section: self.section)
             self.defaults.synchronize()
         }
     }

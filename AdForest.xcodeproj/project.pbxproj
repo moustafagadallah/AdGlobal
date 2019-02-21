@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0703FD5E2212B2BF00886A2A /* AdpostRadioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */; };
+		0703FD602212B2E400886A2A /* AdpostradioInnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703FD5F2212B2E400886A2A /* AdpostradioInnerTableViewCell.swift */; };
 		07891CAB22017960002C8D7D /* CheckBoxesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */; };
 		07891CAD22017D53002C8D7D /* CheckBoxButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */; };
 		07891CB022019609002C8D7D /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAF22019609002C8D7D /* CheckBox.swift */; };
+		07A70C90221650C7002ADAEF /* RadioColorAdCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A70C8F221650C7002ADAEF /* RadioColorAdCollectionViewCell.swift */; };
+		07A70C92221650F0002ADAEF /* RadioColorAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A70C91221650F0002ADAEF /* RadioColorAdTableViewCell.swift */; };
+		07A70C94221687A9002ADAEF /* NumericRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A70C93221687A9002ADAEF /* NumericRangeTableViewCell.swift */; };
+		07A70C962216AEFC002ADAEF /* CalenderSingleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A70C952216AEFC002ADAEF /* CalenderSingleTableViewCell.swift */; };
 		07DF08BA2202DD24008F9736 /* RadioColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF08B92202DD24008F9736 /* RadioColorTableViewCell.swift */; };
 		07DF08BC2202DD3A008F9736 /* RadioColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF08BB2202DD3A008F9736 /* RadioColorCollectionViewCell.swift */; };
 		07EF456B2204173B000570E6 /* RangeValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EF456A2204173B000570E6 /* RangeValuesTableViewCell.swift */; };
@@ -544,9 +550,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdpostRadioTableViewCell.swift; sourceTree = "<group>"; };
+		0703FD5F2212B2E400886A2A /* AdpostradioInnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdpostradioInnerTableViewCell.swift; sourceTree = "<group>"; };
 		07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxesTableViewCell.swift; sourceTree = "<group>"; };
 		07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButtonCell.swift; sourceTree = "<group>"; };
 		07891CAF22019609002C8D7D /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		07A70C8F221650C7002ADAEF /* RadioColorAdCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorAdCollectionViewCell.swift; sourceTree = "<group>"; };
+		07A70C91221650F0002ADAEF /* RadioColorAdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorAdTableViewCell.swift; sourceTree = "<group>"; };
+		07A70C93221687A9002ADAEF /* NumericRangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericRangeTableViewCell.swift; sourceTree = "<group>"; };
+		07A70C952216AEFC002ADAEF /* CalenderSingleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderSingleTableViewCell.swift; sourceTree = "<group>"; };
 		07DF08B92202DD24008F9736 /* RadioColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorTableViewCell.swift; sourceTree = "<group>"; };
 		07DF08BB2202DD3A008F9736 /* RadioColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EF456A2204173B000570E6 /* RangeValuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeValuesTableViewCell.swift; sourceTree = "<group>"; };
@@ -1360,6 +1372,11 @@
 				1817EE2220A5D4FB005D4995 /* CheckBoxCell.swift */,
 				18C55C642136778F00FD07FD /* New Group */,
 				18F5C8F021356445006710AC /* AdPostURLCell */,
+				0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */,
+				0703FD5F2212B2E400886A2A /* AdpostradioInnerTableViewCell.swift */,
+				07A70C8F221650C7002ADAEF /* RadioColorAdCollectionViewCell.swift */,
+				07A70C91221650F0002ADAEF /* RadioColorAdTableViewCell.swift */,
+				07A70C93221687A9002ADAEF /* NumericRangeTableViewCell.swift */,
 			);
 			path = AdPostImages;
 			sourceTree = "<group>";
@@ -2690,6 +2707,7 @@
 			children = (
 				18C55C65213677A700FD07FD /* CalendarCell.swift */,
 				18C55C66213677A700FD07FD /* CalendarCell.xib */,
+				07A70C952216AEFC002ADAEF /* CalenderSingleTableViewCell.swift */,
 			);
 			path = "New Group";
 			sourceTree = "<group>";
@@ -3312,6 +3330,7 @@
 				1884DD6E2056823400059DEE /* EditProfileController.swift in Sources */,
 				18108E6D2092F9720020D440 /* AdPostImagesData.swift in Sources */,
 				182690F92087652900E2C966 /* CategoryTimer.swift in Sources */,
+				0703FD5E2212B2BF00886A2A /* AdpostRadioTableViewCell.swift in Sources */,
 				18BBFAEA205112D70067662F /* ForgotPasswordViewController.swift in Sources */,
 				186D0C7720A1CAE100833697 /* AdPostSubCategoryRoot.swift in Sources */,
 				180519D4215A0B8600F74662 /* AppSettingShare.swift in Sources */,
@@ -3346,6 +3365,7 @@
 				185B3C85207E52C400EDBBB4 /* BidsDataRoot.swift in Sources */,
 				18BBFB0B205166550067662F /* MessagesController.swift in Sources */,
 				182690E52087643700E2C966 /* CategorySortArray.swift in Sources */,
+				0703FD602212B2E400886A2A /* AdpostradioInnerTableViewCell.swift in Sources */,
 				185B3C8B207E537300EDBBB4 /* BidsForm.swift in Sources */,
 				182690A42087287900E2C966 /* HomeSettings.swift in Sources */,
 				18BBFADB20510FA90067662F /* SettingsLocationPopup.swift in Sources */,
@@ -3392,6 +3412,7 @@
 				184EDAEC2078976A00A25228 /* AddDetailIsFeatured.swift in Sources */,
 				184EDAF62078980000A25228 /* AddDetailReplyDialogue.swift in Sources */,
 				18C89D3E20A573EB00EE8EF1 /* AdPostFeaturedAdNotify.swift in Sources */,
+				07A70C90221650C7002ADAEF /* RadioColorAdCollectionViewCell.swift in Sources */,
 				181888942081EB7D008736F7 /* SettingsMessagesScreen.swift in Sources */,
 				182690ED208764A900E2C966 /* CategoryFeatureAd.swift in Sources */,
 				184EDB08207898F400A25228 /* AddDetailImage.swift in Sources */,
@@ -3428,6 +3449,7 @@
 				185BBEF120AFF8FF004748D5 /* NearByAddSearchRoot.swift in Sources */,
 				185B13C3207CA58900914AF0 /* ReplyCell.swift in Sources */,
 				182690CA20872A2D00E2C966 /* AddLocation.swift in Sources */,
+				07A70C94221687A9002ADAEF /* NumericRangeTableViewCell.swift in Sources */,
 				182690A62087288F00E2C966 /* HomeFirebase.swift in Sources */,
 				1817EE2320A5D4FB005D4995 /* CheckBoxCell.swift in Sources */,
 				183C65D5215B9520004A94EC /* AppSettingFeedback.swift in Sources */,
@@ -3509,12 +3531,14 @@
 				18C817362073B10C00674C90 /* PackagesDataProduct.swift in Sources */,
 				18AD93B6206D18E800330ABF /* BlogDetailData.swift in Sources */,
 				181888882081D2D8008736F7 /* OfferAdsData.swift in Sources */,
+				07A70C962216AEFC002ADAEF /* CalenderSingleTableViewCell.swift in Sources */,
 				180519CE215A0B2800F74662 /* AppSettingSection.swift in Sources */,
 				18F0C7DC206F710B003E16A5 /* SettingsMenu.swift in Sources */,
 				182C7FE22068D31B0080A391 /* ProfileDetailsPhoneDialogue.swift in Sources */,
 				182A70F120E0FEC200A0F38C /* PackageDataAndroid.swift in Sources */,
 				18C2CD0A206A503D00235E0E /* MyAdsAdLocation.swift in Sources */,
 				181AD094206E80660059D534 /* BlogDetailCat.swift in Sources */,
+				07A70C92221650F0002ADAEF /* RadioColorAdTableViewCell.swift in Sources */,
 				183C65D7215B9532004A94EC /* AppSettingForm.swift in Sources */,
 				18AECFB2217DB6AE004C1DF9 /* CatIconsColumnBtn.swift in Sources */,
 				18C2CD02206A4FD900235E0E /* MyAdsAdVideo.swift in Sources */,

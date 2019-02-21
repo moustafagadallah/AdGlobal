@@ -8,6 +8,10 @@
 
 import UIKit
 
+//protocol searchTextTwoDelegate {
+//    func searchTextValueTwo(searchTextTwo: String, fieldType: String, indexPath: Int)
+//}
+
 class SearchTwoTextField: UITableViewCell {
     
     //MARK:- Outlets
@@ -23,11 +27,29 @@ class SearchTwoTextField: UITableViewCell {
     //MARK:- Properties
     
     var fieldName = ""
+    var index = 0
+    //var delegate:searchTextTwoDelegate?
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        
     }
+    
+    @IBAction func txtEditingEnd(_ sender: UITextField) {
+      
+        var minTF = ""
+        var maxTF = ""
+        
+        if sender.tag == 0{
+            minTF = sender.text!
+        }
+        
+        if sender.tag == 1{
+            maxTF = sender.text!
+        }
+        let rangeTF = minTF + "-" + maxTF
+        //self.delegate?.searchTextValueTwo(searchTextTwo: rangeTF, fieldType: "range_textfield", indexPath: index)
+    }
+    
 }

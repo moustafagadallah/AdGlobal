@@ -7,8 +7,14 @@
 //
 
 import UIKit
+import SwiftCheckboxDialog
 
-class CheckBoxButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
+protocol checkBoxesValues {
+    func checkBoxArrFunc(selectedText: [String], fieldType: String, indexPath: Int)
+
+}
+
+class CheckBoxButtonCell: UITableViewCell,CheckboxDialogViewDelegate {
 
     //MARK:- Outlets
     @IBOutlet weak var containerView: UIView!{
@@ -16,48 +22,116 @@ class CheckBoxButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataS
             containerView.addShadowToView()
         }
     }
-    @IBOutlet weak var tableView: UITableView! {
-        didSet{
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.tableFooterView = UIView()
-            tableView.separatorStyle = .none
-        }
-    }
-    
     @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var btnCheckBox: UIButton!
+    
+    // var dataArray = [SearchValue]()
+    var data : SearchValue?
+    var radioButtonCell: CheckBoxButtonCell!
+    var indexPath = 0
+    var tagArr = [Int]()
+    let defaults = UserDefaults.standard
+    var delegateCheckArr : checkBoxesValues?
+    var fieldName = ""
+    var index = 0
     
     
-    //MARK:- Properties
     var dataArray = [SearchValue]()
     var title = ""
-    var fieldName = ""
+    
+    var checkboxDialogViewController: CheckboxDialogViewController!
+    typealias TranslationTuple = (name: String, translated: String)
+    typealias TranslationDictionary = [String : String]
+    
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        btnCheckBox.addTarget(self, action: #selector(self.radioButtonTapped), for: .touchUpInside)
+    }
+    
+    func initializeData(value: SearchValue, radioButtonCellRef: CheckBoxButtonCell, index: Int) {
+        data = value
+        indexPath = index
+        radioButtonCell = radioButtonCellRef
+        btnCheckBox.tag = index
+        btnCheckBox.addTarget(self, action: #selector(self.radioButtonTapped), for: .touchUpInside)
+    }
+    
+    func initCellItem() {
+        let deselectedImage = UIImage(named: "uncheck")?.withRenderingMode(.alwaysTemplate)
+        let selectedImage = UIImage(named: "check")?.withRenderingMode(.alwaysTemplate)
+        btnCheckBox.setImage(deselectedImage, for: .normal)
+        btnCheckBox.setImage(selectedImage, for: .selected)
+        btnCheckBox.addTarget(self, action: #selector(self.radioButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func radioButtonTapped(_ radioButton: UIButton) {
+        
+        nokri_multiCheckBoxData()
+       
+        
+    }
+    
+    func deselectOtherButton() {
+        let tableView = self.superview?.superview as! UITableView
+        let tappedCellIndexPath = tableView.indexPath(for: self)!
+        let section = tappedCellIndexPath.section
+        let rowCounts = tableView.numberOfRows(inSection: section)
+        
+        for row in 0..<rowCounts {
+            if row != tappedCellIndexPath.row {
+                let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as! RadioButtonTableViewCell
+                cell.buttonRadio.isSelected = false
+            }
+        }
+    }
+    
+    var checkBoxArr = [String]()
+    var arrCheckValue = [String]()
+    
+    func nokri_multiCheckBoxData(){
+        
+        // var tableData :[(name: String, translated: String)]?
+        var jobData = [(name: String, translated: String)]();
+        let jobSkill = self.dataArray
+        
+        for itemDict in jobSkill {
+            jobData.append((name: "\(itemDict.name!)", translated: "\(itemDict.name!)"))
+            
+        }
+        
+        print (jobData)
+        self.checkboxDialogViewController = CheckboxDialogViewController()
+        self.checkboxDialogViewController.titleDialog = title
+        self.checkboxDialogViewController.tableData = jobData
+        self.checkboxDialogViewController.componentName = DialogCheckboxViewEnum.countries
+        self.checkboxDialogViewController.delegateDialogTableView = self
+        self.checkboxDialogViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        self.window?.rootViewController?.presentVC(checkboxDialogViewController)
+        
     }
     
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 //dataArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: CheckBoxesTableViewCell = tableView.dequeueReusableCell(withIdentifier: "CheckBoxesTableViewCell", for: indexPath) as! CheckBoxesTableViewCell
-        let objData = dataArray[indexPath.row]
-
-        cell.title = title
-        cell.dataArray = dataArray
-        cell.initializeData(value: objData, radioButtonCellRef: self, index: indexPath.row)
-        //cell.initCellItem()
-        return cell
+    func onCheckboxPickerValueChange(_ component: DialogCheckboxViewEnum, values: TranslationDictionary) {
+        
+        var allselectedString : String = "";
+        print(values.keys)
+        
+        for value in values.values {
+            print("\(value)");
+            checkBoxArr.append(value)
+        }
+        print(checkBoxArr)
+        let countedSet = NSCountedSet(array: checkBoxArr)
+        let uniques = checkBoxArr.filter { countedSet.count(for: $0) == 1 }
+        print(uniques)
+        arrCheckValue = uniques
+        delegateCheckArr?.checkBoxArrFunc(selectedText:arrCheckValue, fieldType: "checkbox", indexPath: index)
+        btnCheckBox.setTitle(arrCheckValue.joined(separator: ","), for: .normal)
+        
     }
 
 }
-

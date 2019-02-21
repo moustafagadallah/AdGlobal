@@ -70,7 +70,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
             self.hasSub = self.hasSubArray[index]
             self.hasTempelate = self.hasTemplateArray[index]
             self.hasCategoryTempelate = self.hasCategoryTempelateArray[index]
-            
+    
             if self.hasCategoryTempelate {
                 if self.hasTempelate {
                     let param: [String: Any] = ["cat_id" : self.selectedKey]

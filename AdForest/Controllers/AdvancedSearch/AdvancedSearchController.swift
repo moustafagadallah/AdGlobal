@@ -17,7 +17,7 @@ import Alamofire
 import RangeSeekSlider
 
 class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource {
-
+    
     //MARK:- Outlets
     
     @IBOutlet weak var tableView: UITableView! {
@@ -60,7 +60,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         }
     }
     //MARK:- Custom
-
+    
     func addBackButtonToNavigationBar() {
         let backButton = UIButton(type: .custom)
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
@@ -137,6 +137,9 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
     
     //Set Up parameters to Sent to Server
     func setUpData() {
+        
+        
+        
         let dataToSend = data
         for (_, value) in dataToSend.enumerated() {
             if value.fieldVal == "" {
@@ -150,11 +153,11 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 print(customDictionary)
             }
         }
-
+        
         let custom = Constants.json(from: customDictionary)
         var param: [String: Any] = ["custom_fields": custom ?? ""]
         param.merge(with: addInfoDictionary)
-      
+        
         self.adForest_postData(parameter: param as NSDictionary)
     }
     
@@ -215,13 +218,15 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                         cell.fieldTypeName.append(objData.fieldTypeName)
                         cell.hasSubArray.append(item.hasSub)
                         cell.hasTemplateArray.append(item.hasTemplate)
-                        cell.hasCategoryTempelateArray.append(objData.hasCatTemplate)
+                       // cell.hasCategoryTempelateArray.append(objData.hasCatTemplate)
+                        cell.hasCategoryTempelateArray.append(true)
                     }
                     cell.accountDropDown()
                     cell.valueDropDown.show()
                 }
                 return cell
             }
+                
             else if objData.fieldType == "radio" {
                 let cell: RadioButtonCell = tableView.dequeueReusableCell(withIdentifier: "RadioButtonCell", for: indexPath) as! RadioButtonCell
                 
@@ -229,7 +234,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.lblTitle.text = title
                 }
                 cell.dataArray = objData.values
-                cell.tableView.reloadData()
+                
+                //cell.tableView.reloadData()
                 return cell
             }
                 
@@ -243,6 +249,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.txtType.text = fieldValue
                 }
                 cell.fieldName = objData.fieldTypeName
+                cell.index = indexPath.row
+                cell.delegate = self
                 return cell
             }
                 
@@ -259,6 +267,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.txtmaxPrice.placeholder = maxTitle
                 }
                 cell.fieldName = objData.fieldTypeName
+                //cell.delegate = self
+                cell.index = indexPath.row
                 return cell
             }
                 
@@ -273,6 +283,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.txtAutoComplete.text = fieldValue
                 }
                 cell.fieldName = objData.fieldTypeName
+                cell.delegate = self
+                cell.index = indexPath.row
                 return cell
             }
             else if objData.fieldType == "seekbar" {
@@ -281,6 +293,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.lblTitle.text = title
                 }
                 cell.fieldName = objData.fieldTypeName
+                cell.delegate = self
+                cell.index = indexPath.row
                 
                 return cell
             }
@@ -290,54 +304,61 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.oltDate.setTitle(title, for: .normal)
                     cell.btnDateMax.setTitle(title, for: .normal)
                 }
-                cell.fieldName = objData.fieldTypeName // it can be change to resolve
+                cell.indexP = indexPath.row
+                //cell.delegateMax = self
                 return cell
             }
-            else if objData.fieldType == "checkbox" {
+            
+           else if objData.fieldType == "checkbox" {
                 let cell: CheckBoxButtonCell = tableView.dequeueReusableCell(withIdentifier: "CheckBoxButtonCell", for: indexPath) as! CheckBoxButtonCell
-             
+                
                 if let title = objData.title {
                     cell.lblTitle.text = title
                     cell.title = title
                 }
                 cell.fieldName = objData.fieldTypeName
                 cell.dataArray = objData.values
-                cell.tableView.reloadData()
-                
+                cell.delegateCheckArr = self
+                cell.index = indexPath.row
                 return cell
             }
+            
             else if objData.fieldType == "radio_color" {
                 let cell: RadioColorTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadioColorTableViewCell", for: indexPath) as! RadioColorTableViewCell
-                
-                if let title = objData.title {
+            
+                if let title = objData.mainTitle {
                     cell.lblTitle.text = title
                     cell.title = title
                 }
                 cell.fieldName = objData.fieldTypeName
                 cell.dataArray = objData.values
+                cell.index = indexPath.row
+                cell.delegate = self
                 cell.collectionView.reloadData()
-                
+            
                 return cell
             }
+            
             else if objData.fieldType == "number_range" {
                 let cell: RangeValuesTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RangeValuesTableViewCell", for: indexPath) as! RangeValuesTableViewCell
+              
                 if let title = objData.title {
                     cell.lblTitle.text = title
                 }
-                
                 if let min = objData.searchValDict.min{
-                    cell.txtMinPrice.placeholder =  min //"0"
+                    cell.txtMinPrice.placeholder =  min
+                    cell.rangeSlider.minValue =  CGFloat((min as NSString).floatValue)
                 }
                 if let max = objData.searchValDict.max{
-                    cell.txtMaxPrice.placeholder =  max //"250"
+                    cell.txtMaxPrice.placeholder = max //"250"
+                    cell.rangeSlider.maxValue =  CGFloat((max as NSString).floatValue)
                 }
-    
                 cell.fieldName = objData.fieldTypeName
-                
+                cell.index = indexPath.row
+                cell.delegate = self
                 
                 return cell
             }
-          
             
         case 1:
             let cell: SearchNowButtonCell = tableView.dequeueReusableCell(withIdentifier: "SearchNowButtonCell", for: indexPath) as! SearchNowButtonCell
@@ -348,10 +369,11 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
             cell.btnSearchNow = { () in
                 for index in 0..<self.dataArray.count {
                     if let objData = self.dataArray[index] as? SearchData {
+                       
                         if objData.fieldType == "select" {
                             if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SearchDropDown {
                                 var obj = SearchData()
-                                
+
                                 obj.fieldTypeName = cell.param
                                 obj.fieldVal = cell.selectedKey
                                 obj.fieldType = "select"
@@ -361,7 +383,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                         if objData.fieldType == "textfield" {
                             if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SearchTextField {
                                 var obj = SearchData()
-                                
+
                                 obj.fieldType = "textfield"
                                 obj.fieldVal = cell.txtType.text
                                 obj.fieldTypeName = cell.fieldName
@@ -369,12 +391,13 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                             }
                         }
                         
+
                         if objData.fieldType == "range_textfield" {
                             if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SearchTwoTextField {
                                 var obj = SearchData()
-                                
                                 obj.fieldType = "range_textfield"
                                 obj.fieldTypeName = cell.fieldName
+                                
                                 guard let minTF = cell.txtMinPrice.text else {
                                     return
                                 }
@@ -387,89 +410,112 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                             }
                         }
                         
-                        if objData.fieldType == "glocation_textfield" {
-                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SearchAutoCompleteTextField {
-                                var obj = SearchData()
-                                
-                                obj.fieldType = "glocation_textfield"
-                                obj.fieldTypeName = cell.fieldName
-                                obj.fieldVal = cell.txtAutoComplete.text
-                                self.data.append(obj)
-                            }
-                        }
+//                        if objData.fieldType == "radio" {
+//                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RadioButtonCell {
+//
+//                                let rad = UserDefaults.standard.string(forKey: "rad")
+//                                let radVal = rad
+//                                var obj = SearchData()
+//                                obj.fieldType = "radio"
+//                                obj.fieldTypeName = "radio"
+//
+//                                obj.fieldVal = radVal
+//                                self.data.append(obj)
+//                            }
+//                        }
+//
                         
-                        if objData.fieldType == "seekbar" {
-                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SeekBar {
-                                var obj = SearchData()
-                                
-                                obj.fieldType = "seekbar"
-                                obj.fieldTypeName = cell.fieldName
-                                obj.fieldVal = String(cell.maximumValue)
-                                self.data.append(obj)
-                            }
-                        }
                         
+//                        if objData.fieldType == "glocation_textfield" {
+//                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SearchAutoCompleteTextField {
+//                                var obj = SearchData()
+//
+//                                obj.fieldType = "glocation_textfield"
+//                                obj.fieldTypeName = cell.fieldName
+//                                obj.fieldVal = cell.txtAutoComplete.text
+//                                self.data.append(obj)
+//                            }
+//                        }
+//
+//                        if objData.fieldType == "seekbar" {
+//                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SeekBar {
+//                                var obj = SearchData()
+//
+//                                obj.fieldType = "seekbar"
+//                                obj.fieldTypeName = cell.fieldName
+//                                obj.fieldVal = String(cell.maximumValue)
+//                                self.data.append(obj)
+//                            }
+//                        }
+//
                         if objData.fieldType == "textfield_date" {
                             if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? CalendarCell {
                                 var obj = SearchData()
                                 obj.fieldType = "textfield_date"
-                                obj.fieldTypeName = cell.fieldName
-                                //obj.fieldVal = cell.currentDate
-                                let rangeTF = cell.currentDate + "-" + cell.maxDate
-                                obj.fieldVal = rangeTF
+                                obj.fieldTypeName = "date" //cell.fieldName
+                                guard let start = cell.oltDate.titleLabel?.text else{return}
+                                guard let end = cell.btnDateMax.titleLabel?.text else{return}
+                                obj.fieldVal = "\(start)|\(end)"
+                                //"\(String(describing: cell.oltDate.titleLabel?.text))|\(String(describing: cell.btnDateMax.titleLabel?.text))"
                                 self.data.append(obj)
                             }
                         }
-                        
-                        if objData.fieldType == "checkbox" {
-                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? CheckBoxesTableViewCell {
-                                var obj = SearchData()
-                                obj.fieldType = "checkbox"
-                                obj.fieldTypeName = "ad_check_box"
-                                for var obj in obj.values{
-                                    for checkArr in cell.arrCheckValue{
-                                         obj.name = checkArr
-                                    }
-                                }
-                                print(cell.arrCheckValue)
-                                self.data.append(obj)
-                            }
-                        }
-                        
-                        if objData.fieldType == "radio_color" {
-                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RadioColorTableViewCell {
-                                var obj = SearchData()
-                                obj.fieldType = "radio_color"
-                                obj.fieldTypeName = "select_color"
-                                obj.fieldVal = cell.id
-                                self.data.append(obj)
-                            }
-                        }
+//
+//                         if objData.fieldType == "checkbox" {
+//
+//                            print(index, indexPath.section)
+//                            if let cell = tableView.cellForRow(at: IndexPath(row: 5, section: 0)) as? CheckBoxButtonCell {
+//
+//                                var obj = SearchData()
+//                                obj.fieldType = "checkbox"
+//                                obj.fieldTypeName = "ad_check_box"
+//                                print(cell.arrCheckValue)
+//                                //cell.delegateCheckArr = self
+//                                obj.arrFields = cell.arrCheckValue
+//                                self.data.append(obj)
+//
+//                            }
+//                        }
                         
                         
-                        if objData.fieldType == "number_range" {
-                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RangeValuesTableViewCell {
-                                var obj = SearchData()
-                                
-                                obj.fieldType = "number_range"
-                                obj.fieldTypeName = cell.fieldName
-                                guard let minTF = cell.txtMinPrice.text else {
-                                    return
-                                }
-                                guard let maxTF = cell.txtMaxPrice.text else {
-                                    return
-                                }
-                                let rangeTF = minTF + "-" + maxTF
-                                obj.fieldVal = rangeTF
-                                self.data.append(obj)
-                            }
-                        }
-                    
+
+//                         if objData.fieldType == "radio_color" {
+//                            print(index, indexPath.section)
+//                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RadioColorTableViewCell {
+//                                //->>> s
+//                                var obj = SearchData()
+//                                obj.fieldType = "radio_color"
+//                                obj.fieldTypeName = "select_color"
+//                                obj.fieldVal = cell.id
+//                                self.data.append(obj)
+//                            }
+//                        }
+
+//                        if objData.fieldType == "number_range" {
+//                            print(index, indexPath.section)
+//
+//                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RangeValuesTableViewCell {
+//                                var obj = SearchData()
+//                                obj.fieldType = "number_range"
+//                                obj.fieldTypeName = cell.fieldName
+//                                guard let minTF = cell.txtMinPrice.text else {
+//                                    return
+//                                }
+//                                guard let maxTF = cell.txtMaxPrice.text else {
+//                                    return
+//                                }
+//                                let rangeTF = minTF + "-" + maxTF
+//                                print(rangeTF)
+//                                obj.fieldVal = rangeTF
+//                                self.data.append(obj)
+//                            }
+//                        }
+
                     }
                 }
+                
                 self.setUpData()
             }
-            
             return cell
         default:
             break
@@ -483,15 +529,12 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         case 0:
             let objData = dataArray[indexPath.row]
             if objData.fieldType == "radio" {
-                return 130
+                return 120
             }
-            if objData.fieldType == "checkbox"{
-            return 90
-        }
-            if objData.fieldType == "radio_color"{
-                return 90
+            if objData.fieldType == "number_range" {
+                return 140
             }
-            if objData.fieldType == "number_range"{
+            if objData.fieldType == "checkbox" {
                 return 140
             }
             return 80
@@ -550,4 +593,113 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
             self.presentVC(alert)
         }
     }
+}
+
+extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues,searchTextDelegate,SearchAutoDelegate ,SeekBarDelegate{
+   
+   // DateFieldsDelegateMax
+//    func DateValuesMax(MaxDate: String, fieldType: String, indexPath: Int) {
+//        if fieldType == "textfield_date" {
+//            print("Index Path Selected \(indexPath,MaxDate,fieldType)")
+//            let cell = tableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as! RangeValuesTableViewCell
+//            var dateFields = ""
+//            dateFields =  "\(cell.txtMinPrice.text!)|\(cell.txtMaxPrice.text!)"
+//            var obj = SearchData()
+//            obj.fieldType = fieldType
+//            obj.fieldVal = dateFields
+//            obj.fieldTypeName = "textfield_date"
+//            self.data.append(obj)
+//        }
+//    }
+    
+
+    //searchTextTwoDelegate
+//    func searchTextValueTwo(searchTextTwo: String, fieldType: String, indexPath: Int) {
+//        if fieldType == "range_textfield" {
+//            print("Index Path Selected \(indexPath,searchTextTwo,fieldType)")
+//            var obj = SearchData()
+//            obj.fieldType = fieldType
+//            obj.fieldVal = searchTextTwo
+//            obj.fieldTypeName = "range_textfield"
+//            self.data.append(obj)
+//        }
+//    }
+    
+    func SeekBarValue(seekBarVal: String, fieldType: String, indexPath: Int) {
+        if fieldType == "seekbar" {
+            print("Index Path Selected \(indexPath,seekBarVal,fieldType)")
+            var obj = SearchData()
+            obj.fieldType = fieldType
+            obj.fieldVal = seekBarVal
+            obj.fieldTypeName = "seekbar"
+            self.data.append(obj)
+        }
+    }
+    
+    func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int) {
+        if fieldType == "glocation_textfield" {
+            print("Index Path Selected \(indexPath,searchAuto,fieldType)")
+            var obj = SearchData()
+            obj.fieldType = fieldType
+            obj.fieldVal = searchAuto
+            obj.fieldTypeName = "glocation_textfield"
+            self.data.append(obj)
+        }
+    }
+
+    func searchTextValue(searchText: String, fieldType: String, indexPath: Int) {
+        if fieldType == "textfield" {
+            print("Index Path Selected \(indexPath,searchText,fieldType)")
+            //dataArray[indexPath].fieldVal = "\(colorCode)"
+            var obj = SearchData()
+            obj.fieldType = fieldType
+            obj.fieldVal = searchText
+            obj.fieldTypeName = "textfield_input"
+            self.data.append(obj)
+        }
+    }
+    
+    func checkBoxArrFunc(selectedText: [String], fieldType: String, indexPath: Int) {
+        if fieldType == "checkbox" {
+            print("Index Path Selected \(indexPath,selectedText , fieldType)")
+            //dataArray[indexPath].fieldVal = "\(colorCode)"
+            let cell = tableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as! CheckBoxButtonCell
+            cell.btnCheckBox.titleLabel?.text = selectedText.joined(separator: ",")
+            var obj = SearchData()
+            obj.fieldType = fieldType
+            obj.fieldVal = selectedText.joined(separator: ",")
+            obj.fieldTypeName = "advance_check_boxes"
+            self.data.append(obj)
+        }
+
+    }
+    
+    func colorValue(colorCode: String, fieldType: String, indexPath: Int) {
+       if fieldType == "radio_color" {
+        print("Index Path Selected \(indexPath,colorCode , fieldType)")
+        //dataArray[indexPath].fieldVal = "\(colorCode)"
+        var obj = SearchData()
+        obj.fieldType = fieldType
+        obj.fieldVal = "\(colorCode)"
+        obj.fieldTypeName = "select_colors"
+        self.data.append(obj)
+        }
+    }
+
+    func rangeValues(minRange: CGFloat, maxRange: CGFloat, fieldType: String, indexPath: Int) {
+        if fieldType == "number_range" {
+          //  let cell = tableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as! RangeValuesTableViewCell
+            print("Index Path Selected \(indexPath, minRange, maxRange, fieldType)")
+            let intMin = Int(minRange)
+            let intMax = Int(maxRange)
+            //dataArray[indexPath].fieldVal = "\(intMin)-\(intMax)"
+            var obj = SearchData()
+            obj.fieldType = fieldType
+            obj.fieldVal = "\(intMin)-\(intMax)"
+            obj.fieldTypeName = "number_range"
+            self.data.append(obj)
+        }
+    }
+    
+
 }

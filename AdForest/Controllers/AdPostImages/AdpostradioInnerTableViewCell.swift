@@ -1,30 +1,25 @@
 //
-//  RadioButtonTableViewCell.swift
+//  AdpostradioInnerTableViewCell.swift
 //  AdForest
 //
-//  Created by Apple on 9/17/18.
-//  Copyright © 2018 apple. All rights reserved.
+//  Created by Furqan Nadeem on 12/02/2019.
+//  Copyright © 2019 apple. All rights reserved.
 //
 
 import UIKit
 
-
-protocol radioDelegate {
-    func radioValue(radioVal: String, fieldType: String, indexPath: Int)
-}
-
-class RadioButtonTableViewCell : UITableViewCell {
+class AdpostradioInnerTableViewCell : UITableViewCell {
     
     //MARK:- Outlets
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var buttonRadio: UIButton!
     
     // var dataArray = [SearchValue]()
-    var data : SearchValue?
-    var radioButtonCell: RadioButtonCell!
+    var data : AdPostValue?
+    var radioButtonCell: AdpostRadioTableViewCell!
     var indexPath = 0
-    var index = 0
-    var delegate : radioDelegate?
+    var seletedRadio = ""
+    
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -32,45 +27,43 @@ class RadioButtonTableViewCell : UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func initializeData(value: SearchValue, radioButtonCellRef: RadioButtonCell, index: Int) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    func initializeData(value: AdPostValue, radioButtonCellRef: AdpostRadioTableViewCell, index: Int) {
         data = value
         indexPath = index
         radioButtonCell = radioButtonCellRef
-        buttonRadio.titleLabel?.text = radioButtonCell.dataArray[index].id
         buttonRadio.addTarget(self, action: #selector(self.radioButtonTapped), for: .touchUpInside)
     }
     
     func initCellItem() {
-        let deselectedImage = UIImage(named: "empty (1)")?.withRenderingMode(.alwaysTemplate)
-        let selectedImage = UIImage(named: "radio-on-button")?.withRenderingMode(.alwaysTemplate)
+        let deselectedImage = UIImage(named: "uncheck")?.withRenderingMode(.alwaysTemplate)
+        let selectedImage = UIImage(named: "check")?.withRenderingMode(.alwaysTemplate)
         buttonRadio.setImage(deselectedImage, for: .normal)
         buttonRadio.setImage(selectedImage, for: .selected)
         buttonRadio.addTarget(self, action: #selector(self.radioButtonTapped), for: .touchUpInside)
     }
     
     @objc func radioButtonTapped(_ radioButton: UIButton) {
-        if (radioButtonCell.dataArray[indexPath].isSelected) {
+        
+        if (radioButtonCell.dataArray[indexPath].isChecked) {
             buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "empty (1)"), for: .normal)
-            self.delegate?.radioValue(radioVal: (radioButton.titleLabel?.text)!, fieldType: "radio", indexPath: index)
-            //  data?.isSelected= false
-            print("Text Button is:\(radioButton.titleLabel?.text)")
-            radioButtonCell.dataArray[indexPath].isSelected = false
-            delegate?.radioValue(radioVal:(radioButton.titleLabel?.text)! , fieldType: "radio", indexPath: index)
-            UserDefaults.standard.set(radioButton.titleLabel?.text, forKey: "rad")
-            
+            //  data?.isSelected = false
+            radioButtonCell.dataArray[indexPath].isChecked = false
+            seletedRadio = (radioButton.titleLabel?.text)!
         }
         else {
-            print("Text Button is:\(radioButton.titleLabel?.text)")
-            UserDefaults.standard.set(radioButton.titleLabel?.text, forKey: "rad")
+            seletedRadio = (radioButton.titleLabel?.text!)!
             buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "radio-on-button"), for: .normal)
             // data?.isSelected = true
-            self.delegate?.radioValue(radioVal:(radioButton.titleLabel?.text)!, fieldType: "radio", indexPath: index)
-            radioButtonCell.dataArray[indexPath].isSelected = true
+            radioButtonCell.dataArray[indexPath].isChecked = true
         }
         
         for (i, value) in radioButtonCell.dataArray.enumerated() {
             if i != indexPath {
-                radioButtonCell.dataArray[i].isSelected = false
+                radioButtonCell.dataArray[i].isChecked = false
             }
         }
         radioButtonCell.tableView.reloadData()

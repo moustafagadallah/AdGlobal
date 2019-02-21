@@ -9,7 +9,12 @@
 import UIKit
 
 
-class SearchTextField: UITableViewCell {
+protocol searchTextDelegate {
+    func searchTextValue(searchText: String, fieldType: String, indexPath: Int)
+}
+
+
+class SearchTextField: UITableViewCell,UITextFieldDelegate {
     
     //MARK:- Outlets
     @IBOutlet weak var containerView: UIView! {
@@ -20,6 +25,8 @@ class SearchTextField: UITableViewCell {
     @IBOutlet weak var txtType: UITextField!
     
     var fieldName = ""
+    var index = 0
+    var delegate:searchTextDelegate?
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -30,5 +37,13 @@ class SearchTextField: UITableViewCell {
         } else {
             txtType.textAlignment = .left
         }
+    
+       
     }
+    
+    @IBAction func textEnd(_ sender: UITextField) {
+        self.delegate?.searchTextValue(searchText: sender.text!, fieldType: "textfield", indexPath: index)
+    }
+  
+    
 }

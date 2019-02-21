@@ -12,6 +12,9 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
    
     
     //MARK:- Outlets
+    
+    
+    
     @IBOutlet weak var containerView: UIView! {
         didSet {
             containerView.addShadowToView()
@@ -90,8 +93,15 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
         if let name = objData.value {
             cell.lblDescription.text = "\(name)"
         }
-        
-    
+        if  objData.type == "color_field" {
+            cell.lblDescription.text = ""
+            cell.imgViewColor.isHidden = false
+            cell.imgViewColor.image = UIImage(named:"circleShape")
+            cell.imgViewColor.image = cell.imgViewColor.image?.withRenderingMode(.alwaysTemplate)
+            cell.imgViewColor.tintColor = UIColor(hex:objData.value)
+            
+        }
+
        //cstCollectionHeight.constant = 300 //collectionView.contentSize.height + cell.lblCategory.frame.height - collectionView.contentSize.height
         return cell
     }
@@ -115,6 +125,10 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
 
 
 class AddDetailDescriptionCollectionCell : UICollectionViewCell {
+    
+    
+   
+    @IBOutlet weak var imgViewColor: UIImageView!
     @IBOutlet weak var lblCategory: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     

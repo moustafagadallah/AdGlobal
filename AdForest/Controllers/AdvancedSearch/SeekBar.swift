@@ -9,6 +9,11 @@
 import UIKit
 import RangeSeekSlider
 
+
+protocol SeekBarDelegate {
+    func SeekBarValue(seekBarVal: String, fieldType: String, indexPath: Int)
+}
+
 class SeekBar : UITableViewCell , RangeSeekSliderDelegate{
     
     //MARK:- Outlets
@@ -25,6 +30,8 @@ class SeekBar : UITableViewCell , RangeSeekSliderDelegate{
     var minimumValue = 0
     var maximumValue = ""
     var fieldName = ""
+    var delegate:SeekBarDelegate?
+    var index = 0
     
     
     override func awakeFromNib() {
@@ -50,6 +57,7 @@ class SeekBar : UITableViewCell , RangeSeekSliderDelegate{
             print("Standard slider updated. Min Value: \(minValue) Max Value: \(maxValue)")
             let mxValue = maxValue
             self.maximumValue = "\(mxValue)"
+            self.delegate?.SeekBarValue(seekBarVal: self.maximumValue, fieldType: "seekbar", indexPath: index)
         }
     }
     

@@ -8,10 +8,14 @@
 
 import UIKit
 
-
 protocol textViewValueDelegate {
     func changeTextViewCharacters(value: String, fieldTitle: String)
 }
+
+protocol textValDescDelegate {
+    func textValDesc(value: String,indexPath: Int, fieldType:String, section: Int)
+}
+
 
 class DescriptionTableCell: UITableViewCell, UITextViewDelegate {
 
@@ -34,6 +38,9 @@ class DescriptionTableCell: UITableViewCell, UITextViewDelegate {
     
     var fieldName = ""
     var delegate: textViewValueDelegate?
+    var delegateDes: textValDescDelegate?
+    var index = 0
+    var section = 0
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -47,8 +54,9 @@ class DescriptionTableCell: UITableViewCell, UITextViewDelegate {
     }
     
     func textViewDidChangeSelection(_ textView: UITextView) {
-        print("Change Selection \(textView.text)")
-        delegate?.changeTextViewCharacters(value: txtDescription.text, fieldTitle: fieldName)
+        print("Change Selection \(textView.text!)")
+        delegate?.changeTextViewCharacters(value: txtDescription.text!, fieldTitle: fieldName)
+        delegateDes?.textValDesc(value: txtDescription.text!, indexPath: index, fieldType: "textarea", section: section)
     }
     
 

@@ -12,9 +12,7 @@ class RadioColorCollectionViewCell: UICollectionViewCell {
     
     //MARK:- Outlets
     
-   
     @IBOutlet weak var imgViewRadio: UIImageView!
-    
     
     var dataArray = [SearchValue]()
     var data : SearchValue?
@@ -36,6 +34,8 @@ class RadioColorCollectionViewCell: UICollectionViewCell {
         radioButtonCell = radioButtonCellRef
        // buttonRadio.addTarget(self, action: #selector(self.radioButtonTapped), for: .touchUpInside)
     }
+    
+  
     
     func initCellItem() {
         

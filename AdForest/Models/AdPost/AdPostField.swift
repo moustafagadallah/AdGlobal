@@ -20,6 +20,8 @@ struct AdPostField {
     var mainTitle : String!
     var title : String!
     var values : [AdPostValue]!
+    
+    var tempIsSelected = false
 
     
     /**

@@ -1,6 +1,12 @@
 import UIKit
 import RangeSeekSlider
 
+
+protocol RangeNumberDelegate {
+    func rangeValues(minRange: CGFloat, maxRange: CGFloat, fieldType: String, indexPath: Int)
+}
+
+
 class RangeValuesTableViewCell : UITableViewCell , RangeSeekSliderDelegate{
     
     //MARK:- Outlets
@@ -12,16 +18,14 @@ class RangeValuesTableViewCell : UITableViewCell , RangeSeekSliderDelegate{
     }
     
     @IBOutlet weak var rangeSlider: RangeSeekSlider!
-    
     @IBOutlet weak var lblTitle: UILabel!
-    
     @IBOutlet weak var txtMinPrice: UITextField!
-
     @IBOutlet weak var txtMaxPrice: UITextField!
     
-    
-    
     //MARK:- Properties
+    
+    var delegate: RangeNumberDelegate?
+    var index = 0
     var minimumValue = ""
     var maximumValue = ""
     var fieldName = ""
@@ -33,6 +37,8 @@ class RangeValuesTableViewCell : UITableViewCell , RangeSeekSliderDelegate{
         rangeSlider.delegate = self
         rangeSlider.disableRange = false
         rangeSlider.enableStep = true
+        rangeSlider.minValue = 0
+        rangeSlider.maxValue = 100
         rangeSlider.step = 5
         if let bgColor = UserDefaults.standard.string(forKey: "mainColor") {
             rangeSlider.tintColor = Constants.hexStringToUIColor(hex: bgColor)
@@ -78,9 +84,10 @@ class RangeValuesTableViewCell : UITableViewCell , RangeSeekSliderDelegate{
                 print(string)
                 self.minimumValue = string
             }
+            
             txtMinPrice.text = "\(minimumValue)"
             txtMaxPrice.text = "\(maximumValue)"
-            
+            self.delegate?.rangeValues(minRange: minValue, maxRange: maxValue, fieldType: "number_range", indexPath: index)
         }
     }
     

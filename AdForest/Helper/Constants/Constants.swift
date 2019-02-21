@@ -98,6 +98,7 @@ class Constants {
         static let feedback = "app_extra/feedback"
     }
    
+
     struct customCodes {
         //Live
 //        static let purchaseCode = "aaBMQWH8vIWZjZOR07nEyJbOnqrzWbHk-ios"
@@ -112,7 +113,8 @@ class Constants {
     }
     
     struct googlePlacesAPIKey {
-        static let placesKey =  "AIzaSyB8KZq4oGyD1YzCJk3JvJU3EMPdB5ewo1s"
+        static let placesKey =  "AIzaSyDorvTuNOQlyBP3TmhCaRWjgfjl4P46MYM"
+        //static let placesKey =  "AIzaSyB8KZq4oGyD1YzCJk3JvJU3EMPdB5ewo1s"
     }
     
     struct AppColor {

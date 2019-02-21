@@ -553,6 +553,8 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 "ad_id": AddsHandler.sharedInstance.adPostAdId,
                 "ad_bump_ad": isBump
             ]
+            
+            //    {"cat_id" : "275","select_colors":"#FFD700","number_range":"34","date_input":"2019-02-15|2019-02-15","radio":"button"}
             print(parameter)
             let dataArray = objArray
             print(objArray)
@@ -563,7 +565,6 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 }
                 if customArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
                     customDictionary[value.fieldTypeName] = value.fieldVal
-                    
                     print(customDictionary)
                 }
                 else {
@@ -571,6 +572,9 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     print(addInfoDictionary)
                 }
             }
+            
+            //{"optiosn_selct_box":"Options","ad_description":"Dasdas dasd","ad_bidding":"0","advsnce_check_box":""}
+            
             customDictionary.merge(with: localDictionary)
             let custom = Constants.json(from: customDictionary)
             if AddsHandler.sharedInstance.isCategoeyTempelateOn {
@@ -578,6 +582,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 parameter.merge(with: param)
             }
             parameter.merge(with: addInfoDictionary)
+            parameter.merge(with: customDictionary) //Added by Furqan
             print(parameter)
              //self.dummy(param: parameter as NSDictionary)
             self.adForest_postAd(param: parameter as NSDictionary)

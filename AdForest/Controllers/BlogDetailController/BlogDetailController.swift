@@ -171,12 +171,19 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             let objData = dataArray[indexPath.row]
             let htmlString = objData.post.desc
             let htmlHeight = contentHeight[indexPath.row]
-            
             cell.webView.tag = indexPath.row
             cell.webView.delegate = self
-            cell.webView.loadHTMLString(htmlString!, baseURL: nil)
+            //cell.webView.loadHTMLString(htmlString!, baseURL: nil)
             cell.webView.scrollView.isScrollEnabled = false
+            
+            var stringSimple = htmlString?.html2String
+            print(stringSimple!)
+            let requestURL = URL(string:stringSimple!)
+            let request = URLRequest(url: requestURL!)
+            cell.webView.loadRequest(request)
+            
             cell.webView.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: htmlHeight)
+            
             return cell
         }
         else if section == 2 {
@@ -325,7 +332,7 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         else if section == 1 {
-            height = contentHeight[indexPath.row] + 10
+            height = contentHeight[indexPath.row] + 80
         }
         else if section == 2 {
             height = UITableViewAutomaticDimension
