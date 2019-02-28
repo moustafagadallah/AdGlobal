@@ -11,7 +11,7 @@ import ActionSheetPicker_3_0
 
 
 protocol textValDateDelegate {
-    func textValDate(value: String,indexPath: Int, fieldType:String, section: Int)
+    func textValDate(value: String,indexPath: Int, fieldType:String, section: Int,fieldNam:String)
 }
 
 class CalenderSingleTableViewCell: UITableViewCell {
@@ -68,7 +68,7 @@ class CalenderSingleTableViewCell: UITableViewCell {
             //self.oltDate.setTitle(selectedDate, for: .normal)
             self.txtDate.text = selectedDate
             self.currentDate = selectedDate
-            self.delegate?.textValDate(value: selectedDate, indexPath: self.indexP, fieldType: "textfield_date", section: self.section)
+            self.delegate?.textValDate(value: selectedDate, indexPath: self.indexP, fieldType: "textfield_date", section: self.section,fieldNam:self.fieldName)
             
             
             return

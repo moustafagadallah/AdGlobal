@@ -173,15 +173,13 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             let htmlHeight = contentHeight[indexPath.row]
             cell.webView.tag = indexPath.row
             cell.webView.delegate = self
-            //cell.webView.loadHTMLString(htmlString!, baseURL: nil)
+            cell.webView.loadHTMLString(htmlString!, baseURL: nil)
             cell.webView.scrollView.isScrollEnabled = false
-            
-            var stringSimple = htmlString?.html2String
-            print(stringSimple!)
-            let requestURL = URL(string:stringSimple!)
-            let request = URLRequest(url: requestURL!)
-            cell.webView.loadRequest(request)
-            
+//            let stringSimple = htmlString?.html2String
+//            print(stringSimple!)
+//            let requestURL = URL(string:stringSimple!)
+//            let request = URLRequest(url: requestURL!)
+//            cell.webView.loadRequest(request)
             cell.webView.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: htmlHeight)
             
             return cell

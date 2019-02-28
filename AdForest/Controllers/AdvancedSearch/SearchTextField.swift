@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol searchTextDelegate {
-    func searchTextValue(searchText: String, fieldType: String, indexPath: Int)
+    func searchTextValue(searchText: String, fieldType: String, indexPath: Int,fieldTypeName:String)
 }
 
 
@@ -27,6 +27,7 @@ class SearchTextField: UITableViewCell,UITextFieldDelegate {
     var fieldName = ""
     var index = 0
     var delegate:searchTextDelegate?
+    var fieldTypeNam = ""
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -42,7 +43,7 @@ class SearchTextField: UITableViewCell,UITextFieldDelegate {
     }
     
     @IBAction func textEnd(_ sender: UITextField) {
-        self.delegate?.searchTextValue(searchText: sender.text!, fieldType: "textfield", indexPath: index)
+        self.delegate?.searchTextValue(searchText: sender.text!, fieldType: "textfield", indexPath: index,fieldTypeName:fieldTypeNam)
     }
   
     

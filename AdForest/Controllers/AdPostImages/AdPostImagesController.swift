@@ -180,18 +180,18 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         localVariable = ""
         for index in  0..<fieldsArray.count {
             if let objData = fieldsArray[index] as? AdPostField {
-                if objData.fieldType == "select"  {
-                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DropDownCell {
-                        var obj = AdPostField()
-                        obj.fieldType = "select"
-                        obj.fieldTypeName = cell.param
-                        print(cell.param)
-                        obj.fieldVal = cell.selectedKey
-                        objArray.append(obj)
-                        customArray.append(obj)
-                    }
-                }
-                else if objData.fieldType == "textfield"  {
+//                if objData.fieldType == "select"  {
+//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DropDownCell {
+//                        var obj = AdPostField()
+//                        obj.fieldType = "select"
+//                        obj.fieldTypeName = cell.param
+//                        print(cell.param)
+//                        obj.fieldVal = cell.selectedKey
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+//                    }
+//                }
+                 if objData.fieldType == "textfield"  {
                     if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? TextFieldCell {
                             var obj = AdPostField()
                             obj.fieldType = "textfield"
@@ -242,46 +242,48 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         customArray.append(obj)
                     }
                 }
-                else if objData.fieldType == "textfield_date" {
-                    if let cell: CalenderSingleTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? CalenderSingleTableViewCell {
-                        var obj = AdPostField()
-                        obj.fieldTypeName = "date_input" //cell.fieldName
-                        obj.fieldVal = "\(cell.currentDate)"
-                        objArray.append(obj)
-                        customArray.append(obj)
-                    }
-                }
-                else if objData.fieldType == "radio_color" {
-                    if let cell: RadioColorAdTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? RadioColorAdTableViewCell {
-                        var obj = AdPostField()
-                        obj.fieldTypeName = "select_colors" //cell.fieldName
-                        print(cell.selectedColor)
-                        obj.fieldVal = cell.selectedColor
-                        objArray.append(obj)
-                        customArray.append(obj)
-                    }
-                }
-                else if objData.fieldType == "textfield_number" {
-                    if let cell: NumericRangeTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  NumericRangeTableViewCell{
-                        var obj = AdPostField()
-                        obj.fieldTypeName = "number_range" //cell.fieldName
-                        obj.fieldVal = cell.txtMinPrice.text
-                        print(cell.txtMinPrice.text!)
-                        objArray.append(obj)
-                        customArray.append(obj)
-                    }
-                }
+//                else if objData.fieldType == "textfield_date" {
+//                    if let cell: CalenderSingleTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? CalenderSingleTableViewCell {
+//                        var obj = AdPostField()
+//                        obj.fieldTypeName = "date_input" //cell.fieldName
+//                        obj.fieldVal = "\(cell.currentDate)"
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+//                    }
+//                }
+//                else if objData.fieldType == "radio_color" {
+//                    if let cell: RadioColorAdTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? RadioColorAdTableViewCell {
+//                        var obj = AdPostField()
+//                        obj.fieldTypeName = "select_colors" //cell.fieldName
+//                        print(cell.selectedColor)
+//                        obj.fieldVal = cell.selectedColor
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+//                    }
+//                }
+//                else if objData.fieldType == "textfield_number" {
+//                    if let cell: NumericRangeTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  NumericRangeTableViewCell{
+//                        var obj = AdPostField()
+//                        obj.fieldTypeName = "number_range" //cell.fieldName
+//                        obj.fieldVal = cell.txtMinPrice.text
+//                        print(cell.txtMinPrice.text!)
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+//                    }
+//                }
                 
-                else if objData.fieldType == "radio" {
-                    if let cell: AdpostRadioTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  AdpostRadioTableViewCell{
-                        var obj = AdPostField()
-                        obj.fieldTypeName = "radio" //cell.fieldName
-                        obj.fieldVal = cell.seletedRad
-                        print( cell.seletedRad)
-                        objArray.append(obj)
-                        customArray.append(obj)
-                    }
-                }
+//                else if objData.fieldType == "radio" {
+//                    if let cell: AdpostRadioTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  AdpostRadioTableViewCell{
+//                        var obj = AdPostField()
+//                        obj.fieldTypeName = "radio" //cell.fieldName
+//                        obj.fieldVal = cell.seletedRad
+//                        print( cell.seletedRad)
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+//                    }
+//                }
+                    
+                    
                 else if objData.fieldType == "textfield_number" {
                     if let cell: NumericRangeTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  NumericRangeTableViewCell{
                         var obj = AdPostField()
@@ -454,7 +456,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     cell.txtType.text = value
                 }
                 cell.fieldName = objData.fieldTypeName
-                cell.index = indexPath.row
+                cell.inde = indexPath.row
                 cell.section = 2
                // cell.selectedIndex = indexPath.row
                 cell.delegate = self
@@ -503,7 +505,10 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.selectedIndex = indexPath.row
                 cell.index = indexPath.row
                 cell.section = 2
+                cell.fieldNam = objData.fieldTypeName
                 cell.delegate = self
+                
+
                 return cell
             }
             
@@ -575,6 +580,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.index = indexPath.row
                 cell.section = 2
                 cell.delegate = self
+                cell.fieldName = objData.fieldTypeName
                 cell.tableView.reloadData()
                 return cell
 
@@ -713,12 +719,12 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDateDelegate,textSelectDropDown,ColorRadioDelegateAdpost,radioDelegateAdpost{
    
 
-    func radVal(rVal: String, fieldType: String, indexPath: Int, isSelected: Bool) {
+    func radVal(rVal: String, fieldType: String, indexPath: Int, isSelected: Bool,fieldNam:String) {
         if fieldType == "radio"{
             var obj = AdPostField()
             obj.fieldType = "radio"
             obj.fieldVal = rVal
-            obj.fieldTypeName = "radio"
+            obj.fieldTypeName = fieldNam //"radio"
             self.fieldsArray[indexPath].tempIsSelected = isSelected
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
@@ -727,12 +733,12 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
         }
     }
 
-    func colorVal(colorCode: String, fieldType: String, indexPath: Int, isSelected: Bool) {
+    func colorVal(colorCode: String, fieldType: String, indexPath: Int, isSelected: Bool,fieldNam:String) {
         if fieldType == "radio_color"{
             var obj = AdPostField()
             obj.fieldType = "radio_color"
             obj.fieldVal = colorCode
-            obj.fieldTypeName = "select_colors"
+            obj.fieldTypeName = fieldNam //"select_colors"
             self.fieldsArray[indexPath].tempIsSelected = isSelected
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
@@ -741,12 +747,12 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
         }
     }
 
-    func textValSelecrDrop(value: String, indexPath: Int, fieldType: String, section: Int) {
+    func textValSelecrDrop(value: String, indexPath: Int, fieldType: String, section: Int,fieldName:String) {
         if fieldType == "select"{
             var obj = AdPostField()
             obj.fieldType = "select"
             obj.fieldVal = value
-            obj.fieldTypeName = "ad_price_type"
+            obj.fieldTypeName = fieldName //"ad_price_type"
             self.fieldsArray[indexPath].fieldVal = value
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
@@ -755,13 +761,13 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
         }
     }
     
-    func textValDate(value: String, indexPath: Int, fieldType: String, section: Int) {
+    func textValDate(value: String, indexPath: Int, fieldType: String, section: Int,fieldNam:String) {
     
         if fieldType == "textfield_date"{
             var obj = AdPostField()
             obj.fieldType = "textfield_date"
             obj.fieldVal = value
-            obj.fieldTypeName = "date_input"
+            obj.fieldTypeName = fieldNam //"date_input"
             self.fieldsArray[indexPath].fieldVal = value
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
@@ -771,12 +777,12 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
         
     }
     
-    func textValDesc(value: String, indexPath: Int, fieldType: String, section: Int) {
+    func textValDesc(value: String, indexPath: Int, fieldType: String, section: Int,fieldNam:String) {
         if fieldType == "textarea"{
             var obj = AdPostField()
             obj.fieldType = "textarea"
             obj.fieldVal = value
-            obj.fieldTypeName = "ad_description"
+            obj.fieldTypeName = fieldNam  //"ad_description"
             print(value)
             self.fieldsArray[indexPath].fieldVal = value
             //self.dataArray.append(obj)
@@ -786,17 +792,18 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
         }
     }
     
-    func textVal(value: String, indexPath: Int,fieldType:String,section:Int) {
+    func textVal(value: String, indexPath: Int,fieldType:String,section:Int,fieldNam:String) {
         if fieldType == "textfield"{
             var obj = AdPostField()
             obj.fieldType = "textfield"
             obj.fieldVal = value
-            obj.fieldTypeName = fieldType
+            obj.fieldTypeName = fieldNam //fieldType
             self.fieldsArray[indexPath].fieldVal = value
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
             objArray.append(obj)
             customArray.append(obj)
+            
         }
     }
     

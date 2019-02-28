@@ -23,16 +23,16 @@ import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, NotificationBannerDelegate {
-  
+    
     var window: UIWindow?
-
+    
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let keyboardManager = IQKeyboardManager.sharedManager()
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let defaults = UserDefaults.standard
     var deviceFcmToken = "0"
     var interstitial: GADInterstitial?
-
+    
     
     func createAndLoadInterstitial() -> GADInterstitial? {
         interstitial = GADInterstitial(adUnitID: "ca-app-pub-3521346996890484/7679081330")
@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    
+        
         keyboardManager.enable = true
         self.setUpGoogleMaps()
         FirebaseApp.configure()
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if #available(iOS 11, *) {
             UNUserNotificationCenter.current().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in
-                  print("Granted \(granted)")
+                print("Granted \(granted)")
             }
             UIApplication.shared.registerForRemoteNotifications()
         } else {
@@ -87,11 +87,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         return true
     }
-
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let willHandleByFacebook = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-
-      let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         
         return willHandleByGoogle || willHandleByFacebook
     }
@@ -100,28 +100,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Messaging.messaging().shouldEstablishDirectChannel = true
         UserDefaults.standard.set("3", forKey: "fromNotification")
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
-         Messaging.messaging().shouldEstablishDirectChannel = true
-         UserDefaults.standard.set("3", forKey: "fromNotification")
+        Messaging.messaging().shouldEstablishDirectChannel = true
+        UserDefaults.standard.set("3", forKey: "fromNotification")
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
-         Messaging.messaging().shouldEstablishDirectChannel = true
+        Messaging.messaging().shouldEstablishDirectChannel = true
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         Messaging.messaging().shouldEstablishDirectChannel = true
         FBSDKAppEvents.activateApp()
         //To Check Deep Link
         deepLinker.checkDeepLink()
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()
         UserDefaults.standard.set("3", forKey: "fromNotification")
     }
-
+    
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "AdForest")
@@ -132,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         })
         return container
     }()
-
+    
     // MARK: - Core Data Saving support
     func saveContext () {
         let context = persistentContainer.viewContext
@@ -209,7 +209,7 @@ extension AppDelegate {
 extension AppDelegate  {
     // MARK: UNUserNotificationCenter Delegate
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-      //  let content = notification.request.content
+        //  let content = notification.request.content
         completionHandler([.alert, .sound, .badge])
     }
     
@@ -342,11 +342,11 @@ extension AppDelegate  {
         }
         
         let state = UIApplication.shared.applicationState
-         
+        
         if state == .background {
             
         }
-
+            
         else if state == .inactive {
             
         }
@@ -356,17 +356,17 @@ extension AppDelegate  {
         }
         
         
-//        let content = UNMutableNotificationContent()
-//        content.title = textTitle
-//        content.body = userMessage
-//        content.badge = 1
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-//        let request = UNNotificationRequest(identifier: "AdForest", content: content, trigger: trigger)
-//        UNUserNotificationCenter.current().add(request) { (error) in
-//            print(error)
-//        }
+        //        let content = UNMutableNotificationContent()
+        //        content.title = textTitle
+        //        content.body = userMessage
+        //        content.badge = 1
+        //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+        //        let request = UNNotificationRequest(identifier: "AdForest", content: content, trigger: trigger)
+        //        UNUserNotificationCenter.current().add(request) { (error) in
+        //            print(error)
+        //        }
         
-       let  banner = NotificationBanner(title: textTitle, subtitle: userMessage, style: .success)
+        let  banner = NotificationBanner(title: textTitle, subtitle: userMessage, style: .success)
         banner.autoDismiss = true
         banner.delegate = self
         banner.show()
@@ -406,7 +406,7 @@ extension AppDelegate  {
     func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
         
     }
-   
-   
+    
+    
     
 }

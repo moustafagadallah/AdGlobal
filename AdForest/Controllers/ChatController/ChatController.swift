@@ -352,11 +352,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             
-            if let imgUrl = URL(string: objData.img) {
-                cell.imgIcon.sd_setShowActivityIndicatorView(true)
-                cell.imgIcon.sd_setIndicatorStyle(.gray)
-                cell.imgIcon.sd_setImage(with: imgUrl, completed: nil)
-            }
+//            if let imgUrl = URL(string: objData.img) {
+//                cell.imgIcon.sd_setShowActivityIndicatorView(true)
+//                cell.imgIcon.sd_setIndicatorStyle(.gray)
+//                cell.imgIcon.sd_setImage(with: imgUrl, completed: nil)
+//            }
 
             return cell
         }

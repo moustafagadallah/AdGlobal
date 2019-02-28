@@ -3,7 +3,7 @@ import RangeSeekSlider
 
 
 protocol RangeNumberDelegate {
-    func rangeValues(minRange: CGFloat, maxRange: CGFloat, fieldType: String, indexPath: Int)
+    func rangeValues(minRange: CGFloat, maxRange: CGFloat, fieldType: String, indexPath: Int,fieldTypeName:String)
 }
 
 
@@ -30,6 +30,7 @@ class RangeValuesTableViewCell : UITableViewCell , RangeSeekSliderDelegate{
     var maximumValue = ""
     var fieldName = ""
     let bgColor = UserDefaults.standard.string(forKey: "mainColor")
+    var fieldTypeNam = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -87,7 +88,7 @@ class RangeValuesTableViewCell : UITableViewCell , RangeSeekSliderDelegate{
             
             txtMinPrice.text = "\(minimumValue)"
             txtMaxPrice.text = "\(maximumValue)"
-            self.delegate?.rangeValues(minRange: minValue, maxRange: maxValue, fieldType: "number_range", indexPath: index)
+            self.delegate?.rangeValues(minRange: minValue, maxRange: maxValue, fieldType: "number_range", indexPath: index,fieldTypeName:fieldTypeNam)
         }
     }
     

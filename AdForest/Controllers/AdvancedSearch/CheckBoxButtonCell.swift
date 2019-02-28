@@ -10,7 +10,7 @@ import UIKit
 import SwiftCheckboxDialog
 
 protocol checkBoxesValues {
-    func checkBoxArrFunc(selectedText: [String], fieldType: String, indexPath: Int)
+    func checkBoxArrFunc(selectedText: [String], fieldType: String, indexPath: Int,fieldTypeName: String)
 
 }
 
@@ -34,6 +34,7 @@ class CheckBoxButtonCell: UITableViewCell,CheckboxDialogViewDelegate {
     var delegateCheckArr : checkBoxesValues?
     var fieldName = ""
     var index = 0
+    var fieldTypeNa = ""
     
     
     var dataArray = [SearchValue]()
@@ -122,16 +123,22 @@ class CheckBoxButtonCell: UITableViewCell,CheckboxDialogViewDelegate {
         
         for value in values.values {
             print("\(value)");
+            allselectedString += "\(value),"
             checkBoxArr.append(value)
+        }
+        if arrCheckValue.count != 0 {
+            btnCheckBox.setTitle(arrCheckValue.joined(separator: ","), for: .normal)
         }
         print(checkBoxArr)
         let countedSet = NSCountedSet(array: checkBoxArr)
         let uniques = checkBoxArr.filter { countedSet.count(for: $0) == 1 }
         print(uniques)
         arrCheckValue = uniques
-        delegateCheckArr?.checkBoxArrFunc(selectedText:arrCheckValue, fieldType: "checkbox", indexPath: index)
-        btnCheckBox.setTitle(arrCheckValue.joined(separator: ","), for: .normal)
-        
+        delegateCheckArr?.checkBoxArrFunc(selectedText:arrCheckValue, fieldType: "checkbox", indexPath: index,fieldTypeName:fieldTypeNa)
+       // btnCheckBox.setTitle(arrCheckValue.joined(separator: ","), for: .normal)
+       
     }
+    
+    
 
 }

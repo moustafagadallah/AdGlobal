@@ -9899,7 +9899,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kdy-BA-qmf">
                                                     <rect key="frame" x="8" y="8" width="304" height="53.5"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qxd-Z1-Udh" customClass="HoshiTextField" customModule="TextFieldEffects">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qxd-Z1-Udh">
                                                             <rect key="frame" x="8" y="8" width="288" height="37.5"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -9917,6 +9917,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="txtEditingChanged:" destination="SpN-8M-GQx" eventType="editingChanged" id="xy7-JI-mKJ"/>
+                                                                <action selector="txtEditingStart:" destination="SpN-8M-GQx" eventType="editingDidBegin" id="V2q-ad-aca"/>
                                                             </connections>
                                                         </textField>
                                                     </subviews>

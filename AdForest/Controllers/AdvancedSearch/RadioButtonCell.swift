@@ -55,7 +55,7 @@ class RadioButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSour
             cell.lblName.text = title
         }
         print(objData.isSelected, indexPath.row)
-        
+        //cell.delegate = self
         if objData.isSelected {
             cell.buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "radio-on-button"), for: .normal)
         }else {

@@ -9,10 +9,9 @@
 import UIKit
 import ActionSheetPicker_3_0
 
-//protocol DateFieldsDelegateMax {
-//    func DateValuesMax(MaxDate: String, fieldType: String, indexPath: Int)
-//}
-
+protocol DateFieldsDelegateMax {
+    func DateValuesMax(MaxDate: String,MinDate: String, fieldType: String, indexPath: Int,fieldTypeName:String)
+}
 
 class CalendarCell: UITableViewCell {
 
@@ -21,6 +20,7 @@ class CalendarCell: UITableViewCell {
             containerView.addShadowToView()
         }
     }
+    
     @IBOutlet weak var oltDate: UIButton! {
         didSet {
             oltDate.contentHorizontalAlignment = .left
@@ -33,14 +33,14 @@ class CalendarCell: UITableViewCell {
         }
     }
     
-    
     //MARK:- Properties
     var currentDate = ""
     var maxDate = ""
     var fieldName = ""
     var indexP = 0
     let bgColor = UserDefaults.standard.string(forKey: "mainColor")
-    //var delegateMax: DateFieldsDelegateMax?
+    var delegateMax: DateFieldsDelegateMax?
+    var fieldTypeNam = ""
     
     
     override func awakeFromNib() {
@@ -73,7 +73,7 @@ class CalendarCell: UITableViewCell {
             let selectedDate = dateFormatter.string(from: value as! Date)
             self.oltDate.setTitle(selectedDate, for: .normal)
             self.currentDate = selectedDate
-          
+            self.delegateMax?.DateValuesMax(MaxDate: (self.btnDateMax.titleLabel?.text)! , MinDate: self.currentDate,  fieldType: "textfield_date" , indexPath: self.indexP,fieldTypeName:self.fieldTypeNam)
             return
         }, cancel: { ActionStringCancelBlock in return }, origin: sender as! UIView)
         datePicker?.show()
@@ -93,7 +93,7 @@ class CalendarCell: UITableViewCell {
             let selectedDate = dateFormatter.string(from: value as! Date)
             self.btnDateMax.setTitle(selectedDate, for: .normal)
             self.maxDate = selectedDate
-            //self.delegateMax?.DateValuesMax(MaxDate: self.maxDate , fieldType: "textfield_date" , indexPath: self.indexP)
+            self.delegateMax?.DateValuesMax(MaxDate: self.maxDate , MinDate:(self.oltDate.titleLabel?.text)! ,  fieldType: "textfield_date" , indexPath: self.indexP,fieldTypeName:self.fieldTypeNam)
             
             return
         }, cancel: { ActionStringCancelBlock in return }, origin: sender as! UIView)

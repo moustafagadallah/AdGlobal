@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ColorRadioDelegateAdpost {
-    func colorVal(colorCode: String, fieldType: String, indexPath: Int,isSelected: Bool)
+    func colorVal(colorCode: String, fieldType: String, indexPath: Int,isSelected: Bool, fieldNam:String)
 }
 
 
@@ -82,7 +82,7 @@ class RadioColorAdTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
             id = dataArray[indexPath.row].id
             selectedColor = dataArray[indexPath.row].id
             isselected = true
-            self.delegate?.colorVal(colorCode: selectedColor, fieldType: "radio_color", indexPath: index, isSelected: true)
+            self.delegate?.colorVal(colorCode: selectedColor, fieldType: "radio_color", indexPath: index, isSelected: true,fieldNam: fieldName)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

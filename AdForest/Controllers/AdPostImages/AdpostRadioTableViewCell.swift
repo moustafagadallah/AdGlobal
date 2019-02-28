@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol radioDelegateAdpost {
-    func radVal(rVal: String, fieldType: String, indexPath: Int,isSelected: Bool)
+    func radVal(rVal: String, fieldType: String, indexPath: Int,isSelected: Bool,fieldNam:String)
 }
 
 class AdpostRadioTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
@@ -32,6 +32,7 @@ class AdpostRadioTableViewCell: UITableViewCell, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var lblTitle: UILabel!
     var seletedRad = ""
+    var fieldName = ""
     
     
     //MARK:- Properties
@@ -70,7 +71,7 @@ class AdpostRadioTableViewCell: UITableViewCell, UITableViewDelegate, UITableVie
         if objData.isChecked {
             cell.buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "radio-on-button"), for: .normal)
             cell.buttonRadio.isSelected = true
-            delegate?.radVal(rVal: seletedRad, fieldType: "radio", indexPath: index, isSelected: objData.isChecked)
+            delegate?.radVal(rVal: seletedRad, fieldType: "radio", indexPath: index, isSelected: objData.isChecked,fieldNam:fieldName)
         }else {
             cell.buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "empty (1)"), for: .normal)
         }

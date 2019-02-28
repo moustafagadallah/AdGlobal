@@ -13,7 +13,7 @@ import GooglePlacePicker
 
 
 protocol SearchAutoDelegate {
-    func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int)
+    func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int,fieldTypeName:String)
 }
 
 class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate, GMSAutocompleteViewControllerDelegate, UITextViewDelegate {
@@ -35,6 +35,7 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     var fieldName = ""
     var delegate : SearchAutoDelegate?
     var index = 0
+    var fieldTypeNam = ""
     
     
     //MARK:- View Life Cycle
@@ -69,7 +70,7 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
         print("Place Name : \(place.name)")
         print("Place Address : \(place.formattedAddress ?? "null")")
         txtAutoComplete.text = place.formattedAddress
-        self.delegate?.searchAutoValue(searchAuto:txtAutoComplete.text! , fieldType: "glocation_textfield", indexPath: index)
+        self.delegate?.searchAutoValue(searchAuto:txtAutoComplete.text! , fieldType: "glocation_textfield", indexPath: index,fieldTypeName:fieldTypeNam)
         self.appDel.dissmissController()
     }
     

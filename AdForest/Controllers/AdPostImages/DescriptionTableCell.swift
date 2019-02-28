@@ -13,7 +13,7 @@ protocol textViewValueDelegate {
 }
 
 protocol textValDescDelegate {
-    func textValDesc(value: String,indexPath: Int, fieldType:String, section: Int)
+    func textValDesc(value: String,indexPath: Int, fieldType:String, section: Int,fieldNam:String)
 }
 
 
@@ -56,7 +56,7 @@ class DescriptionTableCell: UITableViewCell, UITextViewDelegate {
     func textViewDidChangeSelection(_ textView: UITextView) {
         print("Change Selection \(textView.text!)")
         delegate?.changeTextViewCharacters(value: txtDescription.text!, fieldTitle: fieldName)
-        delegateDes?.textValDesc(value: txtDescription.text!, indexPath: index, fieldType: "textarea", section: section)
+        delegateDes?.textValDesc(value: txtDescription.text!, indexPath: index, fieldType: "textarea", section: section,fieldNam: fieldName)
     }
     
 

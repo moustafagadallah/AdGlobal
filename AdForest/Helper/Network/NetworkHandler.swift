@@ -73,6 +73,10 @@ class NetworkHandler {
             print(Parameters.self)
             manager.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).validate(statusCode: 200..<600).responseJSON
                 { (response) -> Void in
+                    
+                    print(response)
+                    
+                    
                 if let userToken = response.response?.allHeaderFields["Authorization"] as? String {
                     print(userToken)
                     debugPrint(userToken)
@@ -546,12 +550,14 @@ class NetworkHandler {
         Alamofire.upload(multipartFormData:{ multipartFormData in
             var i = 0
             for image in imagesArray {
+          
                 if let imageData = UIImageJPEGRepresentation(image, 0.5) {
+                
                 print(imageData)
                 multipartFormData.append(imageData,  withName: "nverness\(i).jpg", fileName: "Inverness\(i).jpg" , mimeType: "image/jpeg")
                     i = i + 1
                 print(fileName)
-                print(image.description)
+                print("Reduced..!\(image.description)")
                 }
             }
             if let parameters = params {

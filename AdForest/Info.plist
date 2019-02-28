@@ -21,20 +21,21 @@
 	<string></string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>App needs to access Camera while posting ad as well as for profile picture!</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.0.2</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
 	<key>FacebookAppID</key>
 	<string>182768595667719</string>
 	<key>NSAppTransportSecurity</key>

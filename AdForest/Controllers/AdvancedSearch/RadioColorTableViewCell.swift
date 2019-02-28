@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ColorRadioDelegate {
-    func colorValue(colorCode: String, fieldType: String, indexPath: Int)
+    func colorValue(colorCode: String, fieldType: String, indexPath: Int, fieldTypeNam: String)
 }
 
 
@@ -41,6 +41,7 @@ class RadioColorTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     var delegate: ColorRadioDelegate?
     //var delegate:RangeNumberDelegate?
     var index = 0
+    var fieldTypeName = ""
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -80,7 +81,7 @@ class RadioColorTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
        cell.imgViewRadio.image = cell.imgViewRadio.image?.withRenderingMode(.alwaysTemplate)
        cell.imgViewRadio.tintColor = UIColor(hex: objData.id!)
        id = objData.id
-       self.delegate?.colorValue(colorCode: objData.id, fieldType: "radio_color", indexPath: index)
+        self.delegate?.colorValue(colorCode: objData.id, fieldType: "radio_color", indexPath: index,fieldTypeNam : fieldTypeName)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

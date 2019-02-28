@@ -133,8 +133,8 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
         options.isNetworkAccessAllowed = true
         
         let manager = PHImageManager.default()
-        let newSize = CGSize(width: size.width * type(of: self).scale,
-                             height: size.height * type(of: self).scale)
+        let newSize = CGSize(width: 200 * type(of: self).scale,
+                             height: 200 * type(of: self).scale)
         activityIndicator?.startAnimating()
         imageRequestID = manager.requestImage(for: asset, targetSize: newSize, contentMode: .aspectFill, options: options, resultHandler: { [weak self] (result, info) in
             self?.activityIndicator?.stopAnimating()
@@ -181,8 +181,6 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
                 self?.cache?.setObject(data as NSData,
                                        forKey: indexPath as NSIndexPath,
                                        cost: data.count)
-                
-                
                 self?.imageView?.image = image
             }
         }
