@@ -123,6 +123,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             topConstraint.constant -= 30
             btnClose.isHidden = true
+            UserDefaults.standard.set("3", forKey: "fromNotification")
         }
     }
     
@@ -391,6 +392,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let addDetailVc = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
         addDetailVc.ad_id = Int(ad_id)!
         self.navigationController?.pushViewController(addDetailVc, animated: true)
+       // self.present(addDetailVc, animated: true)
     }
     
     //MARK:- API Call

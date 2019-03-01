@@ -49,7 +49,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         super.viewDidLoad()
         self.refreshButton()
         self.addBackButtonToNavigationBar()
-        self.adForest_getSearchData()
+        //self.adForest_getSearchData()
         self.adMob()
         self.googleAnalytics(controllerName: "Advanced Search Controller")
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.searchDynamicData), object: nil, queue: nil) { (notification) in
@@ -62,7 +62,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //self.adForest_getSearchData()
+        self.adForest_getSearchData()
         
     }
     //MARK:- Custom
@@ -162,9 +162,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         var param: [String: Any] = ["custom_fields": custom ?? ""]
         param.merge(with: addInfoDictionary)
         print(param)
-        
         self.adForest_postData(parameter: param as NSDictionary)
-        //param = [:]
+       
     }
     
     func showLoader() {
@@ -239,6 +238,9 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.lblTitle.text = title
                 }
                 cell.dataArray = objData.values
+                cell.fieldNam = objData.fieldTypeName
+                cell.index = indexPath.row
+                cell.delegate = self
                 //cell.tableView.reloadData()
                 return cell
             }
@@ -322,6 +324,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 if let title = objData.title {
                     cell.lblTitle.text = title
                     cell.title = title
+                    cell.btnCheckBox.setTitle(title, for: .normal)
                 }
                 cell.fieldName = objData.fieldTypeName
                 cell.dataArray = objData.values
@@ -420,21 +423,20 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                             }
                         }
                         
-                        if objData.fieldType == "radio" {
-                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RadioButtonCell {
-
-                                let rad = UserDefaults.standard.string(forKey: "rad")
-                                let radVal = rad
-                                var obj = SearchData()
-                                obj.fieldType = "radio"
-                                var fieldName = "optiosn_radio_buttons"//obj.fieldTypeName
-                                //print(fieldName)
-                                obj.fieldTypeName = fieldName //"radio"
-
-                                obj.fieldVal = radVal
-                                self.data.append(obj)
-                            }
-                        }
+//                        if objData.fieldType == "radio" {
+//                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RadioButtonCell {
+//
+//                                let rad = UserDefaults.standard.string(forKey: "rad")
+//                                let radVal = rad
+//                                var obj = SearchData()
+//                                obj.fieldType = "radio"
+//                                //print(fieldName)
+//                                obj.fieldTypeName = cell.fieldName //"radio"
+//
+//                                obj.fieldVal = radVal
+//                                self.data.append(obj)
+//                            }
+//                        }
 
                         
 //                        if objData.fieldType == "glocation_textfield" {
@@ -569,6 +571,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 self.newArray = successResponse.data
                 self.searchTitle = successResponse.extra.searchBtn
                 self.tableView.reloadData()
+                
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
@@ -595,9 +598,9 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 categoryVC.currentPage = successResponse.pagination.currentPage
                 categoryVC.maximumPage = successResponse.pagination.maxNumPages
                 categoryVC.title = successResponse.extra.title
-               // self.tableView.reloadData()
-              
+                self.tableView.reloadData()
                 self.navigationController?.pushViewController(categoryVC, animated: true)
+            
                 
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -612,8 +615,21 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 }
 
 
-extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax{
-   
+extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate{
+ 
+    
+    func radioValue(radioVal: String, fieldType: String, indexPath: Int , fieldName:String) {
+        if fieldType == "radio" {
+            //print("Index Path Selected \(indexPath,MinDate,MaxDate,fieldType)")
+            var obj = SearchData()
+            obj.fieldType = fieldType
+            obj.fieldVal = radioVal
+            obj.fieldTypeName = fieldName //"textfield_date"
+            self.data.append(obj)
+        }
+    }
+    
+
     func DateValuesMax(MaxDate: String, MinDate: String, fieldType: String, indexPath: Int,fieldTypeName:String) {
         
         if fieldType == "textfield_date" {

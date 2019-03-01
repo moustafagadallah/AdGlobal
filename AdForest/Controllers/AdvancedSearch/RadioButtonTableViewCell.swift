@@ -9,9 +9,6 @@
 import UIKit
 
 
-protocol radioDelegate {
-    func radioValue(radioVal: String, fieldType: String, indexPath: Int)
-}
 
 class RadioButtonTableViewCell : UITableViewCell {
     
@@ -24,7 +21,8 @@ class RadioButtonTableViewCell : UITableViewCell {
     var radioButtonCell: RadioButtonCell!
     var indexPath = 0
     var index = 0
-    var delegate : radioDelegate?
+    var radText = ""
+   
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -51,20 +49,21 @@ class RadioButtonTableViewCell : UITableViewCell {
     @objc func radioButtonTapped(_ radioButton: UIButton) {
         if (radioButtonCell.dataArray[indexPath].isSelected) {
             buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "empty (1)"), for: .normal)
-            self.delegate?.radioValue(radioVal: (radioButton.titleLabel?.text)!, fieldType: "radio", indexPath: index)
+            //self.delegate?.radioValue(radioVal: (radioButton.titleLabel?.text)!, fieldType: "radio", indexPath: index)
             //  data?.isSelected= false
             print("Text Button is:\(radioButton.titleLabel?.text)")
             radioButtonCell.dataArray[indexPath].isSelected = false
-            delegate?.radioValue(radioVal:(radioButton.titleLabel?.text)! , fieldType: "radio", indexPath: index)
+           
             UserDefaults.standard.set(radioButton.titleLabel?.text, forKey: "rad")
+            radText = (radioButton.titleLabel?.text)!
             
         }
         else {
             print("Text Button is:\(radioButton.titleLabel?.text)")
             UserDefaults.standard.set(radioButton.titleLabel?.text, forKey: "rad")
+            radText = (radioButton.titleLabel?.text)!
             buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "radio-on-button"), for: .normal)
             // data?.isSelected = true
-            self.delegate?.radioValue(radioVal:(radioButton.titleLabel?.text)!, fieldType: "radio", indexPath: index)
             radioButtonCell.dataArray[indexPath].isSelected = true
         }
         

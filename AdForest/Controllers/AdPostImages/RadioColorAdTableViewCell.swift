@@ -65,15 +65,15 @@ class RadioColorAdTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         cell.dataArray = dataArray
         id = cell.id
         print(objData.id)
-        //cell.reloadInputViews()
+        cell.reloadInputViews()
         cell.initializeData(value: objData, radioButtonCellRef: self, index: indexPath.row)
         
         return cell
         
     }
+ 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let cell = collectionView.cellForItem(at: indexPath) as! RadioColorAdCollectionViewCell
             print(dataArray[indexPath.row].id!)
             cell.imgViewRadio.image = UIImage(named: "radio-on-button")

@@ -9,6 +9,11 @@
 import UIKit
 
 
+
+protocol radioDelegate {
+    func radioValue(radioVal: String, fieldType: String, indexPath: Int,fieldName:String)
+}
+
 class RadioButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
     
     //MARK:- Outlets
@@ -31,7 +36,9 @@ class RadioButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- Properties
     var dataArray = [SearchValue]()
-    
+    var fieldNam = ""
+    var delegate : radioDelegate?
+    var index = 0
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -61,7 +68,7 @@ class RadioButtonCell: UITableViewCell, UITableViewDelegate, UITableViewDataSour
         }else {
             cell.buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "empty (1)"), for: .normal)
         }
-        
+         delegate?.radioValue(radioVal:cell.radText , fieldType: "radio", indexPath: index,fieldName: fieldNam)
         cell.initializeData(value: objData, radioButtonCellRef: self, index: indexPath.row)
         //cell.initCellItem()
         return cell

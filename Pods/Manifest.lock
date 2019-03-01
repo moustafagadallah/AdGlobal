@@ -101,7 +101,7 @@ PODS:
   - NVActivityIndicatorView (4.1.1):
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
-  - OpalImagePicker (1.6.0)
+  - OpalImagePicker (2.0.0)
   - PersonalizedAdConsent (1.0.3)
   - Protobuf (3.5.0)
   - RangeSeekSlider (1.7.0)
@@ -231,7 +231,7 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NotificationBannerSwift: 5d0191ae57c4b38e484dab4912e32d1ed99fce61
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
-  OpalImagePicker: 1b8bdb6b5f426f493ba94faf6cabc30fcc663f91
+  OpalImagePicker: efc91612ef5b3849314801f68fddc26200da9435
   PersonalizedAdConsent: b50a8a5d6065b6db23121e8fcc0dce2ae983f6ea
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   RangeSeekSlider: 0386c5a9aa5ebcb2fa5238e8a627280cf46c7c0a
@@ -245,6 +245,6 @@ SPEC CHECKSUMS:
   XLPagerTabStrip: 22d4c58200d7c105e0e407ab6bfd01a5d85014be
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 3041df387d2c3c984df819b37179f6ad219e4529
+PODFILE CHECKSUM: 74fd3daf67a9fc03a72602faf6d5f93b74d4866d
 
 COCOAPODS: 1.5.3

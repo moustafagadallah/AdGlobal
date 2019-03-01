@@ -212,7 +212,7 @@ extension AppDelegate  {
         //  let content = notification.request.content
         completionHandler([.alert, .sound, .badge])
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         switch response.actionIdentifier {
         case UNNotificationDefaultActionIdentifier:
@@ -384,7 +384,6 @@ extension AppDelegate  {
                 chatVC.receiver_id = receiverID
                 chatVC.messageType = type
                 self.presentController(ShowVC: chatVC)
-                
             }
         }
         banner.onSwipeUp = {
@@ -406,7 +405,5 @@ extension AppDelegate  {
     func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
         
     }
-    
-    
     
 }

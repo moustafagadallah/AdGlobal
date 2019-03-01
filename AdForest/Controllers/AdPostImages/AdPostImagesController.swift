@@ -658,6 +658,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage]) {
+
         if images.isEmpty {
         }
         else {

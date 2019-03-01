@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6922ABBC4C63DF7E194B0EA8CA06C738"
+               BlueprintIdentifier = "0D139A100DAA2BBF2EB17D9452D6AB60"
                BuildableName = "OpalImagePickerResources.bundle"
                BlueprintName = "OpalImagePicker-OpalImagePickerResources"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6922ABBC4C63DF7E194B0EA8CA06C738"
+            BlueprintIdentifier = "0D139A100DAA2BBF2EB17D9452D6AB60"
             BuildableName = "OpalImagePickerResources.bundle"
             BlueprintName = "OpalImagePicker-OpalImagePickerResources"
             ReferencedContainer = "container:Pods.xcodeproj">

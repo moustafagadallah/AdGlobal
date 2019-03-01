@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8A7D4FF61EC837042F7C267299332425"
+               BlueprintIdentifier = "180152E0292035306B7EB4BCB3D7B3ED"
                BlueprintName = "OpalImagePicker"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "OpalImagePicker.framework">

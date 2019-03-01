@@ -67,7 +67,7 @@ target 'AdForest' do
      #pod "RichEditorView"
 
     #Gallery Image Picker
-     pod 'OpalImagePicker'
+    pod 'OpalImagePicker'
 	
     #ProgressBar
      pod 'RangeSeekSlider'
