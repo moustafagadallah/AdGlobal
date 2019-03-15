@@ -89,6 +89,7 @@ PODS:
     - ImageSlideshow/Core
   - ImageSlideshow/Core (1.4.1)
   - IQKeyboardManagerSwift (5.0.7)
+  - JGProgressHUD (2.0.3)
   - MarqueeLabel/Swift (3.2.0)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -138,6 +139,7 @@ DEPENDENCIES:
   - ImageSlideshow
   - ImageSlideshow/Alamofire
   - IQKeyboardManagerSwift
+  - JGProgressHUD
   - NotificationBannerSwift
   - NVActivityIndicatorView
   - OpalImagePicker
@@ -181,6 +183,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - ImageSlideshow
     - IQKeyboardManagerSwift
+    - JGProgressHUD
     - MarqueeLabel
     - nanopb
     - NotificationBannerSwift
@@ -227,6 +230,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   ImageSlideshow: 1bb0e610e28a71e8936d57265d882f61714a470b
   IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
+  JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NotificationBannerSwift: 5d0191ae57c4b38e484dab4912e32d1ed99fce61
@@ -245,6 +249,6 @@ SPEC CHECKSUMS:
   XLPagerTabStrip: 22d4c58200d7c105e0e407ab6bfd01a5d85014be
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 74fd3daf67a9fc03a72602faf6d5f93b74d4866d
+PODFILE CHECKSUM: 4c5ea71f15c6de43ba1617d1f4f8a7b0bf2449a7
 
 COCOAPODS: 1.5.3

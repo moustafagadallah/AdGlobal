@@ -75,6 +75,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //var homeTitle = ""
     var numberOfColumns:CGFloat = 0
     
+    var heightConstraintTitleLatestad = 0
+    var heightConstraintTitlead = 0
+    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -88,7 +91,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.addLeftBarButtonWithImage(UIImage(named: "menu")!)
         self.navigationButtons()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
@@ -138,7 +141,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- Near by search Delaget method
-    
     func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool) {
         self.latitude = lat
         self.longitude = long
@@ -215,7 +217,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func swiftyAd(_ swiftyAd: SwiftyAd, didRewardUserWithAmount rewardAmount: Int) {
         print(rewardAmount)
     }
-
+    
     //MARK:- Search Controller
     @objc func actionSearch(_ sender: Any) {
         if isNavSearchBarShowing {
@@ -374,6 +376,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     if let placeHolder = objData.placeholder {
                         cell.txtSearch.placeholder = placeHolder
                     }
+                    
+                    if UserDefaults.standard.bool(forKey: "isRtl") {
+                        cell.lblTitle.textAlignment = .right
+                        cell.lblSubTitle.textAlignment = .right
+                    } else {
+                        cell.lblTitle.textAlignment = .left
+                        cell.lblSubTitle.textAlignment = .left
+                    }
                 }
                 return cell
             case "blogNews":
@@ -445,6 +455,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     cell.delegate = self
                     cell.dataArray = self.latestAdsArray
+                    heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
                     cell.collectionView.reloadData()
                     return cell
                 }
@@ -488,6 +499,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 cell.dataArray = objData.data
                 cell.delegate = self
+                
+                heightConstraintTitlead = Int(cell.heightConstraintTitle.constant)
                 cell.reloadData()
                 return cell
             case "nearby":
@@ -789,7 +802,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if dataArray.isEmpty {
                     height = 0
                 } else {
-                    height = 270
+                    height = CGFloat(290 + heightConstraintTitlead)
                 }
             } else if position == "blogNews"{
                 if self.isShowBlog {
@@ -809,7 +822,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             } else if position ==  "latest_ads" {
                 if self.isShowLatest {
-                    height = 270
+                    height = CGFloat(290 + heightConstraintTitleLatestad)
                 } else {
                     height = 0
                 }
@@ -986,7 +999,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 //To Show Title After Search Bar Hidden
                 self.viewAllText = successResponse.data.viewAll
-    
+                
                 //Get value of show/hide buttons of location and categories
                 if successResponse.data.catIconsColumnBtn != nil {
                     self.isShowCategoryButton = successResponse.data.catIconsColumnBtn.isShow
@@ -1047,38 +1060,38 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 AddsHandler.sharedInstance.objLatestAds = successResponse.data.latestAds
                 
                 // Set Up AdMob Banner & Intersitial ID's
-                    UserHandler.sharedInstance.objAdMob = successResponse.settings.ads
-                    var isShowAd = false
-                    if let adShow = successResponse.settings.ads.show {
-                        isShowAd = adShow
+                UserHandler.sharedInstance.objAdMob = successResponse.settings.ads
+                var isShowAd = false
+                if let adShow = successResponse.settings.ads.show {
+                    isShowAd = adShow
+                }
+                if isShowAd {
+                    SwiftyAd.shared.delegate = self
+                    var isShowBanner = false
+                    var isShowInterstital = false
+                    
+                    if let banner = successResponse.settings.ads.isShowBanner {
+                        isShowBanner = banner
                     }
-                    if isShowAd {
-                        SwiftyAd.shared.delegate = self
-                        var isShowBanner = false
-                        var isShowInterstital = false
-                        
-                        if let banner = successResponse.settings.ads.isShowBanner {
-                            isShowBanner = banner
-                        }
-                        if let intersitial = successResponse.settings.ads.isShowInitial {
-                            isShowInterstital = intersitial
-                        }
-                        if isShowBanner {
-                            SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
-                            self.tableView.translatesAutoresizingMaskIntoConstraints = false
-                            if successResponse.settings.ads.position == "top" {
-                                self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
-                                SwiftyAd.shared.showBanner(from: self, at: .top)
-                            } else {
-                                self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
-                                SwiftyAd.shared.showBanner(from: self, at: .bottom)
-                            }
-                        }
-                        if isShowInterstital {
-                            SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
-                            SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+                    if let intersitial = successResponse.settings.ads.isShowInitial {
+                        isShowInterstital = intersitial
+                    }
+                    if isShowBanner {
+                        SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
+                        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+                        if successResponse.settings.ads.position == "top" {
+                            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
+                            SwiftyAd.shared.showBanner(from: self, at: .top)
+                        } else {
+                            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
+                            SwiftyAd.shared.showBanner(from: self, at: .bottom)
                         }
                     }
+                    if isShowInterstital {
+                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
+                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+                    }
+                }
                 // Here I set the Google Analytics Key
                 var isShowAnalytic = false
                 if let isShow = successResponse.settings.analytics.show {

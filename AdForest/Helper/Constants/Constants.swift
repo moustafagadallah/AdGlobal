@@ -13,9 +13,8 @@ import DeviceKit
 class Constants {
     struct  URL {
     
-       //static let ipAddress = "https://www.bazariazad.com/"
-        //static let ipAddress =  "http://adforest-testapp.scriptsbundle.com/"
-        static let ipAddress =    "http://adforest-api.scriptsbundle.com/"
+        static let ipAddress =  "http://adforest-testapp.scriptsbundle.com/"
+        //static let ipAddress =    "http://adforest-api.scriptsbundle.com/"
         
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
@@ -101,12 +100,12 @@ class Constants {
 
     struct customCodes {
         //Live
-        static let purchaseCode = "aaBMQWH8vIWZjZOR07nEyJbOnqrzWbHk-ios"
-        static let securityCode = "212PQoz1zAICAxvui55AZuSTNhajjTTs-ios"
+        //static let purchaseCode = "aaBMQWH8vIWZjZOR07nEyJbOnqrzWbHk-ios"
+        //static let securityCode = "212PQoz1zAICAxvui55AZuSTNhajjTTs-ios"
         
         //Test
-        //static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
-        //static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
+        static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
+        static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
         
         //static let purchaseCode = "12cf5f1c-3bc1-406b-bb46-9dfd2726f1ec"
         //static let securityCode = "Ghost2019New"

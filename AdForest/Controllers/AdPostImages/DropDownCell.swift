@@ -31,6 +31,7 @@ class DropDownCell: UITableViewCell {
     var dropDownValuesArray = [String]()
     var dropDownKeysArray = [String]()
     var fieldTypeNameArray = [String]()
+    var hasFieldsArr = [Bool]()
     
     var selectedKey = ""
     var selectedValue = ""
@@ -40,6 +41,7 @@ class DropDownCell: UITableViewCell {
     var delegate:textSelectDropDown?
     var fieldNam = ""
     var bidOnOfCell = 0
+    var hasSub:Bool = true
     
     var selectedIndex = 0
     var objSaved = AdPostField()
@@ -77,6 +79,8 @@ class DropDownCell: UITableViewCell {
             self.selectedValue = item
             self.selectedKey = self.dropDownKeysArray[index]
             self.param = self.fieldTypeNameArray[index]
+            self.hasSub = self.hasFieldsArr[index]
+            print(self.hasSub)
             print(self.param, self.selectedKey)
             self.bidOnOfCell = index
             self.objSaved.fieldVal = item

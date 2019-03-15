@@ -50,7 +50,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var btnClose: UIButton!
     @IBAction func btnCloseClicked(_ sender: UIButton) {
         UserDefaults.standard.set("3", forKey: "fromNotification")
-        self.dismiss(animated: true, completion: nil)
+        appDelegate.moveToHome()
     }
     @IBOutlet weak var containerViewSendMessage: UIView! {
         didSet {
@@ -309,8 +309,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     //let height = cell.heightConstraint.constant + 20
                     cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
                 }
-                
-                
             }
             if let imgUrl = URL(string: objData.img) {
                 cell.imgProfile.sd_setShowActivityIndicatorView(true)
@@ -322,8 +320,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         else {
             
             let cell: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-         
-            
+        
             if UserDefaults.standard.bool(forKey: "isRtl") {
                 if let message = objData.text {
                     let image = UIImage(named: "bubble_sent")
@@ -392,7 +389,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let addDetailVc = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
         addDetailVc.ad_id = Int(ad_id)!
         self.navigationController?.pushViewController(addDetailVc, animated: true)
-       // self.present(addDetailVc, animated: true)
+
     }
     
     //MARK:- API Call

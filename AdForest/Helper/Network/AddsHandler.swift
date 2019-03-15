@@ -8,6 +8,8 @@
 
 import Foundation
 import Alamofire
+import  JGProgressHUD
+import UIKit
 
 class AddsHandler {
     
@@ -59,6 +61,14 @@ class AddsHandler {
     
     var isCategoeyTempelateOn = false
     var adPostAdId = 0
+    
+    
+    private lazy var uploadingProgressBar: JGProgressHUD = {
+        let progressBar = JGProgressHUD(style: .dark)
+        progressBar.indicatorView = JGProgressHUDRingIndicatorView()
+        progressBar.textLabel.text = "Uploading"
+        return progressBar
+    }()
     
     //MARK:- Get Home Data
     class func homeData(success: @escaping(HomeRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
@@ -432,8 +442,9 @@ class AddsHandler {
         
         let url = Constants.URL.baseUrl+Constants.URL.adPostUploadImages
         print(url)
-        NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "file", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
+        NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "File", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
             print(uploadProgress)
+           
         }, success: { (successResponse) in
             let dictionary = successResponse as! [String: Any]
             let objImg = AdPostImagesRoot(fromDictionary: dictionary)

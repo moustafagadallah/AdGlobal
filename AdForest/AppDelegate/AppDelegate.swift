@@ -305,6 +305,7 @@ extension AppDelegate  {
         completionHandler(UIBackgroundFetchResult.newData)
     }
     
+    
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
         let fcmToken = Messaging.messaging().fcmToken
@@ -313,83 +314,134 @@ extension AppDelegate  {
         defaults.synchronize()
     }
     
+    
+//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//        print("received remote notification")
+//    }
+    
+  
+    
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        
         print("Received data message: \(remoteMessage.appData)")
         
-        guard let adID = remoteMessage.appData[AnyHashable("adId")]as? String else  {
-            return
-        }
-        guard let textFrom = remoteMessage.appData[AnyHashable("from")] as? String else {
-            return
-        }
-        guard let textTitle = remoteMessage.appData[AnyHashable("title")] as? String else  {
-            return
-        }
-        guard let userMessage = remoteMessage.appData[AnyHashable("message")] as? String else {
-            return
-        }
-        guard let senderID = remoteMessage.appData[AnyHashable("senderId")] as? String else {
-            return
-        }
-        guard let receiverID = remoteMessage.appData[AnyHashable("recieverId")] as? String else {
-            return
-        }
-        guard let type = remoteMessage.appData[AnyHashable("type")] as? String else {
-            return
-        }
         guard let topic = remoteMessage.appData[AnyHashable("topic")] as? String else {
             return
         }
         
-        let state = UIApplication.shared.applicationState
-        
-        if state == .background {
+        if topic == "chat"{
             
-        }
-            
-        else if state == .inactive {
-            
-        }
-            
-        else if state == .active {
-            
-        }
-        
-        
-        //        let content = UNMutableNotificationContent()
-        //        content.title = textTitle
-        //        content.body = userMessage
-        //        content.badge = 1
-        //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-        //        let request = UNNotificationRequest(identifier: "AdForest", content: content, trigger: trigger)
-        //        UNUserNotificationCenter.current().add(request) { (error) in
-        //            print(error)
-        //        }
-        
-        let  banner = NotificationBanner(title: textTitle, subtitle: userMessage, style: .success)
-        banner.autoDismiss = true
-        banner.delegate = self
-        banner.show()
-        banner.onTap = {
-            if topic == "broadcast" {
-                banner.dismiss()
-                self.moveToHome()
+            guard let adID = remoteMessage.appData[AnyHashable("adId")]as? String else  {
+                return
             }
-            if topic == "chat" {
-                banner.dismiss()
-                let chatVC = self.storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
-                UserDefaults.standard.set("1", forKey: "fromNotification")
-                chatVC.ad_id = adID
-                chatVC.sender_id = senderID
-                chatVC.receiver_id = receiverID
-                chatVC.messageType = type
-                self.presentController(ShowVC: chatVC)
+            guard let textFrom = remoteMessage.appData[AnyHashable("from")] as? String else {
+                return
             }
+            guard let textTitle = remoteMessage.appData[AnyHashable("title")] as? String else  {
+                return
+            }
+            guard let userMessage = remoteMessage.appData[AnyHashable("message")] as? String else {
+                return
+            }
+            guard let senderID = remoteMessage.appData[AnyHashable("senderId")] as? String else {
+                return
+            }
+            guard let receiverID = remoteMessage.appData[AnyHashable("recieverId")] as? String else {
+                return
+            }
+            guard let type = remoteMessage.appData[AnyHashable("type")] as? String else {
+                return
+            }
+            
+            
+            let state = UIApplication.shared.applicationState
+            
+            if state == .background {
+                
+            }
+                
+            else if state == .inactive {
+                
+            }
+                
+            else if state == .active {
+                
+            }
+            
+            let  banner = NotificationBanner(title: textTitle, subtitle: userMessage, style: .success)
+            banner.autoDismiss = true
+            banner.delegate = self
+            banner.show()
+            banner.onTap = {
+                if topic == "broadcast" {
+                    banner.dismiss()
+                    self.moveToHome()
+                }
+                if topic == "chat" {
+                    banner.dismiss()
+                    
+                    let chatVC = self.storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                    let nav: UINavigationController = UINavigationController(rootViewController: chatVC)
+                    chatVC.ad_id = adID
+                    chatVC.sender_id = senderID
+                    chatVC.receiver_id = receiverID
+                    chatVC.messageType = type
+                    self.window?.rootViewController = nav
+                    UserDefaults.standard.set("1", forKey: "fromNotification")
+                    self.window?.makeKeyAndVisible()
+                }
+            }
+            banner.onSwipeUp = {
+                banner.dismiss()
+            }
+            
+        }else{
+            
+            guard let data = remoteMessage.appData[AnyHashable("data")]as? String else  {
+                return
+            }
+            
+            
+            let dict = convertToDictionary(text: data)
+            print("Dictionary is: \(dict!)")
+            let title = dict!["title"] as! String
+            let message = dict!["message"] as! String
+            
+            
+            let  banner = NotificationBanner(title: title, subtitle:message, style: .success)
+            banner.autoDismiss = true
+            banner.delegate = self
+            banner.show()
+            banner.onTap = {
+                if topic == "broadcast" {
+                    banner.dismiss()
+                    self.moveToHome()
+                }
+                if topic == "chat" {
+                    banner.dismiss()
+                    
+                    let chatVC = self.storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                    let nav: UINavigationController = UINavigationController(rootViewController: chatVC)
+                    //                chatVC.ad_id = adID
+                    //                chatVC.sender_id = senderID
+                    //                chatVC.receiver_id = receiverID
+                    //                chatVC.messageType = type
+                    self.window?.rootViewController = nav
+                    UserDefaults.standard.set("1", forKey: "fromNotification")
+                    self.window?.makeKeyAndVisible()
+                }
+            }
+            banner.onSwipeUp = {
+                banner.dismiss()
+            }
+            
         }
-        banner.onSwipeUp = {
-            banner.dismiss()
-        }
+        
+        
     }
+
+    
+    
     func notificationBannerWillAppear(_ banner: BaseNotificationBanner) {
         
     }
@@ -404,6 +456,17 @@ extension AppDelegate  {
     
     func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
         
+    }
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
     }
     
 }

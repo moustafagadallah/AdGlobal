@@ -19,6 +19,8 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
         }
     }
     
+    @IBOutlet weak var heightConstraintTitle: NSLayoutConstraint!
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
@@ -36,8 +38,8 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
         }
     }
     
-    
     //MARK:- Properties
+    
     var dataArray = [HomeAdd]()
     var delegate : AddDetailDelegate?
 

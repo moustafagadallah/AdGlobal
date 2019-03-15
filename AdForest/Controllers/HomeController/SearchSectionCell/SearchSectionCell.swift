@@ -47,11 +47,14 @@ class SearchSectionCell: UITableViewCell, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        
         if UserDefaults.standard.bool(forKey: "isRtl") {
             txtSearch.textAlignment = .right
+            lblTitle.textAlignment = .right
+            lblSubTitle.textAlignment = .right
         } else {
             txtSearch.textAlignment = .left
+            lblTitle.textAlignment = .left
+            lblSubTitle.textAlignment = .left
         }
     }
     

@@ -35,4 +35,13 @@ class AddsCollectionCell: UICollectionViewCell {
     }
     
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            lblName.textAlignment = .right
+        } else {
+            lblName.textAlignment = .left
+        }
+    }
+    
 }

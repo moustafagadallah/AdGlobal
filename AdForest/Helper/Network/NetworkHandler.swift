@@ -572,6 +572,8 @@ class NetworkHandler {
                 upload.uploadProgress(closure: { (progress) in
                     let progress = Int(progress.fractionCompleted * 100)
                     uploadProgress(progress)
+                    
+                    
                 })
                 upload.responseJSON { response in
                     let returnValue = response.result.value!

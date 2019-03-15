@@ -12,6 +12,7 @@ import NVActivityIndicatorView
 import Alamofire
 import OpalImagePicker
 import UITextField_Shake
+import JGProgressHUD
 
 class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate {
    //textViewValueDelegate
@@ -29,7 +30,16 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    
+    
     //MARK:- Properties
+    
+    private lazy var uploadingProgressBar: JGProgressHUD = {
+        let progressBar = JGProgressHUD(style: .dark)
+        progressBar.indicatorView = JGProgressHUDRingIndicatorView()
+        progressBar.textLabel.text = "Uploading"
+        return progressBar
+    }()
     
     var imageUrl:URL?
     
@@ -332,8 +342,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
-    
-    
+
     //MARK:- Add Data Delegate
     /*
     func addToFieldsArray(obj: AdPostField, index: Int) {
@@ -416,12 +425,18 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     imagePicker.configuration = configuration
                     imagePicker.imagePickerDelegate = self
                     self.present(imagePicker, animated: true, completion: nil)
-                    
-                    
+                
                 }))
                 actionSheet.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in
                 }))
-                self.present(actionSheet, animated: true, completion: nil)
+                if Constants.isiPadDevice {
+                    actionSheet.popoverPresentationController?.sourceView = cell.containerView
+                    actionSheet.popoverPresentationController?.sourceRect = cell.containerView.bounds
+                    self.present(actionSheet, animated: true, completion: nil)
+                }else{
+                    self.present(actionSheet, animated: true, completion: nil)
+                }
+
             }
         
             return cell
@@ -496,6 +511,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         }
                         cell.dropDownKeysArray.append(String(item.id))
                         cell.dropDownValuesArray.append(item.name)
+                        cell.hasFieldsArr.append(item.hasTemplate)
                         cell.fieldTypeNameArray.append(objData.fieldTypeName)
                     }
                     cell.accountDropDown()
@@ -508,7 +524,6 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.fieldNam = objData.fieldTypeName
                 cell.delegate = self
                 
-
                 return cell
             }
             
@@ -693,10 +708,16 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     //post images
     
     func adForest_uploadImages(param: NSDictionary, images: [UIImage]) {
-        self.showLoader()
-        AddsHandler.adPostUploadImages(parameter: param, imagesArray: images, fileName: "File", uploadProgress: { (uploadProgress) in
+        //self.showLoader()
+        uploadingProgressBar.progress = 0.0
+        uploadingProgressBar.detailTextLabel.text = "0% Completed"
+        uploadingProgressBar.show(in: view)
+        
+        adPostUploadImages(parameter: param, imagesArray: images, fileName: "File", uploadProgress: { (uploadProgress) in
+
         }, success: { (successResponse) in
-            self.stopAnimating()
+            self.uploadingProgressBar.dismiss(animated: true)
+            //self.stopAnimating()
             if successResponse.success {
                 self.imageArray = successResponse.data.adImages
                 //add image id to array to send to next View Controller and hit to server
@@ -715,6 +736,25 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             self.presentVC(alert)
         }
     }
+    
+     func adPostUploadImages(parameter: NSDictionary , imagesArray: [UIImage], fileName: String, uploadProgress: @escaping(Int)-> Void, success: @escaping(AdPostImagesRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        
+        let url = Constants.URL.baseUrl+Constants.URL.adPostUploadImages
+        print(url)
+        NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "File", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
+            print(uploadProgress)
+            let currentProgress = Float(uploadProgress)/100
+            self.uploadingProgressBar.detailTextLabel.text = "\(uploadProgress)% Completed"
+            self.uploadingProgressBar.setProgress(currentProgress, animated: true)
+        }, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objImg = AdPostImagesRoot(fromDictionary: dictionary)
+            success(objImg)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    
 }
 
 extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDateDelegate,textSelectDropDown,ColorRadioDelegateAdpost,radioDelegateAdpost{

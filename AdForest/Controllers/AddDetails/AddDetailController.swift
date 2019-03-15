@@ -500,6 +500,10 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.lblHtmlText.attributedText = htmlText.html2AttributedString
             }
             
+            
+            
+            
+            
             if let tagTitle = objData?.adDetail.adTagsShow.name {
                 if let addTags = objData?.adDetail.adTagsShow.value {
                     let tags = ":  \(addTags)"

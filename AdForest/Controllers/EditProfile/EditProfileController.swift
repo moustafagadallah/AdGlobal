@@ -13,6 +13,9 @@ import GooglePlaces
 import GoogleMaps
 import GooglePlacePicker
 import NVActivityIndicatorView
+import JGProgressHUD
+
+
 
 class EditProfileController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -47,6 +50,9 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
     var accountTypeArray = [String]()
     var dataArray = [ProfileDetailsData]()
     let defaults = UserDefaults.standard
+    
+   
+    
     
     //MARK:- View Life Cycle
     
@@ -391,6 +397,13 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
 class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate, GMSAutocompleteViewControllerDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndicatorViewable {
 
     
+    private lazy var uploadingProgressBar: JGProgressHUD = {
+        let progressBar = JGProgressHUD(style: .dark)
+        progressBar.indicatorView = JGProgressHUDRingIndicatorView()
+        progressBar.textLabel.text = "Uploading"
+        return progressBar
+    }()
+    
     @IBOutlet weak var containerView: UIView! {
         didSet {
             containerView.addShadowToView()
@@ -645,13 +658,41 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     
     
     //MARK:- API CALL
-    func adForest_uploadImage() {
-       let editprofile = EditProfileController()
-        editprofile.showLoader()
-        UserHandler.imageUpdate(fileUrl: imageUrl, fileName: fileName,uploadProgress: { (uploadProgress) in
+    
+     func imageUpdate(fileUrl: URL, fileName: String, uploadProgress: @escaping(Int)-> Void ,success: @escaping(UpdateImageRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.imageUpdate
+        print(url)
+        NetworkHandler.upload(url: url, fileUrl: fileUrl, fileName: fileName, params: nil, uploadProgress: { (uploadProgress) in
             print(uploadProgress)
-            
+            let currentProgress = Float(uploadProgress)/100
+            self.uploadingProgressBar.detailTextLabel.text = "\(uploadProgress)% Completed"
+            self.uploadingProgressBar.setProgress(currentProgress, animated: true)
+
+        }, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let data = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+            UserDefaults.standard.set(data, forKey: "userData")
+            UserDefaults.standard.synchronize()
+            let objImage = UpdateImageRoot(fromDictionary: dictionary)
+            success(objImage)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    
+    func adForest_uploadImage() {
+       
+        uploadingProgressBar.progress = 0.0
+        uploadingProgressBar.detailTextLabel.text = "0% Completed"
+        uploadingProgressBar.show(in: containerView)
+        
+       let editprofile = EditProfileController()
+        //editprofile.showLoader()
+        imageUpdate(fileUrl: imageUrl, fileName: fileName,uploadProgress: { (uploadProgress) in
+            print(uploadProgress)
+    
         }, success: { (sucessResponse) in
+            self.uploadingProgressBar.dismiss(animated: true)
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             if sucessResponse.success {
                 let alert = AlertView.prepare(title: "", message: sucessResponse.message , okAction: {

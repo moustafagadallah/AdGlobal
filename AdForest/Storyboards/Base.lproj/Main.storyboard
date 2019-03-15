@@ -1142,7 +1142,7 @@
                                                                 <action selector="actionViewAll:" destination="PK4-nV-QBg" eventType="touchUpInside" id="LA0-Sv-XI1"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywB-sf-BZG">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywB-sf-BZG">
                                                             <rect key="frame" x="8" y="0.0" width="188" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="RVN-Hz-HYb"/>
@@ -1176,6 +1176,7 @@
                                         <connections>
                                             <outlet property="collectionView" destination="hzn-Z2-lBE" id="boo-wd-aph"/>
                                             <outlet property="containerView" destination="9Dd-3p-grP" id="nr8-8c-roj"/>
+                                            <outlet property="heightConstraintTitle" destination="RVN-Hz-HYb" id="c7p-e5-7bK"/>
                                             <outlet property="lblSectionTitle" destination="ywB-sf-BZG" id="rJ5-4j-9MH"/>
                                             <outlet property="oltViewAll" destination="dEg-qq-UAO" id="S1K-b1-20e"/>
                                         </connections>
@@ -1462,7 +1463,7 @@
                                                                 </collectionViewCell>
                                                             </cells>
                                                         </collectionView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJi-3m-jRD">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJi-3m-jRD">
                                                             <rect key="frame" x="8" y="0.0" width="188" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="Gzz-LN-yc0"/>
@@ -1510,6 +1511,7 @@
                                         <connections>
                                             <outlet property="collectionView" destination="6Gf-mC-8NA" id="msi-XG-5MT"/>
                                             <outlet property="containerView" destination="egH-XA-zAN" id="yBK-RY-RI7"/>
+                                            <outlet property="heightConstraintTitle" destination="Gzz-LN-yc0" id="Aw9-pe-DNy"/>
                                             <outlet property="lblTitle" destination="YJi-3m-jRD" id="h0z-Ol-iAR"/>
                                             <outlet property="oltViewAll" destination="rrf-xh-OWI" id="utm-wl-IOj"/>
                                         </connections>
@@ -6905,6 +6907,9 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rng-yg-SGa">
                                                             <rect key="frame" x="8" y="164.5" width="288" height="29"/>
+                                                            <accessibility key="accessibilityConfiguration">
+                                                                <accessibilityTraits key="traits" button="YES" link="YES" staticText="YES" allowsDirectInteraction="YES"/>
+                                                            </accessibility>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="tC0-G1-uYq"/>
                                                             </constraints>
@@ -9235,22 +9240,22 @@
                                 <rect key="frame" x="0.0" y="196" width="320" height="332"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SenderCell" rowHeight="24" id="h5x-Dx-y4o" customClass="SenderCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="24"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SenderCell" rowHeight="45" id="h5x-Dx-y4o" customClass="SenderCell" customModule="AdForest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h5x-Dx-y4o" id="OSt-ps-Gcr">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="24"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FHn-bk-Fm7">
-                                                    <rect key="frame" x="62" y="6" width="20" height="12"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FHn-bk-Fm7">
+                                                    <rect key="frame" x="62" y="6" width="20" height="33"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="vbA-rm-CYP"/>
                                                     </constraints>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Z0-eZ-JhS">
-                                                    <rect key="frame" x="67" y="6" width="10" height="12"/>
+                                                    <rect key="frame" x="67" y="6" width="10" height="33"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="Yow-IA-UAr"/>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="ZFG-BV-it8"/>
@@ -9261,30 +9266,22 @@
                                                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                                 </textView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uHF-jd-ICG">
-                                                    <rect key="frame" x="10" y="-18" width="36" height="36"/>
+                                                    <rect key="frame" x="10" y="3" width="36" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="X0w-Oc-FVc"/>
                                                         <constraint firstAttribute="width" constant="36" id="vTA-XV-Nh1"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ZY-pS-y7O">
-                                                    <rect key="frame" x="131" y="0.0" width="85" height="24"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="FHn-bk-Fm7" firstAttribute="height" secondItem="7Z0-eZ-JhS" secondAttribute="height" id="EYK-S3-gP3"/>
                                                 <constraint firstItem="FHn-bk-Fm7" firstAttribute="centerX" secondItem="7Z0-eZ-JhS" secondAttribute="centerX" id="Fuy-HP-oQF"/>
                                                 <constraint firstItem="7Z0-eZ-JhS" firstAttribute="top" secondItem="OSt-ps-Gcr" secondAttribute="top" constant="6" id="HIT-IX-MfF"/>
-                                                <constraint firstAttribute="bottom" secondItem="3ZY-pS-y7O" secondAttribute="bottom" id="JOB-OZ-tTR"/>
                                                 <constraint firstItem="uHF-jd-ICG" firstAttribute="leading" secondItem="OSt-ps-Gcr" secondAttribute="leading" constant="10" id="LbA-j9-1Bx"/>
                                                 <constraint firstItem="FHn-bk-Fm7" firstAttribute="width" secondItem="7Z0-eZ-JhS" secondAttribute="width" constant="10" id="XO9-z8-NUU"/>
-                                                <constraint firstItem="3ZY-pS-y7O" firstAttribute="top" secondItem="OSt-ps-Gcr" secondAttribute="top" id="XvB-gN-CVJ"/>
                                                 <constraint firstItem="FHn-bk-Fm7" firstAttribute="leading" secondItem="uHF-jd-ICG" secondAttribute="trailing" constant="16" id="emJ-sR-gb6"/>
                                                 <constraint firstItem="FHn-bk-Fm7" firstAttribute="centerY" secondItem="7Z0-eZ-JhS" secondAttribute="centerY" id="etu-Q5-TdT"/>
-                                                <constraint firstAttribute="trailing" secondItem="3ZY-pS-y7O" secondAttribute="trailing" constant="104" id="fbI-Gx-ag6"/>
                                                 <constraint firstItem="FHn-bk-Fm7" firstAttribute="bottom" secondItem="uHF-jd-ICG" secondAttribute="bottom" id="hcN-W7-XuF"/>
-                                                <constraint firstItem="3ZY-pS-y7O" firstAttribute="leading" secondItem="OSt-ps-Gcr" secondAttribute="leading" constant="131" id="qJC-v2-r2w"/>
                                                 <constraint firstAttribute="bottom" secondItem="uHF-jd-ICG" secondAttribute="bottom" constant="6" id="qvl-eh-15i"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -9294,11 +9291,10 @@
                                             <outlet property="imgPicture" destination="FHn-bk-Fm7" id="DAe-An-liD"/>
                                             <outlet property="imgProfile" destination="uHF-jd-ICG" id="gzR-4P-l51"/>
                                             <outlet property="txtMessage" destination="7Z0-eZ-JhS" id="joU-fv-Uqp"/>
-                                            <outlet property="viewBg" destination="3ZY-pS-y7O" id="4P6-Ga-Nxb"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReceiverCell" rowHeight="45" id="BNH-YR-zVb" customClass="ReceiverCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="52" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="73" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BNH-YR-zVb" id="jp2-ze-BPo">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>

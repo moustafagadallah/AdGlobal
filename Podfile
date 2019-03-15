@@ -49,8 +49,8 @@ target 'AdForest' do
     pod 'DeviceKit'
 
   #For Search Places
-    pod 'GooglePlaces'
-    pod 'GooglePlacePicker'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
     pod 'GoogleMaps'
 
   #Image Cache
@@ -97,5 +97,6 @@ target 'AdForest' do
      #pod 'JSQMessagesViewController', '7.3.3'
     
      pod 'SwiftCheckboxDialog'
+     pod 'JGProgressHUD'
 
 end
