@@ -146,8 +146,19 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.dataArray = successResponse.data.sentOffers.items
                 self.tableView.reloadData()
             } else {
-                let alert = Constants.showBasicAlert(message: successResponse.message)
-                self.presentVC(alert)
+                if successResponse.data.isRedirec == true{
+                    let alert  = UIAlertController(title: successResponse.message, message: nil, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "Ok", style:.default, handler: { (ok) in
+                    self.appDelegate.moveToProfile()
+                        
+                    })
+                    alert.addAction(okAction)
+                    self.presentVC(alert, completion: nil)
+                }
+                else{
+                    let alert = Constants.showBasicAlert(message: successResponse.message)
+                    self.presentVC(alert)
+                }
             }
         }) { (error) in
             self.stopAnimating()

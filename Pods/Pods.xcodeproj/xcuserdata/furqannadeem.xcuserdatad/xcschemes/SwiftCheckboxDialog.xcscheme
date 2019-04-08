@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C417B42B26264712F9F64541050AD9A"
+               BlueprintIdentifier = "9D41505D1DE2D1B674208F1EC4E651C6"
                BlueprintName = "SwiftCheckboxDialog"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "SwiftCheckboxDialog.framework">

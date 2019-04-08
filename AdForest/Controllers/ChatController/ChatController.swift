@@ -240,6 +240,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let date = objData?.adDate {
                 self.lblDate.text = date
             }
+        
         }
     }
     
@@ -405,6 +406,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 UserHandler.sharedInstance.objSentOfferChatData = successResponse.data
                 self.reverseArray = successResponse.data.chat
                 self.dataArray = self.reverseArray.reversed()
+                
                 self.adForest_populateData()
                 self.tableView.reloadData()
                 self.scrollToBottom()

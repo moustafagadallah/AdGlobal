@@ -13,6 +13,7 @@ struct SentOffersData{
     var pagination : SentOffersPagination!
     var sentOffers : SentOffers!
     var title : SentOffersTitle!
+    var isRedirec : Bool = false
     
     
     /**
@@ -28,6 +29,12 @@ struct SentOffersData{
         if let titleData = dictionary["title"] as? [String:Any]{
             title = SentOffersTitle(fromDictionary: titleData)
         }
+        
+        if dictionary["is_redirect"] as? Bool != nil{
+            isRedirec = (dictionary["is_redirect"] as? Bool)!
+        }
+        
+        
     }
     
     /**
@@ -45,6 +52,7 @@ struct SentOffersData{
         if title != nil{
             dictionary["title"] = title.toDictionary()
         }
+      
         return dictionary
     }
     

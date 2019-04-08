@@ -183,10 +183,30 @@ extension AppDelegate {
     }
     
     func moveToLogin() {
+        
         let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         let nav: UINavigationController = UINavigationController(rootViewController: loginVC)
         self.window?.rootViewController = nav
         self.window?.makeKeyAndVisible()
+    }
+   
+    
+    func moveToProfile() {
+        
+        let proVc = storyboard.instantiateViewController(withIdentifier: "ProfileController") as! ProfileController
+        if defaults.bool(forKey: "isRtl") {
+            let rightViewController = storyboard.instantiateViewController(withIdentifier: "LeftController") as! LeftController
+            let navi: UINavigationController = UINavigationController(rootViewController: proVc)
+            let slideMenuController = SlideMenuController(mainViewController: navi, rightMenuViewController: rightViewController)
+            self.window?.rootViewController = slideMenuController
+        } else {
+            let leftVC = storyboard.instantiateViewController(withIdentifier: "LeftController") as! LeftController
+            let navi : UINavigationController = UINavigationController(rootViewController: proVc)
+            let slideMenuController = SlideMenuController(mainViewController: navi, leftMenuViewController: leftVC)
+            self.window?.rootViewController = slideMenuController
+        }
+        self.window?.makeKeyAndVisible()
+    
     }
     
     func presentController(ShowVC: UIViewController) {
@@ -287,7 +307,6 @@ extension AppDelegate  {
         default:
             break
         }
-        
         
         print("Firebase: user info \(userInfo)")
         switch application.applicationState {

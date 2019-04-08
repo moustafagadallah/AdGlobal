@@ -15,6 +15,10 @@ import UserNotifications
 import FirebaseCore
 import FirebaseInstanceID
 import GoogleMobileAds
+import IQKeyboardManagerSwift
+
+var admobDelegate = AdMobDelegate()
+var currentVc: UIViewController!
 
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate {
     
@@ -38,7 +42,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    let keyboardManager = IQKeyboardManager.sharedManager()
+    
     //MARK:- Properties
+    
+    
+    
     var defaults = UserDefaults.standard
     var dataArray = [HomeSlider]()
     var categoryArray = [CatIcon]()
@@ -78,10 +87,20 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var heightConstraintTitleLatestad = 0
     var heightConstraintTitlead = 0
     
+    var inters : GADInterstitial!
+    
     
     //MARK:- View Life Cycle
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        inters = GADInterstitial(adUnitID:"ca-app-pub-3521346996890484/7679081330")
+        let request = GADRequest()
+        request.testDevices = [kGADSimulatorID,"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
+        inters.load(request)
+        
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Home Controller")
         self.adForest_sendFCMToken()
@@ -90,13 +109,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.adForest_homeData()
         self.addLeftBarButtonWithImage(UIImage(named: "menu")!)
         self.navigationButtons()
+       
+        
     }
+    
+  
+   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
             self.oltAddPost.isHidden = true
         }
+          currentVc = self
     }
     
     //MARK:- Topic Message
@@ -220,6 +245,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- Search Controller
     @objc func actionSearch(_ sender: Any) {
+        keyboardManager.enable = true
         if isNavSearchBarShowing {
             self.searchBarNavigation.text = ""
             self.backgroundView.removeFromSuperview()
@@ -256,6 +282,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func addTitleView() {
+        self.searchBarNavigation.endEditing(true)
         self.isNavSearchBarShowing = false
         self.searchBarNavigation.isHidden = true
         self.view.isUserInteractionEnabled = true
@@ -267,13 +294,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        //self.searchBarNavigation.endEditing(true)
         searchBar.endEditing(true)
         self.view.endEditing(true)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
-        self.view.endEditing(true)
+        self.searchBarNavigation.endEditing(true)
         guard let searchText = searchBar.text else {return}
         if searchText == "" {
             
@@ -1080,16 +1108,22 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
                         self.tableView.translatesAutoresizingMaskIntoConstraints = false
                         if successResponse.settings.ads.position == "top" {
-                            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
+                            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
                             SwiftyAd.shared.showBanner(from: self, at: .top)
                         } else {
                             self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
                             SwiftyAd.shared.showBanner(from: self, at: .bottom)
                         }
                     }
+                    //ca-app-pub-6905547279452514/6461881125
                     if isShowInterstital {
-                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
-                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+//                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
+//                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+                        
+                        self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
+                        self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
+                        
+                        
                     }
                 }
                 // Here I set the Google Analytics Key
@@ -1119,6 +1153,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
+    }
+
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
+    
+    @objc func showAd2(){
+        currentVc = self
+        admobDelegate.showAd()
     }
     
     //MARK:- Send fcm token to server

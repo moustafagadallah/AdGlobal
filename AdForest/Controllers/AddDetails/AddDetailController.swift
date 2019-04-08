@@ -82,6 +82,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var ratingReviewTitle = ""
     var buttonText = ""
     var isShowAdTime = false
+    var isRatingSectionShow = false
     
     var day: Int = 0
     var hour: Int = 0
@@ -215,11 +216,23 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                     }
                 }
                 if isShowInterstital {
-                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-                    SwiftyAd.shared.showInterstitial(from: self)
+//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
+//                    SwiftyAd.shared.showInterstitial(from: self)
+                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
+                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
                 }
             }
         }
+    }
+    
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
+    
+    @objc func showAd2(){
+        currentVc = self
+        admobDelegate.showAd()
     }
     //MARK:- Counter
     func countDown(date: String) {
@@ -468,6 +481,13 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.btnShare = { () in
                 let shareTextArray = [objData.shareInfo.title, objData.shareInfo.link]
                 let activityController = UIActivityViewController(activityItems: shareTextArray, applicationActivities: nil)
+                if Constants.isiPadDevice {
+                    if let popOver = activityController.popoverPresentationController {
+                        popOver.sourceView = self.tableView
+                        popOver.sourceRect = self.tableView.frame
+                        
+                    }
+                }
                 self.presentVC(activityController)
             }
             
@@ -499,10 +519,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if let htmlText = objData?.adDetail.adDesc {
                 cell.lblHtmlText.attributedText = htmlText.html2AttributedString
             }
-            
-            
-            
-            
+        
             
             if let tagTitle = objData?.adDetail.adTagsShow.name {
                 if let addTags = objData?.adDetail.adTagsShow.value {
@@ -625,6 +642,16 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 buttonText = receiverText
             }
             
+            if isRatingSectionShow == false{
+                
+                cell.lblNotEdit.isHidden = true
+                cell.txtComment.isHidden = true
+                cell.oltSubmitRating.isHidden = true
+                cell.ratingBar.isHidden = true
+               
+                
+            }else{
+            
             if objData.adRatting.canRate && buttonText != "receive" {
                 if let title = objData.adRatting.title {
                     cell.lblTitle.text = title
@@ -664,7 +691,10 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.txtComment.isHidden = true
                 cell.oltSubmitRating.isHidden = true
                 cell.ratingBar.isHidden = true
+                }
+                
             }
+            
             return cell
         }
         else if section == 7 {
@@ -889,10 +919,16 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         else if section == 6 {
             let objData = dataArray[indexPath.row]
+            
+            if isRatingSectionShow == false{
+                height = 0
+            }else{
+            
             if objData.adRatting.canRate && buttonText != "receive"  {
                 height = 220
             } else {
                 height = 50
+            }
             }
         }
             
@@ -929,22 +965,31 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         var height: CGFloat = 0.0
         
         if section == 3 {
-            height = 20
+            if isRatingSectionShow == false{
+                height = 0.0
+            }else{
+                height = 20
+            }
         }
         else if section == 10 {
             height = 20
         }
+      
         return height
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
         let titleLabel = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.frame.width - 20, height: 20))
+    
         
         if section == 3 {
             titleLabel.text = ratingReviewTitle
             titleLabel.textAlignment = .center
         }
+            
+    
+    
         else if section == 10 {
             titleLabel.text = similarAdsTitle
             titleLabel.textAlignment = .left
@@ -957,6 +1002,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     @IBAction func actionSendMessage(_ sender: Any) {
+      
         if defaults.bool(forKey: "isLogin") == false {
             if let msg = defaults.string(forKey: "notLogin") {
                 let alert = Constants.showBasicAlert(message: msg)
@@ -1032,6 +1078,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.bidsArray = [successResponse.data.staticText.adBids]
                 self.addVideoArray = [successResponse.data.adDetail.adVideo]
                 self.dataArray = [successResponse.data]
+                self.isRatingSectionShow = successResponse.data.adRatting.ratingShow
                 self.fieldsArray = successResponse.data.adDetail.fieldsData
                 self.relatedAdsArray = successResponse.data.adDetail.relatedAds
                 AddsHandler.sharedInstance.ratingsAdds = successResponse.data.adRatting

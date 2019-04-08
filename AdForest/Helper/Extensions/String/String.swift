@@ -49,7 +49,7 @@ extension String {
 
 extension String {
     var isValidPhone: Bool {
-        let inverseSet = NSCharacterSet(charactersIn:"0123456789").inverted
+        let inverseSet = NSCharacterSet(charactersIn:"+0123456789").inverted
         let components = self.components(separatedBy: inverseSet)
         let filtered = components.joined(separator: "")
         

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,7 +39,7 @@
                                 <rect key="frame" x="20" y="111.5" width="319" height="45"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IaC-7S-Mx0">
-                                        <rect key="frame" x="274" y="-0.5" width="45" height="45"/>
+                                        <rect key="frame" x="274" y="0.0" width="45" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jR-HL-djH">
                                                 <rect key="frame" x="8" y="8" width="29" height="29"/>
@@ -133,11 +133,12 @@
                 <outlet property="lineView" destination="jFU-6b-0FX" id="791-T3-i2C"/>
                 <outlet property="oltSearch" destination="5jR-HL-djH" id="CFi-hk-JbR"/>
                 <outlet property="txtSearch" destination="2oa-KC-nEB" id="SwR-zO-MJd"/>
+                <outlet property="viewBg" destination="VjV-eC-QU7" id="75P-Jn-dWN"/>
             </connections>
             <point key="canvasLocation" x="53.5" y="86.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="search" width="28" height="20"/>
+        <image name="search" width="57" height="40"/>
     </resources>
 </document>

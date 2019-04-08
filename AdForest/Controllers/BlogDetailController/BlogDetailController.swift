@@ -103,11 +103,23 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
                     }
                 }
                 if isShowInterstital {
-                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-                    SwiftyAd.shared.showInterstitial(from: self)
+//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
+//                    SwiftyAd.shared.showInterstitial(from: self)
+                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
+                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
                 }
             }
         }
+    }
+    
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
+    
+    @objc func showAd2(){
+        currentVc = self
+        admobDelegate.showAd()
     }
     
     //MARK:- Table View Delegate Methods

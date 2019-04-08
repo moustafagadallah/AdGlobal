@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0703FD5E2212B2BF00886A2A /* AdpostRadioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */; };
 		0703FD602212B2E400886A2A /* AdpostradioInnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703FD5F2212B2E400886A2A /* AdpostradioInnerTableViewCell.swift */; };
+		07787373225B552C006E15C3 /* AdMobDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07787372225B552C006E15C3 /* AdMobDelegate.swift */; };
 		07891CAB22017960002C8D7D /* CheckBoxesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */; };
 		07891CAD22017D53002C8D7D /* CheckBoxButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */; };
 		07891CB022019609002C8D7D /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAF22019609002C8D7D /* CheckBox.swift */; };
@@ -552,6 +553,7 @@
 /* Begin PBXFileReference section */
 		0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdpostRadioTableViewCell.swift; sourceTree = "<group>"; };
 		0703FD5F2212B2E400886A2A /* AdpostradioInnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdpostradioInnerTableViewCell.swift; sourceTree = "<group>"; };
+		07787372225B552C006E15C3 /* AdMobDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobDelegate.swift; sourceTree = "<group>"; };
 		07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxesTableViewCell.swift; sourceTree = "<group>"; };
 		07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButtonCell.swift; sourceTree = "<group>"; };
 		07891CAF22019609002C8D7D /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
@@ -1124,6 +1126,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07787371225B550B006E15C3 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				07787372225B552C006E15C3 /* AdMobDelegate.swift */,
+			);
+			path = AdMob;
+			sourceTree = "<group>";
+		};
 		07891CAE220195F2002C8D7D /* CheckBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -2337,6 +2347,7 @@
 		18BBFABA205109BA0067662F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				07787371225B550B006E15C3 /* AdMob */,
 				185A544121A2A0E100396D35 /* DeepLinking */,
 				18AF770620E6398F006408DB /* External */,
 				18D8F564206B84D200D19830 /* AlertViews */,
@@ -3081,6 +3092,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
@@ -3117,6 +3129,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
@@ -3381,6 +3394,7 @@
 				18191A4E207352DF00FF67C8 /* ProfileUpdateData.swift in Sources */,
 				185B3C6F207E03A800EDBBB4 /* AdRatingCell.swift in Sources */,
 				18AD93B8206D191D00330ABF /* BlogDetailExtra.swift in Sources */,
+				07787373225B552C006E15C3 /* AdMobDelegate.swift in Sources */,
 				182690C820872A1700E2C966 /* AddPrice.swift in Sources */,
 				18C2CCF4206A4F1C00235E0E /* MyAdsText.swift in Sources */,
 				180519D6215A0BA300F74662 /* AppSettingRating.swift in Sources */,

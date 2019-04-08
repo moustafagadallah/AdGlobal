@@ -347,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="epG-75-XSh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056" y="142"/>
+            <point key="canvasLocation" x="1039" y="115"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="XjJ-ED-Cor">

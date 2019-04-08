@@ -10,6 +10,7 @@ import UIKit
 
 class SearchSectionCell: UITableViewCell, UITextFieldDelegate {
 
+    @IBOutlet weak var viewBg: UIView!
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var txtSearch: UITextField!{
         didSet {
@@ -56,7 +57,11 @@ class SearchSectionCell: UITableViewCell, UITextFieldDelegate {
             lblTitle.textAlignment = .left
             lblSubTitle.textAlignment = .left
         }
+    
     }
+    
+  
+    
     
     //MARK:- TextField Deletage
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

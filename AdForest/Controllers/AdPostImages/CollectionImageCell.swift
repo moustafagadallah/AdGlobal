@@ -78,7 +78,6 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         self.collectionView.reloadData()
     }
     
-    
     //MARK:- API Call
     func adForest_deleteImage(param: NSDictionary) {
         let mainClass = AdPostImagesController()

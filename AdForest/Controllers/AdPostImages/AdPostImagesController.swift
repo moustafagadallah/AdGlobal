@@ -303,20 +303,17 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         customArray.append(obj)
                     }
                 }
-                
-
-                
             }
         }
         let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostMapController") as! AdPostMapController
-        if imageIDArray.isEmpty {
-            let alert = Constants.showBasicAlert(message: "Images Required")
-            self.presentVC(alert)
-        }
+//        if imageIDArray.isEmpty {
+//            let alert = Constants.showBasicAlert(message: "Images Required")
+//            self.presentVC(alert)
+//        }
 //        else if isValidUrl == false {
 //            
 //        }
-        else {
+       // else {
             adPostVC.imageIdArray = imageIDArray
             adPostVC.objArray = objArray
             adPostVC.customArray = self.customArray
@@ -325,7 +322,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             adPostVC.valueArray = self.valueArray
             adPostVC.localDictionary = self.localDictionary
             self.navigationController?.pushViewController(adPostVC, animated: true)
-        }
+       // }
     }
     
     func adForest_populateData() {
@@ -436,9 +433,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 }else{
                     self.present(actionSheet, animated: true, completion: nil)
                 }
-
             }
-        
             return cell
         }
             

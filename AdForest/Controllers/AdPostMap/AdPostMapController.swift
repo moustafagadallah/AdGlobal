@@ -250,7 +250,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             else if isMapShow == false {
                 containerViewMap.isHidden = true
                 containerViewFeatureAdd.translatesAutoresizingMaskIntoConstraints = false
-                containerViewFeatureAdd.topAnchor.constraint(equalTo: self.containerViewAddress.bottomAnchor, constant: 8).isActive = true
+                containerViewFeatureAdd.topAnchor.constraint(equalTo: self.containerViewAddress.bottomAnchor, constant: 20).isActive = true
             }
             
             guard let isShowCountry = objData?.data.profile.adCountryShow else {

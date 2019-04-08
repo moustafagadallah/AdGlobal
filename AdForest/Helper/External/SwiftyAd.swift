@@ -99,10 +99,10 @@ final class SwiftyAd: NSObject {
      var rewardedVideoAd: GADRewardBasedVideoAd?
     
     /// Test Ad Unit IDs. Will get set to real ID in setup method
-//     var bannerViewAdUnitID = "ca-app-pub-3940256099942544/2934735716"
-    var bannerViewAdUnitID = "ca-app-pub-6905547279452514/6461881125"
+     var bannerViewAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+//    var bannerViewAdUnitID = "ca-app-pub-3543987221312116/1794244190"
     
-     var interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
+     var interstitialAdUnitID = "ca-app-pub-3521346996890484/7679081330"
      var rewardedVideoAdUnitID = "ca-app-pub-1234567890123456/1234567890" // todo -> doesnt seem to work anymore
 
     /// Interval counter
@@ -145,7 +145,7 @@ final class SwiftyAd: NSObject {
         #endif
         
         loadInterstitialAd()
-        loadRewardedVideoAd()
+       // loadRewardedVideoAd()
     }
     
     // MARK: - Show Banner
@@ -238,9 +238,9 @@ final class SwiftyAd: NSObject {
         viewController.view.addSubview(bannerViewAd)
         
         let request = GADRequest()
-       // #if DEBUG
-          //  request.testDevices = [kGADSimulatorID]
-        //#endif
+        #if DEBUG
+            request.testDevices = [kGADSimulatorID,"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
+        #endif
         bannerViewAd.load(request)
     }
     
@@ -256,7 +256,7 @@ final class SwiftyAd: NSObject {
         
         let request = GADRequest()
         #if DEBUG
-            request.testDevices = [kGADSimulatorID]
+            request.testDevices = [kGADSimulatorID,"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
         #endif
         interstitialAd.load(request)
     }
