@@ -172,10 +172,13 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let userInfo = defaults.object(forKey: "userData") {
                 let objUser = NSKeyedUnarchiver.unarchiveObject(with: userInfo as! Data) as! [String: Any]
                 let userModel = UserRegisterRoot(fromDictionary: objUser)
-                if let imgUrl = URL(string: userModel.data.profileImg) {
-                    self.imgProfilePicture.sd_setShowActivityIndicatorView(true)
-                    self.imgProfilePicture.sd_setIndicatorStyle(.gray)
-                    self.imgProfilePicture.sd_setImage(with: imgUrl, completed: nil)
+               
+                if userModel.data.profileImg != nil{
+                    if let imgUrl = URL(string: userModel.data.profileImg) {
+                        self.imgProfilePicture.sd_setShowActivityIndicatorView(true)
+                        self.imgProfilePicture.sd_setIndicatorStyle(.gray)
+                        self.imgProfilePicture.sd_setImage(with: imgUrl, completed: nil)
+                    }
                 }
                 if let name = userModel.data.displayName {
                     self.lblName.text = name

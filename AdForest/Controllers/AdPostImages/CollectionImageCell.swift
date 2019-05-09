@@ -39,7 +39,9 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        
     }
+
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -69,9 +71,41 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             self.removeItem(index: indexPath.row)
             self.adForest_deleteImage(param: param as NSDictionary)
         }
+        
+         self.rotateImageAppropriately(cell.imgPictures.image)
         return cell
     }
     
+    
+    func rotateImageAppropriately(_ imageToRotate: UIImage?) -> UIImage? {
+        //This method will properly rotate our image, we need to make sure that
+        //We call this method everywhere pretty much...
+        
+        let imageRef = imageToRotate?.cgImage
+        var properlyRotatedImage: UIImage?
+        
+        //if imageOrientationWhenAddedToScreen == 0 {
+            //Don't rotate the image
+            properlyRotatedImage = imageToRotate
+        //}
+ //       else if imageOrientationWhenAddedToScreen == 3 {
+//
+//            //We need to rotate the image back to a 3
+//           if let imageRef = imageRef, let orientation = UIImage.Orientation(rawValue: 3) {                properlyRotatedImage = UIImage(cgImage: imageRef, scale: 1.0, orientation: orientation)          }
+        
+//    }
+      //     else if imageOrientationWhenAddedToScreen == 1 {
+//
+//            //We need to rotate the image back to a 1
+            if let imageRef = imageRef, let orientation = UIImage.Orientation(rawValue: 1) {
+                properlyRotatedImage = UIImage(cgImage: imageRef, scale: 1.0, orientation: orientation)
+            }
+       // }
+        
+        return properlyRotatedImage
+        
+    }
+
     //Remove item at selected Index
     func removeItem(index: Int) {
         dataArray.remove(at: index)
@@ -111,13 +145,38 @@ class ImagesCell: UICollectionViewCell {
     @IBOutlet weak var containerViewCross: UIView!
     @IBOutlet weak var imgDelete: UIImageView!
     
-    
     //MARK:- Properties
+    
     var btnDelete: (()->())?
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+  
+    }
+    
+   
     //MARK:- IBActions
     @IBAction func actionDelete(_ sender: Any) {
         self.btnDelete?()
         print("Delete pressed")
+    }
+}
+
+extension UIImage {
+    
+    func updateImageOrientionUpSide() -> UIImage? {
+        if self.imageOrientation == .left {
+            return self
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        if let normalizedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext() {
+            UIGraphicsEndImageContext()
+            return normalizedImage
+        }
+        UIGraphicsEndImageContext()
+        return nil
     }
 }

@@ -13,7 +13,7 @@ import DeviceKit
 class Constants {
     struct  URL {
     
-        static let ipAddress =  "http://adforest-testapp.scriptsbundle.com/"
+        static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
         //static let ipAddress =    "http://adforest-api.scriptsbundle.com/"
         
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"

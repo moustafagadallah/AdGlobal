@@ -101,6 +101,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     var popUpCancel = ""
     var popUpText = ""
     
+    let map = GMSMapView()
     let locationManager = CLLocationManager()
     let newPin = MKPointAnnotation()
     let regionRadius: CLLocationDistance = 1000
@@ -139,7 +140,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         super.viewDidLoad()
         self.showBackButton()
         self.adForest_populateData()
-        let map = GMSMapView()
+        
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
         

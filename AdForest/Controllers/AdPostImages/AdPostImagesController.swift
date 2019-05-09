@@ -688,16 +688,18 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         if (info[UIImagePickerControllerOriginalImage] as? UIImage) != nil {
             if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
     
-                    self.photoArray = [pickedImage]
-                    let param: [String: Any] = [ "ad_id": String(adID)]
-                    print(param)
-                    self.adForest_uploadImages(param: param as NSDictionary, images: self.photoArray)
-        
+                self.photoArray = [pickedImage]
+                let param: [String: Any] = [ "ad_id": String(adID)]
+                print(param)
+                self.adForest_uploadImages(param: param as NSDictionary, images: self.photoArray)
+                
             }
             dismiss(animated: true, completion: nil)
+           
         }
     }
-
+    
+   
     //MARK:- API Call
     
     //post images

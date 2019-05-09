@@ -154,12 +154,13 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         if section == 0 {
             let cell: ProfileCell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
             
-            if let imgUrl = URL(string: objData.profileExtra.profileImg) {
-                cell.imgPicture.sd_setShowActivityIndicatorView(true)
-                cell.imgPicture.sd_setIndicatorStyle(.gray)
-                cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)
+            if objData.profileExtra.profileImg != nil{
+                if let imgUrl = URL(string: objData.profileExtra.profileImg) {
+                    cell.imgPicture.sd_setShowActivityIndicatorView(true)
+                    cell.imgPicture.sd_setIndicatorStyle(.gray)
+                    cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)
+                }
             }
-            
             if let userName = objData.profileExtra.displayName {
                 cell.lblName.text = userName
             }

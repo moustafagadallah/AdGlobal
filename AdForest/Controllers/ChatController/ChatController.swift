@@ -46,6 +46,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    @IBOutlet weak var heightConstraintTxtView: NSLayoutConstraint!
+    @IBOutlet weak var heightContraintViewBottom: NSLayoutConstraint!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnClose: UIButton!
     @IBAction func btnCloseClicked(_ sender: UIButton) {
@@ -83,6 +85,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+   
+    
     //MARK:- Properties
     let keyboardManager = IQKeyboardManager.sharedManager()
     let defaults = UserDefaults.standard
@@ -93,6 +97,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var currentPage = 0
     var maximumPage = 0
+    let textViewMaxHeight: CGFloat = 100
+    var textHeightConstraint: NSLayoutConstraint!
     
     var dataArray = [SentOfferChat]()
     var reverseArray = [SentOfferChat]()
@@ -125,6 +131,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             btnClose.isHidden = true
             UserDefaults.standard.set("3", forKey: "fromNotification")
         }
+        
+        self.textHeightConstraint = txtMessage.heightAnchor.constraint(equalToConstant: 40)
+        self.textHeightConstraint.isActive = true
+        self.adjustTextViewHeight()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -149,13 +160,49 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //}
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        let fixedWidth = textView.frame.size.width
-        textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        var newFrame = textView.frame
-        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-        textView.frame = newFrame
+//    func textViewDidChange(_ textView: UITextView) {
+//        let fixedWidth = textView.frame.size.width
+//        textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+//        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+//        var newFrame = textView.frame
+//        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+//        textView.frame = newFrame
+//    }
+    
+    func adjustTextViewHeight() {
+        let fixedWidth = txtMessage.frame.size.width
+        let newSize = txtMessage.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+       
+        if newSize.height == 100 || newSize.height > 100{
+            heightConstraintTxtView.constant = 100
+            heightContraintViewBottom.constant = 100
+            txtMessage.isScrollEnabled = true
+        }else{
+            self.textHeightConstraint.constant = newSize.height
+            heightConstraintTxtView.constant = newSize.height
+            heightContraintViewBottom.constant = newSize.height
+        }
+        self.view.layoutIfNeeded()
+    }
+    
+    func textViewDidChange(_ textView: UITextView)
+    {
+
+        self.adjustTextViewHeight()
+//        print(textView.contentSize.height)
+//        if textView.contentSize.height >= self.textViewMaxHeight
+//        {
+//            textView.isScrollEnabled = true
+//        }
+//        else
+//        {
+//
+//
+//            heightConstraintTxtView.constant = textView.contentSize.height
+//            heightContraintViewBottom.constant = textView.contentSize.height
+//                textView.isScrollEnabled = false
+//
+//        }
     }
 
     //MARK: - Custom
@@ -457,6 +504,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.dataArray = self.reverseArray.reversed()
                 self.tableView.reloadData()
                 self.scrollToBottom()
+                self.heightConstraintTxtView.constant = 40
+                self.heightContraintViewBottom.constant = 40
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)

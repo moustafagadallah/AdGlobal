@@ -516,8 +516,25 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if let descriptionText = objData?.staticText.descriptionTitle {
                 cell.lblDescription.text = descriptionText
             }
+            
+            
             if let htmlText = objData?.adDetail.adDesc {
-                cell.lblHtmlText.attributedText = htmlText.html2AttributedString
+                //cell.lblHtmlText.attributedText = htmlText.html2AttributedString
+            
+                let strokeTextAttributes: [NSAttributedString.Key: Any] = [
+                    .foregroundColor : UIColor.gray,
+                    .font : UIFont.systemFont(ofSize: 15)
+                ]
+                let data = htmlText.data(using: String.Encoding.unicode)!
+                let attrStr = try? NSAttributedString(
+                    data: data,
+                    options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+                    documentAttributes: nil)
+                
+                cell.lblHtmlText.attributedText = NSMutableAttributedString(string: (attrStr?.string)!, attributes: strokeTextAttributes)
+                
+                self.view.layoutIfNeeded()
+                
             }
         
             
@@ -648,40 +665,40 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.txtComment.isHidden = true
                 cell.oltSubmitRating.isHidden = true
                 cell.ratingBar.isHidden = true
-               
+                
                 
             }else{
-            
-            if objData.adRatting.canRate && buttonText != "receive" {
-                if let title = objData.adRatting.title {
-                    cell.lblTitle.text = title
-                }
-                if let txtPlaceholder = objData.adRatting.textareaText {
-                    cell.txtComment.placeholder = txtPlaceholder
-                }
-                let isShowEditLbl = objData.adRatting.isEditable
-                if isShowEditLbl! {
-                    cell.lblNotEdit.isHidden = true
-                }
-                else {
-                    if let notEditLblText = objData.adRatting.tagline {
-                        cell.lblNotEdit.text = notEditLblText
+                
+                if objData.adRatting.canRate && buttonText != "receive" {
+                    if let title = objData.adRatting.title {
+                        cell.lblTitle.text = title
+                    }
+                    if let txtPlaceholder = objData.adRatting.textareaText {
+                        cell.txtComment.placeholder = txtPlaceholder
+                    }
+                    let isShowEditLbl = objData.adRatting.isEditable
+                    if isShowEditLbl! {
+                        cell.lblNotEdit.isHidden = true
+                    }
+                    else {
+                        if let notEditLblText = objData.adRatting.tagline {
+                            cell.lblNotEdit.text = notEditLblText
+                        }
+                    }
+                    if let submitButtonText = objData.adRatting.btn {
+                        cell.oltSubmitRating.setTitle(submitButtonText, for: .normal)
+                    }
+                    cell.btnSubmitAction = { () in
+                        guard let comment = cell.txtComment.text else {return}
+                        if comment == "" {
+                            cell.txtComment.shake(6, withDelta: 10, speed: 0.06)
+                        } else {
+                            let param: [String: Any] = ["ad_id": self.ad_id, "rating": cell.rating, "rating_comments": comment]
+                            print(param)
+                            self.adForest_addRating(param: param as NSDictionary)
+                        }
                     }
                 }
-                if let submitButtonText = objData.adRatting.btn {
-                    cell.oltSubmitRating.setTitle(submitButtonText, for: .normal)
-                }
-                cell.btnSubmitAction = { () in
-                    guard let comment = cell.txtComment.text else {return}
-                    if comment == "" {
-                        cell.txtComment.shake(6, withDelta: 10, speed: 0.06)
-                    } else {
-                        let param: [String: Any] = ["ad_id": self.ad_id, "rating": cell.rating, "rating_comments": comment]
-                        print(param)
-                        self.adForest_addRating(param: param as NSDictionary)
-                    }
-                }
-            }
             else {
                 if let noRatingText = objData.adRatting.canRateMsg {
                     cell.lblTitle.text = noRatingText
