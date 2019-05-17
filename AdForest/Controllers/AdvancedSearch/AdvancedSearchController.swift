@@ -58,6 +58,9 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
             self.dataArray.insert(contentsOf: AddsHandler.sharedInstance.objSearchArray, at: 2)
             self.tableView.reloadData()
         }
+        
+    
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -202,13 +202,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdForest/Controllers/AddDetails/AddDetailController.swift"
-            timestampString = "578813030.858573"
+            timestampString = "579774793.9600379"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "669"
             endingLineNumber = "669"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdForest/Helper/External/SwiftyAd.swift"
-            timestampString = "576414492.0202529"
+            timestampString = "579698650.0131871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "203"
@@ -298,55 +298,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdForest/Helper/External/SwiftyAd.swift"
-            timestampString = "576414492.020394"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
-            landmarkName = "adView(_:didFailToReceiveAdWithError:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdForest.SwiftyAd.adView(_: __C.GADBannerView, didFailToReceiveAdWithError: __C.GADRequestError) -&gt; ()"
-                  moduleName = "AdForest"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/furqannadeem/Desktop/Desktop%20Data/Projects/IOS/Company%20Projects/AdForest/AdForest/Helper/External/SwiftyAd.swift"
-                  timestampString = "578899496.9493459"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "322"
-                  endingLineNumber = "322"
-                  offsetFromSymbolStart = "232">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in AdForest.SwiftyAd.adView(_: __C.GADBannerView, didFailToReceiveAdWithError: __C.GADRequestError) -&gt; ()"
-                  moduleName = "AdForest"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/furqannadeem/Desktop/Desktop%20Data/Projects/IOS/Company%20Projects/AdForest/AdForest/Helper/External/SwiftyAd.swift"
-                  timestampString = "578899496.95179"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "322"
-                  endingLineNumber = "322"
-                  offsetFromSymbolStart = "40">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdForest/Helper/External/SwiftyAd.swift"
-            timestampString = "576414492.020457"
+            timestampString = "579698650.013339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "267"
@@ -362,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdForest/Helper/External/SwiftyAd.swift"
-            timestampString = "576414492.020702"
+            timestampString = "579698650.013453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "170"
@@ -378,7 +330,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdForest/Helper/External/SwiftyAd.swift"
-            timestampString = "576414492.020763"
+            timestampString = "579698650.013561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "178"
@@ -410,13 +362,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdForest/Controllers/ChatController/ChatController.swift"
-            timestampString = "578899496.153025"
+            timestampString = "579774793.960677"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "174"
             endingLineNumber = "174"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "adjustTextViewHeight()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -426,13 +378,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdForest/Controllers/ChatController/ChatController.swift"
-            timestampString = "578899496.153386"
+            timestampString = "579774793.9610831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "177"
             endingLineNumber = "177"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "adjustTextViewHeight()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -505,38 +457,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AdForest/Controllers/AdPostImages/AdPostImagesController.swift"
-            timestampString = "577368617.33898"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "484"
-            endingLineNumber = "484"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdForest/Controllers/AdPostImages/AdPostImagesController.swift"
-            timestampString = "577368617.339083"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AdForest/Controllers/AdPostImages/DropDownCell.swift"
             timestampString = "577368617.339186"
             startingColumnNumber = "9223372036854775807"
@@ -544,38 +464,6 @@
             startingLineNumber = "74"
             endingLineNumber = "74"
             landmarkName = "accountDropDown()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdForest/Controllers/AdPostImages/AdPostImagesController.swift"
-            timestampString = "577368617.339278"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "517"
-            endingLineNumber = "517"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdForest/Controllers/AdPostImages/AdPostImagesController.swift"
-            timestampString = "577368617.339379"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
-            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
