@@ -58,7 +58,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         let objData = dataArray[indexPath.row]
     
         for images in objData.adImages {
-            if let imgUrl = URL(string: images.thumb) {
+            if let imgUrl = URL(string: images.thumb.encodeUrl()) {
                 cell.imgPicture.sd_setShowActivityIndicatorView(true)
                 cell.imgPicture.sd_setIndicatorStyle(.gray)
                 cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)

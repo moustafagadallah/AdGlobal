@@ -65,7 +65,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
         let objData = dataArray[indexPath.row]
         
         for item in objData.adImages {
-            if let imgUrl = URL(string: item.thumb) {
+            if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                 cell.imgPicture.sd_setShowActivityIndicatorView(true)
                 cell.imgPicture.sd_setIndicatorStyle(.gray)
                 cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)

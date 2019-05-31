@@ -79,7 +79,7 @@ class CategoriesTableCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         if let name = objData.name {
             cell.lblName.text = name
         }
-        if let imgUrl = URL(string: objData.img) {
+        if let imgUrl = URL(string: objData.img.encodeUrl()) {
             cell.imgPicture.sd_setShowActivityIndicatorView(true)
             cell.imgPicture.sd_setIndicatorStyle(.gray)
             cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)

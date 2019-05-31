@@ -64,6 +64,7 @@ class ShopController: UIViewController, UIWebViewDelegate {
             request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
         }
         self.webView.loadRequest(request)
+    
     }
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {

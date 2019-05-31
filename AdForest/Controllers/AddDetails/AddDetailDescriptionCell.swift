@@ -66,12 +66,18 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
         }
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.setNeedsLayout()
+        
     }
     
     func adForest_reload() {
+         collectionView.reloadData()
         //cstCollectionHeight.constant = self.collectionView.contentSize.height
-        collectionView.reloadData()
+        //self.perform(#selector(self.reloadCollection), with: nil, afterDelay: 1)
+       
     }
+//    @objc func reloadCollection(){
+//         collectionView.reloadData()
+//    }
     
     //MARK:- Collection View Delegate Methods
     func numberOfSections(in collectionView: UICollectionView) -> Int {

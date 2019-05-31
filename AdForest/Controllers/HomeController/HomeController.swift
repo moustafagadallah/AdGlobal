@@ -113,9 +113,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-  
-   
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
@@ -277,6 +274,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchBarNavigation.delegate = self
         self.isNavSearchBarShowing = true
         searchBarNavigation.isHidden = false
+        //searchBarNavigation.ti
         navigationItem.titleView = searchBarNavigation
         searchBarNavigation.becomeFirstResponder()
     }
@@ -1106,6 +1104,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     if isShowBanner {
                         SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
+                        
+                        print(successResponse.settings.ads.bannerId)
+                        
                         self.tableView.translatesAutoresizingMaskIntoConstraints = false
                         if successResponse.settings.ads.position == "top" {
                             self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true

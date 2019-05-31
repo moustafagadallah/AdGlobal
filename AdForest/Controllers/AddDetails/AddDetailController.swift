@@ -1100,7 +1100,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.relatedAdsArray = successResponse.data.adDetail.relatedAds
                 AddsHandler.sharedInstance.ratingsAdds = successResponse.data.adRatting
                 self.adForest_populateData()
-                self.tableView.reloadData()
+                //self.tableView.reloadData()
+                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 1)
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -1112,6 +1113,10 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
+    }
+    
+    @objc func reloadTable(){
+        self.tableView.reloadData()
     }
     
     //Make Add Feature

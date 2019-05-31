@@ -43,13 +43,15 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
     var dynamicArray = [SearchData]()
     
     var searchTitle = ""
+    var param: [String: Any] = [:]
+    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.refreshButton()
         self.addBackButtonToNavigationBar()
-        //self.adForest_getSearchData()
+        self.adForest_getSearchData()
         self.adMob()
         self.googleAnalytics(controllerName: "Advanced Search Controller")
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.searchDynamicData), object: nil, queue: nil) { (notification) in
@@ -65,7 +67,12 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.adForest_getSearchData()
+       // self.adForest_getSearchData()
+
+        customDictionary = [:]
+        addInfoDictionary = [:]
+        param.removeAll()
+
         
     }
     //MARK:- Custom
@@ -154,32 +161,45 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
     }
     
     @objc func onClickRefreshButton() {
+        
+        newArray.removeAll()
+        data.removeAll()
+        customDictionary = [:]
+        addInfoDictionary = [:]
+        param = [:]
+        param.removeAll()
+        print(param)
         self.adForest_getSearchData()
+       
     }
     
     //Set Up parameters to Sent to Server
     func setUpData() {
     
-        let dataToSend = data
-        for (_, value) in dataToSend.enumerated() {
-            if value.fieldVal == "" {
-                continue
+            let dataToSend = data
+            for (_, value) in dataToSend.enumerated() {
+                if value.fieldVal == "" {
+                    continue
+                }
+                if newArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
+                    addInfoDictionary[value.fieldTypeName] = value.fieldVal
+                    //customDictionary[value.fieldTypeName] = value.fieldVal // NEW
+                    print(addInfoDictionary)
+                } else {
+                    customDictionary[value.fieldTypeName] = value.fieldVal
+                    addInfoDictionary[value.fieldTypeName] = value.fieldVal // NEW
+                    print(customDictionary)
+                }
             }
-            if newArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
-                addInfoDictionary[value.fieldTypeName] = value.fieldVal
-                print(addInfoDictionary)
-            } else {
-                customDictionary[value.fieldTypeName] = value.fieldVal
-                print(customDictionary)
-            }
-        }
+            
+            let custom = Constants.json(from: customDictionary)
+            param = ["custom_fields": custom ?? ""]
+            param.merge(with: addInfoDictionary)
+            print(param)
         
-        let custom = Constants.json(from: customDictionary)
-        var param: [String: Any] = ["custom_fields": custom ?? ""]
-        param.merge(with: addInfoDictionary)
-        print(param)
-        self.adForest_postData(parameter: param as NSDictionary)
-       
+            
+            self.adForest_postData(parameter: param as NSDictionary)
+        
     }
     
     func showLoader() {
@@ -244,6 +264,11 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     }
                     cell.accountDropDown()
                     cell.valueDropDown.show()
+                   
+                    cell.fieldNam = objData.fieldTypeName
+                    cell.index = indexPath.row
+                    cell.delegate = self
+                    
                 }
                 return cell
             }
@@ -254,6 +279,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.lblTitle.text = title
                 }
                 cell.dataArray = objData.values
+            
                 cell.fieldNam = objData.fieldTypeName
                 cell.index = indexPath.row
                 cell.delegate = self
@@ -402,9 +428,9 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                         if objData.fieldType == "select" {
                             if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SearchDropDown {
                                 var obj = SearchData()
-
                                 obj.fieldTypeName = cell.param
                                 obj.fieldVal = cell.selectedKey
+                                print(cell.selectedKey)
                                 obj.fieldType = "select"
                                 self.data.append(obj)
                             }
@@ -631,8 +657,21 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 }
 
 
-extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate{
- 
+extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate,selectValue{
+    
+    
+    func selectValue(selectVal: String, selectKey: String, fieldType: String, indexPath: Int, fieldTypeName: String) {
+        
+        if fieldType == "select" {
+            //print("Index Path Selected \(indexPath,MinDate,MaxDate,fieldType)")
+            var obj = SearchData()
+            obj.fieldType = fieldType
+            obj.fieldVal = selectKey
+            obj.fieldTypeName = fieldTypeName //"textfield_date"
+            self.data.append(obj)
+        }
+        
+    }
     
     func radioValue(radioVal: String, fieldType: String, indexPath: Int , fieldName:String) {
         if fieldType == "radio" {

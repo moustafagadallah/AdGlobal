@@ -147,6 +147,12 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         for item in objArray {
            print(item.fieldTypeName, item.fieldName, item.fieldVal, item.fieldType)
         }
+        
+        let whiteColorAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.white]
+        let attributePlaceHolder = NSAttributedString(string: "Search", attributes: whiteColorAttribute)
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributePlaceHolder
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes(whiteColorAttribute, for: .normal)
+        
     }
 
     override func didReceiveMemoryWarning() {

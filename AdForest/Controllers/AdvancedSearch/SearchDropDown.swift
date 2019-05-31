@@ -10,6 +10,13 @@ import UIKit
 import NVActivityIndicatorView
 import DropDown
 
+
+
+protocol selectValue {
+    func selectValue(selectVal: String,selectKey:String, fieldType: String, indexPath: Int,fieldTypeName: String)
+    
+}
+
 class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategoryDelegate {
     
     //MARK:- Outlets
@@ -30,7 +37,9 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
     var hasSubArray = [Bool]()
     var hasTemplateArray = [Bool]()
     var hasCategoryTempelateArray = [Bool]()
-    
+     var delegate : selectValue?
+    var fieldNam = ""
+    var index = 0
     
     var btnPopupAction : (()->())?
     let appDel = UIApplication.shared.delegate as! AppDelegate
@@ -77,6 +86,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     print(param)
                     self.adForest_dynamicSearch(param: param as NSDictionary)
                 }
+                self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
             }
             
             if self.hasSub {
@@ -85,6 +95,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     print(url)
                     let param: [String: Any] = ["ad_country": self.selectedKey]
                     self.adForest_subCategory(url: url, param: param as NSDictionary)
+                     self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
                 }
                 else {
                     let param: [String: Any] = ["subcat": self.selectedKey]
@@ -92,6 +103,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     let url = Constants.URL.baseUrl+Constants.URL.subCategory
                     print(url)
                     self.adForest_subCategory(url: url, param: param as NSDictionary)
+                     self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
                 }
             }
         }
@@ -108,13 +120,16 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                 let param: [String: Any] = ["ad_country": id]
                 print(param)
                 self.adForest_subCategory(url: url, param: param as NSDictionary)
+                 self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
             }
             else {
                 let param: [String: Any] = ["subcat": id]
                 print(param)
                 let url = Constants.URL.baseUrl+Constants.URL.subCategory
                 print(url)
+                self.selectedKey = String(id)
                 self.adForest_subCategory(url: url, param: param as NSDictionary)
+                 self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
             }
         }
         else {

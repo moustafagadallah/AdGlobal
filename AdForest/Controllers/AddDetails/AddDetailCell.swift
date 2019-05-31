@@ -56,7 +56,7 @@ class AddDetailCell: UITableViewCell {
     
     func imageSliderSetting() {
         for image in localImages {
-            let alamofireSource = AlamofireSource(urlString: image)!
+            let alamofireSource = AlamofireSource(urlString: image.encodeUrl())!
             sourceImages.append(alamofireSource)
         }
         slideshow.backgroundColor = UIColor.white
@@ -71,7 +71,6 @@ class AddDetailCell: UITableViewCell {
         slideshow.currentPageChanged = { page in
         }
         
-        // can be used with other sample sources as `afNetworkingSource`, `alamofireSource` or `sdWebImageSource` or `kingfisherSource`
         slideshow.setImageInputs(sourceImages)
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
         slideshow.addGestureRecognizer(recognizer)
