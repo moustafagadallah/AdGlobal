@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0703FD5E2212B2BF00886A2A /* AdpostRadioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */; };
 		0703FD602212B2E400886A2A /* AdpostradioInnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703FD5F2212B2E400886A2A /* AdpostradioInnerTableViewCell.swift */; };
+		0765336522B7B955003EFDC5 /* LangData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0765336422B7B955003EFDC5 /* LangData.swift */; };
 		07787373225B552C006E15C3 /* AdMobDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07787372225B552C006E15C3 /* AdMobDelegate.swift */; };
 		07891CAB22017960002C8D7D /* CheckBoxesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */; };
 		07891CAD22017D53002C8D7D /* CheckBoxButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */; };
@@ -17,6 +18,8 @@
 		07A70C92221650F0002ADAEF /* RadioColorAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A70C91221650F0002ADAEF /* RadioColorAdTableViewCell.swift */; };
 		07A70C94221687A9002ADAEF /* NumericRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A70C93221687A9002ADAEF /* NumericRangeTableViewCell.swift */; };
 		07A70C962216AEFC002ADAEF /* CalenderSingleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A70C952216AEFC002ADAEF /* CalenderSingleTableViewCell.swift */; };
+		07AED46122B23A7C00FA5967 /* LangViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AED46022B23A7C00FA5967 /* LangViewController.swift */; };
+		07AED46322B23BE900FA5967 /* LangCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AED46222B23BE900FA5967 /* LangCollectionViewCell.swift */; };
 		07DF08BA2202DD24008F9736 /* RadioColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF08B92202DD24008F9736 /* RadioColorTableViewCell.swift */; };
 		07DF08BC2202DD3A008F9736 /* RadioColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF08BB2202DD3A008F9736 /* RadioColorCollectionViewCell.swift */; };
 		07EF456B2204173B000570E6 /* RangeValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EF456A2204173B000570E6 /* RangeValuesTableViewCell.swift */; };
@@ -553,6 +556,7 @@
 /* Begin PBXFileReference section */
 		0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdpostRadioTableViewCell.swift; sourceTree = "<group>"; };
 		0703FD5F2212B2E400886A2A /* AdpostradioInnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdpostradioInnerTableViewCell.swift; sourceTree = "<group>"; };
+		0765336422B7B955003EFDC5 /* LangData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangData.swift; sourceTree = "<group>"; };
 		07787372225B552C006E15C3 /* AdMobDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobDelegate.swift; sourceTree = "<group>"; };
 		07891CAA22017960002C8D7D /* CheckBoxesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxesTableViewCell.swift; sourceTree = "<group>"; };
 		07891CAC22017D53002C8D7D /* CheckBoxButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButtonCell.swift; sourceTree = "<group>"; };
@@ -561,6 +565,8 @@
 		07A70C91221650F0002ADAEF /* RadioColorAdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorAdTableViewCell.swift; sourceTree = "<group>"; };
 		07A70C93221687A9002ADAEF /* NumericRangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericRangeTableViewCell.swift; sourceTree = "<group>"; };
 		07A70C952216AEFC002ADAEF /* CalenderSingleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderSingleTableViewCell.swift; sourceTree = "<group>"; };
+		07AED46022B23A7C00FA5967 /* LangViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangViewController.swift; sourceTree = "<group>"; };
+		07AED46222B23BE900FA5967 /* LangCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangCollectionViewCell.swift; sourceTree = "<group>"; };
 		07DF08B92202DD24008F9736 /* RadioColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorTableViewCell.swift; sourceTree = "<group>"; };
 		07DF08BB2202DD3A008F9736 /* RadioColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EF456A2204173B000570E6 /* RangeValuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeValuesTableViewCell.swift; sourceTree = "<group>"; };
@@ -1140,6 +1146,15 @@
 				07891CAF22019609002C8D7D /* CheckBox.swift */,
 			);
 			path = CheckBox;
+			sourceTree = "<group>";
+		};
+		07AED45F22B23A5900FA5967 /* LangController */ = {
+			isa = PBXGroup;
+			children = (
+				07AED46022B23A7C00FA5967 /* LangViewController.swift */,
+				07AED46222B23BE900FA5967 /* LangCollectionViewCell.swift */,
+			);
+			path = LangController;
 			sourceTree = "<group>";
 		};
 		0F8C772C85EC76F33C55B54F /* Pods */ = {
@@ -2287,6 +2302,7 @@
 		18BBFAB8205109A30067662F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				07AED45F22B23A5900FA5967 /* LangController */,
 				183C65D8215BA1C9004A94EC /* FeedbackController */,
 				182C8B862158BE970007DFF9 /* SettingsController */,
 				18C32C322141277E0005D568 /* SellersController */,
@@ -2450,6 +2466,7 @@
 				181888952081EDBD008736F7 /* SettingsAppShare.swift */,
 				181888972081EDD7008736F7 /* SettingsAppRating.swift */,
 				18B619592174A4B80086EB72 /* SettingsShopMenu.swift */,
+				0765336422B7B955003EFDC5 /* LangData.swift */,
 			);
 			path = SettingsData;
 			sourceTree = "<group>";
@@ -3338,6 +3355,7 @@
 				18F2AA0821393BEF007B1AD0 /* AddDetailAdTimer.swift in Sources */,
 				182B4B4220905C0C00324D4E /* AadPostController.swift in Sources */,
 				18BBFAFF205157E60067662F /* LeftMenuCell.swift in Sources */,
+				0765336522B7B955003EFDC5 /* LangData.swift in Sources */,
 				182690B02087290A00E2C966 /* HomeMenu.swift in Sources */,
 				185EAACE2099CC4F00E412DB /* AdPostLiveData.swift in Sources */,
 				18BBFADC20510FA90067662F /* SettingsAlertDialog.swift in Sources */,
@@ -3493,6 +3511,7 @@
 				18D8F56B206BAA8C00D19830 /* AddDeleteData.swift in Sources */,
 				1852B0DD208325530014AF99 /* SentOfferChatAdPrice.swift in Sources */,
 				182C7FE62068D3550080A391 /* ProfileDetailsData.swift in Sources */,
+				07AED46122B23A7C00FA5967 /* LangViewController.swift in Sources */,
 				182690FD2087655600E2C966 /* CategoryAdSaved.swift in Sources */,
 				18C2CD00206A4FC200235E0E /* MyAdsAd.swift in Sources */,
 				18BBFB0220515EBE0067662F /* ImageView.swift in Sources */,
@@ -3614,6 +3633,7 @@
 				18392418209C352800BC35F7 /* SearchExtra.swift in Sources */,
 				18A9309A212850930003336F /* Timer.swift in Sources */,
 				184EDAE82078973000A25228 /* AddDetailRateBar.swift in Sources */,
+				07AED46322B23BE900FA5967 /* LangCollectionViewCell.swift in Sources */,
 				18630F7420693BF100DC16DC /* NumberVerifyResend.swift in Sources */,
 				182690D9208742A600E2C966 /* CategoryCollectionCell.swift in Sources */,
 				182690C2208729D800E2C966 /* AddTimer.swift in Sources */,
@@ -3862,8 +3882,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Muhammad Jawad Arshad (3D42832GGZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Muhammad Jawad Arshad (3D42832GGZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Muhammad Jawad Arshad (299YT2HJN8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Muhammad Jawad Arshad (299YT2HJN8)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
@@ -3872,7 +3892,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = adForestDi;
+				PROVISIONING_PROFILE_SPECIFIER = adForestDevNew;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -3887,8 +3907,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
@@ -3897,7 +3917,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = adForestDi;
+				PROVISIONING_PROFILE_SPECIFIER = adForestDevNew;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

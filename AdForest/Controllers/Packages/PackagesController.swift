@@ -509,7 +509,6 @@ extension PackagesController {
         }
     }
     
-    
     func alertForVerifySubscription(result: VerifySubscriptionResult)-> UIAlertController {
         switch result {
         case .purchased(let expiryDate):
@@ -520,7 +519,6 @@ extension PackagesController {
             return alertWithTitle(title: "Product Expired", message: "Product is expire since \(expiryDate)")
         }
     }
-    
     
     func alertForVerifyPurchase(result: VerifyPurchaseResult)-> UIAlertController {
         switch result {

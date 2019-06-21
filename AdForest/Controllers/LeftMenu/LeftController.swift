@@ -20,7 +20,6 @@ enum pageMenu: Int {
     case detailPage
 }
 
-
 enum GuestMenu: Int {
     case main = 1
     case advancedSearch
@@ -47,6 +46,10 @@ enum OtherMenues: Int {
     case logout
 }
 
+enum leftMenuLangSetting : Int {
+    case language
+}
+
 protocol leftMenuProtocol {
     func changeViewController(_ menu : leftMenues)
 }
@@ -68,8 +71,13 @@ protocol changeOtherGuestProtocol {
     func changeGuestMenu(_ other: OtherGuestMenues)
 }
 
-class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable , changeOtherMenuesProtocol , guestMenuProtocol, changeOtherGuestProtocol, changePagesProtocol, leftMenuProtocol {
-  
+protocol leftMenuLangProtocol : class {
+    func changeViewController(_ menu: leftMenuLangSetting)
+}
+
+class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable , changeOtherMenuesProtocol , guestMenuProtocol, changeOtherGuestProtocol, changePagesProtocol, leftMenuProtocol,leftMenuLangProtocol {
+   
+
     //MARK:- Outlets
     @IBOutlet weak var imgProfilePicture: UIImageView! {
         didSet {
@@ -93,6 +101,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- Properties
     
+    var menuLangText = UserDefaults.standard.string(forKey: "meuText")
     var defaults = UserDefaults.standard
     var guestImagesArray = [UIImage(named: "home"), UIImage(named: "search-magnifier"), UIImage(named: "packages"), UIImage(named: "logout")]
     var othersArrayImages = [#imageLiteral(resourceName: "blog"),#imageLiteral(resourceName: "settings") , #imageLiteral(resourceName: "logout")]
@@ -122,6 +131,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var viewBlog : UIViewController!
     var viewSettings: UIViewController!
     var viewlogout: UIViewController!
+    var langController: UIViewController!
     
     //MARK:- Application Life Cycle
     
@@ -138,6 +148,9 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.updateUserProfile), object: nil, queue: nil) { (notification) in
             self.adForest_populateData()
         }
+        
+        self.langView()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -220,7 +233,6 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    
     func changeViewController(_ menu: leftMenues) {
         switch menu {
         case .main:
@@ -249,6 +261,16 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slideMenuController()?.changeMainViewController(self.viewRegister, close: true)
         }
     }
+    
+    func changeViewController(_ menu: leftMenuLangSetting) {
+        switch menu {
+        case .language:
+            self.slideMenuController()?.changeMainViewController(self.langController, close: true)
+            
+        }
+    }
+    
+    
     
     //MARK:- Hide Guest Package
     func hideGuestController(_ menu: HideGuestPackage) {
@@ -364,6 +386,15 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.viewSettings = UINavigationController(rootViewController: settingsView)
     }
     
+    func initializeOthersettingLangViewa() {
+        let langView = self.storyboard?.instantiateViewController(withIdentifier: "LangViewController") as! LangViewController
+        self.langController = UINavigationController(rootViewController: langView)
+    }
+    
+    func langView(){
+        let langView = self.storyboard?.instantiateViewController(withIdentifier: "LangViewController") as! LangViewController
+        self.langController = UINavigationController(rootViewController: langView)
+    }
     
     //Change Other Views
     func changeMenu(_ other: OtherMenues) {
@@ -418,7 +449,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     //MARK:- Table View Delegate Methods
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var value = 0
@@ -451,6 +482,9 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             else {
                 value = 2
             }
+        }
+        else if section == 3{
+            value = 1
         }
         return value
     }
@@ -618,11 +652,31 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
         }
+        else if section == 3{
+            
+            let isWpOn = UserDefaults.standard.bool(forKey: "isWpOn")
+            if isWpOn == true{
+            cell.lblName.text = menuLangText //"Language"
+            cell.imgPicture.image = UIImage(named: "language")
+            }else{
+                //-->>>
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+       let isWpOn = UserDefaults.standard.bool(forKey: "isWpOn")
+        if indexPath.section == 3 {
+            if isWpOn == true{
+                 return 40
+            }else{
+                return 0
+            }
+        }else{
+             return 40
+        }
+       
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -732,5 +786,12 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
         }
+        else if section == 3{
+            if let menu = leftMenuLangSetting(rawValue: indexPath.row) {
+                 appDelegate.moveToLanguageCtrl()  // self.changeViewController(menu)
+            }
+        }
+        
+        
     }
 }

@@ -43,6 +43,17 @@ struct SettingsData {
     var featuredScroll : SettingsFeaturedScroll!
     var shopMenu : [SettingsShopMenu]!
     var appPageTestUrl: String!
+    var wpml_logo: String!
+    var wpml_header_title_1: String!
+    var wpml_header_title_2: String!
+    var language_style: String!
+    var is_wpml_active: Bool!
+    var wpml_menu_text: String!
+   
+    
+    var langData : [LangData]!
+    
+    
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -111,7 +122,23 @@ struct SettingsData {
                 shopMenu.append(value)
             }
         }
+        
+        langData = [LangData]()
+        if let langArr = dictionary["site_languages"] as? [[String:Any]]{
+            for dic in langArr{
+                let value = LangData(fromDictionary: dic)
+                langData.append(value)
+            }
+        }
+        
+        
         appPageTestUrl = dictionary["app_page_test_url"] as? String
+        wpml_logo = dictionary["wpml_logo"] as? String
+        wpml_header_title_1 = dictionary["wpml_header_title_1"] as? String
+        wpml_header_title_2 = dictionary["wpml_header_title_2"] as? String
+        language_style = dictionary["language_style"] as? String
+        is_wpml_active = dictionary["is_wpml_active"] as? Bool
+        wpml_menu_text = dictionary["wpml_menu_text"] as? String
     }
     
     /**
@@ -217,6 +244,9 @@ struct SettingsData {
             }
             dictionary["shop_menu"] = dictionaryElements
         }
+        
+        
+        
         if appPageTestUrl != nil {
             dictionary["app_page_test_url"] = appPageTestUrl
         }

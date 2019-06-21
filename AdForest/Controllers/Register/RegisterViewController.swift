@@ -58,12 +58,20 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         }
     }
     @IBOutlet weak var lblOr: UILabel!
-    @IBOutlet weak var buttonFB: UIButton! {
-        didSet {
-            buttonFB.roundCorners()
-            buttonFB.isHidden = true
-        }
-    }
+    
+    @IBOutlet weak var buttonFB: FBSDKLoginButton!
+    
+//    @IBOutlet weak var buttonFB: UIButton! {
+//        didSet {
+//            buttonFB.roundCorners()
+//            buttonFB.isHidden = true
+//        }
+//    }
+//
+    
+    
+    
+    @IBOutlet weak var btnGoogle: GIDSignInButton!
     @IBOutlet weak var buttonGoogle: UIButton! {
         didSet {
             buttonGoogle.roundCorners()
@@ -216,11 +224,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             if isShowFacebook && isShowGoogle {
                 self.buttonFB.isHidden = false
                 self.buttonGoogle.isHidden = false
+                 self.btnGoogle.isHidden = false // new
                 if let fbText = objData?.facebookBtn {
-                    self.buttonFB.setTitle(fbText, for: .normal)
+                   // self.buttonFB.setTitle(fbText, for: .normal)
                 }
                 if let googletext = objData?.googleBtn {
-                    self.buttonGoogle.setTitle(googletext, for: .normal)
+                    //self.buttonGoogle.setTitle(googletext, for: .normal)
                 }
             }
                 
@@ -230,18 +239,23 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 buttonFB.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
                 buttonFB.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
                 if let fbText = objData?.facebookBtn {
-                    self.buttonFB.setTitle(fbText, for: .normal)
+                   // self.buttonFB.setTitle(fbText, for: .normal)
                 }
             }
                 
             else if isShowGoogle && isShowFacebook == false {
                 self.buttonGoogle.isHidden = false
+                self.btnGoogle.isHidden = false // new
                 self.buttonGoogle.translatesAutoresizingMaskIntoConstraints = false
+                self.btnGoogle.translatesAutoresizingMaskIntoConstraints = false //new
                 buttonGoogle.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
+                btnGoogle.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true // new
                 buttonGoogle.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
+                btnGoogle.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true // new
+                
                 
                 if let googletext = objData?.googleBtn {
-                    self.buttonGoogle.setTitle(googletext, for: .normal)
+                    //self.buttonGoogle.setTitle(googletext, for: .normal)
                 }
             }
         }
@@ -327,7 +341,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         }
     }
     
-    @IBAction func actionFacebook(_ sender: Any) {
+    
+    
+    @IBAction func actionFacebook(_ sender: FBSDKLoginButton) {
         let loginManager = FBSDKLoginManager()
         
         loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
@@ -342,7 +358,25 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             } else {
             }
         }
+        
     }
+    
+//    @IBAction func actionFacebook(_ sender: Any) {
+//        let loginManager = FBSDKLoginManager()
+//
+//        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
+//            if error != nil {
+//                print(error?.localizedDescription ?? "Nothing")
+//            }
+//            else if (result?.isCancelled)! {
+//                print("Cancel")
+//            }
+//            else if error == nil {
+//                self.userProfileDetails()
+//            } else {
+//            }
+//        }
+//    }
     
     @IBAction func actionGoogle(_ sender: Any) {
         if GoogleAuthenctication.isLooggedIn {

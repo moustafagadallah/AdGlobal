@@ -45,13 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+
         keyboardManager.enable = true
         self.setUpGoogleMaps()
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         Messaging.messaging().shouldEstablishDirectChannel = true
-        
+
         if #available(iOS 11, *) {
             UNUserNotificationCenter.current().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in
@@ -64,14 +64,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             application.registerForRemoteNotifications()
         }
         UIApplication.shared.registerForRemoteNotifications()
-        
+
         // For Facebook and Google SignIn
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        
+
         defaults.removeObject(forKey: "isGuest")
         defaults.synchronize()
-        
+
         //For in App Purchase
         SwiftyStoreKit.completeTransactions(atomically: true) { (purchases) in
             for purchase in purchases {
@@ -85,9 +85,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             }
         }
+       
+        
+        let appearance = UINavigationBar.appearance()
+        appearance.setBackgroundImage(UIImage(), for: .default)
+        appearance.shadowImage = UIImage()
+        appearance.isTranslucent = false
+        appearance.barTintColor = UIColor.white
+        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font: UIFont.systemFontSize]
+        appearance.barStyle = .blackTranslucent
+        
+
         return true
     }
-    
+ 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let willHandleByFacebook = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         
@@ -168,6 +179,22 @@ extension AppDelegate {
     
     func moveToHome() {
         let HomeVC = storyboard.instantiateViewController(withIdentifier: "HomeController") as! HomeController
+        if defaults.bool(forKey: "isRtl") {
+            let rightViewController = storyboard.instantiateViewController(withIdentifier: "LeftController") as! LeftController
+            let navi: UINavigationController = UINavigationController(rootViewController: HomeVC)
+            let slideMenuController = SlideMenuController(mainViewController: navi, rightMenuViewController: rightViewController)
+            self.window?.rootViewController = slideMenuController
+        } else {
+            let leftVC = storyboard.instantiateViewController(withIdentifier: "LeftController") as! LeftController
+            let navi : UINavigationController = UINavigationController(rootViewController: HomeVC)
+            let slideMenuController = SlideMenuController(mainViewController: navi, leftMenuViewController: leftVC)
+            self.window?.rootViewController = slideMenuController
+        }
+        self.window?.makeKeyAndVisible()
+    }
+    
+    func moveToLanguageCtrl() {
+        let HomeVC = storyboard.instantiateViewController(withIdentifier: "LangViewController") as! LangViewController
         if defaults.bool(forKey: "isRtl") {
             let rightViewController = storyboard.instantiateViewController(withIdentifier: "LeftController") as! LeftController
             let navi: UINavigationController = UINavigationController(rootViewController: HomeVC)

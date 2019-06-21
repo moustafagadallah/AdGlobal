@@ -940,12 +940,12 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if isRatingSectionShow == false{
                 height = 0
             }else{
-            
-            if objData.adRatting.canRate && buttonText != "receive"  {
-                height = 220
-            } else {
-                height = 50
-            }
+                
+                if objData.adRatting.canRate && buttonText != "receive"  {
+                    height = 220
+                } else {
+                    height = 50
+                }
             }
         }
             
@@ -999,14 +999,11 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
         let titleLabel = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.frame.width - 20, height: 20))
     
-        
         if section == 3 {
             titleLabel.text = ratingReviewTitle
             titleLabel.textAlignment = .center
         }
             
-    
-    
         else if section == 10 {
             titleLabel.text = similarAdsTitle
             titleLabel.textAlignment = .left
@@ -1016,7 +1013,6 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     //MARK:- IBActions
-    
     
     @IBAction func actionSendMessage(_ sender: Any) {
       
@@ -1100,7 +1096,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.relatedAdsArray = successResponse.data.adDetail.relatedAds
                 AddsHandler.sharedInstance.ratingsAdds = successResponse.data.adRatting
                 self.adForest_populateData()
-                //self.tableView.reloadData()
+                self.tableView.reloadData()
                 self.perform(#selector(self.reloadTable), with: nil, afterDelay: 1)
             }
             else {

@@ -24,6 +24,9 @@ struct AdPostData {
     var titleFieldName : String!
     var updateNotice : String!
     var catTemplateOn : Bool!
+    
+    
+    
  
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -59,6 +62,8 @@ struct AdPostData {
         titleFieldName = dictionary["title_field_name"] as? String
         updateNotice = dictionary["update_notice"] as? String
         catTemplateOn = dictionary["cat_template_on"] as? Bool
+       
+        
     }
     
     /**

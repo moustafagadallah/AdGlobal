@@ -50,6 +50,7 @@ class CustomHeader: UITableViewCell {
     func orderDropDown() {
         arrangeDropDown.anchorView = oltOrder
         arrangeDropDown.dataSource = orderArray
+        print(orderArray)
         arrangeDropDown.selectionAction = { [unowned self] (index, item) in
             self.oltOrder.setTitle(item, for: .normal)
             let sortKey = self.orderKeysArray[index]

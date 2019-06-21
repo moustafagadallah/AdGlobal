@@ -17,6 +17,8 @@ struct AdPostExtra {
     var priceTypeData : [AdPostPriceTypeData]!
     var sortImageMsg : String!
     var userInfo : String!
+    var termsCondition : String!
+    var termsUrl : String!
     
     
     /**
@@ -36,6 +38,8 @@ struct AdPostExtra {
         }
         sortImageMsg = dictionary["sort_image_msg"] as? String
         userInfo = dictionary["user_info"] as? String
+        termsUrl = dictionary["adpost_terms_url"] as? String
+        termsCondition = dictionary["adpost_terms_title"] as? String
     }
     
     /**

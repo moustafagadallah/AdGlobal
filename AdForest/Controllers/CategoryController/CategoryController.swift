@@ -60,11 +60,15 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if isFromAdvanceSearch {
-            self.dataArray = AddsHandler.sharedInstance.objCategoryArray
-            self.categotyAdArray = AddsHandler.sharedInstance.objCategotyAdArray
-            self.tableView.reloadData()
-        } else if isFromNearBySearch {
+       
+//        if isFromAdvanceSearch {
+//            self.dataArray = AddsHandler.sharedInstance.objCategoryArray
+//            self.categotyAdArray = AddsHandler.sharedInstance.objCategotyAdArray
+//            print(self.categotyAdArray)
+//            self.tableView.reloadData()
+//        } else
+        
+            if isFromNearBySearch {
             let param: [String: Any] = ["nearby_latitude": latitude, "nearby_longitude": longitude, "nearby_distance": nearByDistance, "page_number": 1]
             print(param)
             self.adForest_categoryData(param: param as NSDictionary)

@@ -57,6 +57,12 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         self.adForest_profileDetails()
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//         self.adForest_profileDetails()
+//    }
+    
+    
     //MARK: - Custom
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)

@@ -8,6 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import JGProgressHUD
 
 class VerifyNumberController: UIViewController, NVActivityIndicatorViewable {
 
@@ -105,8 +106,16 @@ class VerifyNumberController: UIViewController, NVActivityIndicatorViewable {
         UserHandler.verifyCode(param: parameter, success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-                let alert = Constants.showBasicAlert(message: successResponse.message)
-                self.presentVC(alert)
+                //let alert = Constants.showBasicAlert(message: successResponse.message)
+                //self.presentVC(alert)
+                let hud = JGProgressHUD(style: .dark)
+                hud.textLabel.text = successResponse.message as! String
+                hud.detailTextLabel.text = nil
+                hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                hud.position = .bottomCenter
+                hud.show(in: self.view)
+                hud.dismiss(afterDelay: 2.0)
+                self.perform(#selector(self.disMiss), with: nil, afterDelay: 2)
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -126,8 +135,18 @@ class VerifyNumberController: UIViewController, NVActivityIndicatorViewable {
         UserHandler.verifyPhone(success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-                let alert = Constants.showBasicAlert(message: successResponse.message)
-                self.presentVC(alert)
+                //let alert = Constants.showBasicAlert(message: successResponse.message)
+                //self.presentVC(alert)
+                let hud = JGProgressHUD(style: .dark)
+                hud.textLabel.text = successResponse.message as! String
+                hud.detailTextLabel.text = nil
+                hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                hud.position = .bottomCenter
+                hud.show(in: self.view)
+                hud.dismiss(afterDelay: 2.0)
+                self.perform(#selector(self.disMiss), with: nil, afterDelay: 2)
+                
+                
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -137,6 +156,10 @@ class VerifyNumberController: UIViewController, NVActivityIndicatorViewable {
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
+    }
+    
+    @objc func disMiss(){
+        self.dismissVC(completion: nil)
     }
 
 }

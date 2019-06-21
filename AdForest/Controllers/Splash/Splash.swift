@@ -21,6 +21,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
     var isBlogImg:Bool = false
     var isSettingImg:Bool = false
     var imagesArr = [UIImage]()
+    var isWplOn = false
     
     //MARK:- Properties
     
@@ -94,6 +95,9 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 //Save Shop title to show in Shop Navigation Title
                 self.defaults.set(successResponse.data.menu.shop, forKey: "shopTitle")
                 self.isAppOpen = successResponse.data.isAppOpen
+                self.isWplOn = successResponse.data.is_wpml_active
+                UserDefaults.standard.set(self.isWplOn, forKey: "isWpOn")
+                UserDefaults.standard.set(successResponse.data.wpml_menu_text, forKey: "meuText")
                 //Offers title
                 self.defaults.set(successResponse.data.messagesScreen.mainTitle, forKey: "message")
                 self.defaults.set(successResponse.data.messagesScreen.sent, forKey: "sentOffers")
@@ -113,18 +117,38 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                     self.imagesArr.append(UIImage(named: "settings")!)
                     self.settingBlogArr.append(successResponse.data.menu.appSettings)
                 }
-               
+                
                 UserDefaults.standard.set(self.settingBlogArr, forKey: "setArr")
                 UserDefaults.standard.set(self.imagesArr, forKey: "setArrImg")
                 print(self.imagesArr)
                
-                if successResponse.data.isRtl {
-                    UIView.appearance().semanticContentAttribute = .forceRightToLeft
-                     self.adForest_checkLogin()
-                } else {
-                    UIView.appearance().semanticContentAttribute = .forceLeftToRight
-                     self.adForest_checkLogin()
+                let isLang = UserDefaults.standard.string(forKey: "langFirst")
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+              
+                if self.isWplOn == true{
+                    
+                    if isLang != "1"{
+                        let langCtrl = storyboard.instantiateViewController(withIdentifier: "LangViewController") as! LangViewController
+                        self.navigationController?.pushViewController(langCtrl, animated: true)
+                    }else{
+                        if successResponse.data.isRtl {
+                            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+                            self.adForest_checkLogin()
+                        } else {
+                            UIView.appearance().semanticContentAttribute = .forceLeftToRight
+                            self.adForest_checkLogin()
+                        }
+                    }
+                }else{
+                    if successResponse.data.isRtl {
+                        UIView.appearance().semanticContentAttribute = .forceRightToLeft
+                        self.adForest_checkLogin()
+                    } else {
+                        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+                        self.adForest_checkLogin()
+                    }
                 }
+           
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)

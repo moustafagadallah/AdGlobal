@@ -46,8 +46,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- Properties
     
-    
-    
     var defaults = UserDefaults.standard
     var dataArray = [HomeSlider]()
     var categoryArray = [CatIcon]()
@@ -95,7 +93,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // self.navigationController?.isNavigationBarHidden = false
         inters = GADInterstitial(adUnitID:"ca-app-pub-3521346996890484/7679081330")
         let request = GADRequest()
         request.testDevices = [kGADSimulatorID,"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
@@ -109,14 +107,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.adForest_homeData()
         self.addLeftBarButtonWithImage(UIImage(named: "menu")!)
         self.navigationButtons()
-       
-        
+        //UserDefaults.standard.setValue("1", forKey: "langFirst")
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-            self.oltAddPost.isHidden = true
+            self.oltAddPost.isHidden = false
         }
           currentVc = self
     }
@@ -1007,17 +1005,30 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- IBActions
     @IBAction func actionAddPost(_ sender: UIButton) {
-        let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-        self.navigationController?.pushViewController(adPostVC, animated: true)
+        
+        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+            
+            let alertContr = UIAlertController(title: "Alert", message: "Please Login first", preferredStyle: .alert)
+            let okBtn = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alertContr.addAction(okBtn)
+            self.presentVC(alertContr)
+        
+        }else{
+            let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+            self.navigationController?.pushViewController(adPostVC, animated: true)
+        }
+       
     }
     
     //MARK:- API Call
     
     //get home data
     func adForest_homeData() {
+         //self.navigationController?.isNavigationBarHidden = false
         AddsHandler.homeData(success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
+                
                 self.title = successResponse.data.pageTitle
                 if let column = successResponse.data.catIconsColumn {
                     let columns = Int(column)

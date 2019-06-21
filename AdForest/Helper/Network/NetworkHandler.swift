@@ -228,14 +228,20 @@ class NetworkHandler {
         
        var headers: HTTPHeaders
 
+        var langCode = UserDefaults.standard.string(forKey: "langCode")
+        if langCode == nil {
+            langCode = "en"
+        }
+        
         if UserDefaults.standard.bool(forKey: "isGuest") {
             headers = [
                 "Accept": "application/json",
                 //just add security
                 "Purchase-Code" : Constants.customCodes.purchaseCode,
                 "Custom-Security": Constants.customCodes.securityCode,
-                "Adforest-Request-From" : "ios"
-            ]
+                "Adforest-Request-From" : "ios",
+                "Adforest-Lang-Locale" : langCode
+                ] as! HTTPHeaders
         }
         
         if UserDefaults.standard.bool(forKey: "isSocial") {
@@ -259,8 +265,9 @@ class NetworkHandler {
                 //just add security
                 "Purchase-Code" : Constants.customCodes.purchaseCode,
                 "Custom-Security": Constants.customCodes.securityCode,
-                "Adforest-Request-From" : "ios"
-            ]
+                "Adforest-Request-From" : "ios",
+                "Adforest-Lang-Locale" : langCode
+                ] as! HTTPHeaders
         }
         else {
             var email = ""
@@ -281,8 +288,9 @@ class NetworkHandler {
                 //just add security
                 "Purchase-Code" : Constants.customCodes.purchaseCode,
                 "Custom-Security": Constants.customCodes.securityCode,
-                "Adforest-Request-From" : "ios"
-            ]
+                "Adforest-Request-From" : "ios",
+                "Adforest-Lang-Locale" : langCode
+                ] as! HTTPHeaders
         }
        
         print(headers)

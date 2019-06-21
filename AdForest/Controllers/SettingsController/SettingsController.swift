@@ -29,7 +29,6 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
     var delegate :leftMenuProtocol?
     var objData : AppSettingData?
     
-    
     var isShowAboutApp = false
     var isShowAppVersion = false
     var isShowAppRating = false

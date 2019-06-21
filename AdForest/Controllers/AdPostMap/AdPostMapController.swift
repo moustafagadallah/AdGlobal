@@ -14,6 +14,8 @@ import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
 import NVActivityIndicatorView
+import JGProgressHUD
+
 
 class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate , UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate, NVActivityIndicatorViewable, SubCategoryDelegate {
   
@@ -81,6 +83,14 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     @IBOutlet weak var lblBumpText: UILabel!
     
     
+    
+    @IBOutlet weak var btnTermCondition: UIButton!
+    @IBOutlet weak var txtTermCondition: UITextField!
+    @IBOutlet weak var imgViewCheckBox: UIImageView!
+    @IBOutlet weak var btnCheckBoxTermCond: UIButton!
+    
+    
+    
     //MARK:- Properties
     let locationDropDown = DropDown()
     lazy var dropDowns : [DropDown] = {
@@ -133,6 +143,8 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     var isBump = false
     var localDictionary = [String: Any]()
     var selectedCountry = ""
+    var isTermCond = false
+    var termCondURL = ""
     
     
     //MARK:- View Life Cycle
@@ -197,6 +209,12 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 self.phone_number = nmbr
             }
             
+            if let termsCond = objData?.extra {
+                self.txtTermCondition.text = termsCond.termsCondition
+                self.btnTermCondition.setTitle(termsCond.termsUrl, for: .normal)
+                self.termCondURL = termsCond.termsUrl
+            }
+            
             var isPhoneEdit = false
             if let editNumber = objData?.data.profile.phoneEditable {
                 isPhoneEdit = editNumber
@@ -211,6 +229,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             
             if let addressText = objData?.data.profile.location.title {
                 self.txtAddress.placeholder = addressText
+               
             }
             
             if let addressValue = objData?.data.profile.location.fieldVal {
@@ -365,6 +384,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             self.selectedCountry = item
             self.hasSub = self.hasSubArray[index]
             self.selectedID = self.locationIdArray[index]
+            print(self.selectedID)
             
             if self.hasSub {
                 let param: [String: Any] = ["ad_country" : self.selectedID]
@@ -377,10 +397,12 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     //MARK:- Sub Locations Delegate Method
 
     func subCategoryDetails(name: String, id: Int, hasSubType: Bool, hasTempelate: Bool, hasCatTempelate: Bool) {
+      
         if hasSubType {
             let param: [String: Any] = ["ad_country" : id]
             print(param)
             self.adForest_subLocations(param: param as NSDictionary)
+            self.selectedID = String(id)
         }
         else {
             self.oltPopup.setTitle(name, for: .normal)
@@ -499,7 +521,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     self.isFeature = "true"
                 }
                 let cancel = UIAlertAction(title: popUpCancel, style: .default) { (action) in
-                    self.imgCheckBox.image = #imageLiteral(resourceName: "uncheck")
+                    self.imgCheckBox.image =  #imageLiteral(resourceName: "uncheck")
                 }
                 alert.addAction(cancel)
                 alert.addAction(confirm)
@@ -544,24 +566,71 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         }
     }
     
+    
+    @IBAction func btnTermConditionClicked(_ sender: UIButton) {
+        
+        let inValidUrl:String = "Invalid url"
+        
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: termCondURL) == false {
+                Constants.showBasicAlert(message: inValidUrl)
+            }else{
+                UIApplication.shared.open(URL(string: termCondURL)!, options: [:], completionHandler: nil)
+            }
+            
+        } else {
+            if verifyUrl(urlString: termCondURL) == false {
+                Constants.showBasicAlert(message: inValidUrl)
+            }else{
+                UIApplication.shared.openURL(URL(string: termCondURL)!)
+            }
+        }
+    }
+    
+    func verifyUrl (urlString: String?) -> Bool {
+        //Check for nil
+        if let urlString = urlString {
+            // create NSURL instance
+            if let url = NSURL(string: urlString) {
+                // check if your application can open the NSURL instance
+                return UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+        return false
+    }
+    
+    @IBAction func btnCheckBoxTermCondClicked(_ sender: UIButton) {
+        
+        if isTermCond == false{
+            self.imgViewCheckBox.image = UIImage(named: "check")
+            isTermCond = true
+        }else{
+            self.imgViewCheckBox.image = UIImage(named: "uncheck")
+            isTermCond = false
+        }
+        
+    }
+    
     @IBAction func actionPostAdd(_ sender: Any) {
         if address == "" {
             self.txtAddress.shake(6, withDelta: 10, speed: 0.06)
+        }else if isTermCond == false{
+             self.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)
         }
         else {
             var parameter: [String: Any] = [
                 "images_array": imageIdArray,
-                "ad_phone": phone_number,
+                "ad_phone": self.txtNumber.text!, //phone_number,
                 "ad_location":  address,
                 "location_lat": latitude,
                 "location_long": longitude,
-                "ad_country": selectedCountry,
+                "ad_country": selectedID,   //selectedCountry,
                 "ad_featured_ad": isFeature,
                 "ad_id": AddsHandler.sharedInstance.adPostAdId,
-                "ad_bump_ad": isBump
+                "ad_bump_ad": isBump,
+                "name": self.txtName.text!
             ]
-            
-            //    {"cat_id" : "275","select_colors":"#FFD700","number_range":"34","date_input":"2019-02-15|2019-02-15","radio":"button"}
+      
             print(parameter)
             let dataArray = objArray
             print(objArray)
@@ -579,9 +648,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     print(addInfoDictionary)
                 }
             }
-            
-            //{"optiosn_selct_box":"Options","ad_description":"Dasdas dasd","ad_bidding":"0","advsnce_check_box":""}
-            
+      
             customDictionary.merge(with: localDictionary)
             let custom = Constants.json(from: customDictionary)
             if AddsHandler.sharedInstance.isCategoeyTempelateOn {
