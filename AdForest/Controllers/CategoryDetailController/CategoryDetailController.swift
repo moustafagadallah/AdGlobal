@@ -29,6 +29,7 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
     var searchController = UISearchController(searchResultsController: nil)
     var filteredArray = [LocationDetailTerm]()
     var shouldShowSearchResults = false
+    var termId = 0
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -142,6 +143,8 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
                 self.navigationController?.pushViewController(categoryVC, animated: true)
             }
         }
+        
+        termId = dataArray[indexPath.row].termId
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -151,7 +154,7 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == dataArray.count - 1 && currentPage < maximumPage {
             currentPage = currentPage + 1
-            let param: [String: Any] = ["term_name":"ad_cats", "term_id": "", "page_number": currentPage]
+            let param: [String: Any] = ["term_name":"ad_cats", "term_id": termId, "page_number": currentPage]
             self.adForest_loadMoreData(parameter: param as NSDictionary)
         }
     }

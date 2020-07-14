@@ -17,7 +17,7 @@ struct SentOfferChatData{
     var chat : [SentOfferChat]!
     var pageTitle : String!
     var pagination : SentOfferChatPagination!
-    
+   
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -70,6 +70,7 @@ struct SentOfferChatData{
         if adTitle != nil{
             dictionary["ad_title"] = adTitle
         }
+       
         if chat != nil{
             var dictionaryElements = [[String:Any]]()
             for chatElement in chat {

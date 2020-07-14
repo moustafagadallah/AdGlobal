@@ -1008,10 +1008,17 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
             
-            let alertContr = UIAlertController(title: "Alert", message: "Please Login first", preferredStyle: .alert)
-            let okBtn = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            alertContr.addAction(okBtn)
-            self.presentVC(alertContr)
+            var msgLogin = ""
+            
+            if let msg = self.defaults.string(forKey: "notLogin") {
+                msgLogin = msg
+            }
+           
+            
+            let alert = Constants.showBasicAlert(message: msgLogin)
+            self.presentVC(alert)
+            
+            
         
         }else{
             let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController

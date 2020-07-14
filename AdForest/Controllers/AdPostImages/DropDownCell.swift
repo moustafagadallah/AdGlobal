@@ -78,6 +78,7 @@ class DropDownCell: UITableViewCell {
             self.oltPopup.setTitle(item, for: .normal)
             self.selectedValue = item
             self.selectedKey = self.dropDownKeysArray[index]
+            self.selectedValue = self.dropDownValuesArray[index]
             self.param = self.fieldTypeNameArray[index]
             self.hasSub = self.hasFieldsArr[index]
             print(self.hasSub)

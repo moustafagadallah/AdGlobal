@@ -135,6 +135,7 @@ class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategor
             self.oltPopup.setTitle(item, for: .normal)
             self.selectedValue = item
             self.selectedKey = self.dropDownKeysArray[index]
+            self.selectedValue = self.dropDownValuesArray[index]
             self.hasTempelate = self.hasTempelateArray[index]
             self.hasCatTempelate = self.hasCatTemplateArray[index]
             self.hasSub = self.hasSubArray[index]

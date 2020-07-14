@@ -25,6 +25,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     
+    @IBOutlet weak var btnBlock: UIButton!
+    
     @IBOutlet weak var containerViewTop: UIView! {
         didSet {
             containerViewTop.addShadowToView()
@@ -94,6 +96,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var sender_id = ""
     var receiver_id = ""
     var messageType = ""
+    var isBlocked :String?
+    var blockMessage = ""
     
     var currentPage = 0
     var maximumPage = 0
@@ -135,6 +139,15 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.textHeightConstraint = txtMessage.heightAnchor.constraint(equalToConstant: 40)
         self.textHeightConstraint.isActive = true
         self.adjustTextViewHeight()
+        
+        
+        if isBlocked == "true"{
+            btnBlock.setTitle("UnBlock", for: .normal)
+        }else{
+             btnBlock.setTitle("Block", for: .normal)
+        }
+        btnBlock.backgroundColor  = UIColor(hex: defaults.string(forKey: "mainColor")!)
+        btnBlock.roundCornors()
         
     }
     
@@ -314,6 +327,21 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.adForest_getChatData(parameter: parameter as NSDictionary)
     }
     
+    
+    @IBAction func btnBlockClicked(_ sender: UIButton) {
+    
+        if isBlocked == "true"{
+            let parameter : [String: Any] = ["sender_id": sender_id, "recv_id": receiver_id]
+            print(parameter)
+            adForest_UnblockUserChat(parameters: parameter as NSDictionary)
+        }else{
+            let parameter : [String: Any] = ["sender_id": sender_id, "recv_id": receiver_id]
+            print(parameter)
+            adForest_blockUserChat(parameters: parameter as NSDictionary)
+        }
+
+    }
+    
     //MARK:- Table View Delegate Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -420,6 +448,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- IBActions
     @IBAction func actionSendMessage(_ sender: UIButton) {
+        
+//        if isBlocked == "true"{
+//            print(blockMessage)
+//            let alert = Constants.showBasicAlert(message: blockMessage)
+//            self.presentVC(alert)
+//        }else{
+//            print("Not Blocked..")
+        
         guard let messageField = txtMessage.text else {
             return
         }
@@ -431,6 +467,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.adForest_sendMessage(param: parameter as NSDictionary)
             self.showLoader()
         }
+      //}
     }
     
     @IBAction func actionNotificationName(_ sender: UIButton) {
@@ -452,6 +489,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.maximumPage = successResponse.data.pagination.maxNumPages
                 UserHandler.sharedInstance.objSentOfferChatData = successResponse.data
                 self.reverseArray = successResponse.data.chat
+              
+               
                 self.dataArray = self.reverseArray.reversed()
                 
                 self.adForest_populateData()
@@ -517,6 +556,44 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentVC(alert)
         }
     }
+    
+    
+    
+    func adForest_blockUserChat(parameters: NSDictionary) {
+        self.showLoader()
+        UserHandler.blockUserChat(parameter: parameters , success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
+
+    
+    func adForest_UnblockUserChat(parameters: NSDictionary) {
+        self.showLoader()
+        UserHandler.UnblockUserChat(parameter: parameters , success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
+    
     
 }
 

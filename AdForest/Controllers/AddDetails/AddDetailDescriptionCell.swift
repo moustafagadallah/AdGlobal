@@ -8,13 +8,15 @@
 
 import UIKit
 
-class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIWebViewDelegate {
    
     
     //MARK:- Outlets
     
     
     
+    @IBOutlet weak var heightConstraintWebView: NSLayoutConstraint!
+    @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var containerView: UIView! {
         didSet {
             containerView.addShadowToView()
@@ -52,6 +54,8 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
        // cstCollectionHeight.constant = self.collectionView.contentSize.height
         //collectionView.reloadData()
         self.setupView()
+        webView.scrollView.isScrollEnabled = false
+        webView.delegate = self
     }
 
     override func layoutSubviews() {

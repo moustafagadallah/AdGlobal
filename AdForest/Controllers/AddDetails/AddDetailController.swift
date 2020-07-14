@@ -521,33 +521,41 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if let htmlText = objData?.adDetail.adDesc {
                 //cell.lblHtmlText.attributedText = htmlText.html2AttributedString
             
-                let strokeTextAttributes: [NSAttributedString.Key: Any] = [
-                    .foregroundColor : UIColor.gray,
-                    .font : UIFont.systemFont(ofSize: 15)
-                ]
-                let data = htmlText.data(using: String.Encoding.unicode)!
-                let attrStr = try? NSAttributedString(
-                    data: data,
-                    options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
-                    documentAttributes: nil)
+//                let strokeTextAttributes: [NSAttributedString.Key: Any] = [
+//                    .foregroundColor : UIColor.gray,
+//                    .font : UIFont.systemFont(ofSize: 15)
+//                ]
+//                let data = htmlText.data(using: String.Encoding.unicode)!
+//                let attrStr = try? NSAttributedString(
+//                    data: data,
+//                    options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+//                    documentAttributes: nil)
+//
+//                cell.lblHtmlText.attributedText = NSMutableAttributedString(string: (attrStr?.string)!, attributes: strokeTextAttributes)
+
+                cell.webView.loadHTMLString(htmlText, baseURL: nil)
+                //webviewHeightConstraint.constant = webview.scrollView.contentSize.height
+                cell.heightConstraintWebView.constant = cell.webView.scrollView.contentSize.height
                 
-                cell.lblHtmlText.attributedText = NSMutableAttributedString(string: (attrStr?.string)!, attributes: strokeTextAttributes)
-                
-                self.view.layoutIfNeeded()
+               // self.view.layoutIfNeeded()
                 
             }
         
             
             if let tagTitle = objData?.adDetail.adTagsShow.name {
-                if let addTags = objData?.adDetail.adTagsShow.value {
-                    let tags = ":  \(addTags)"
-                    let attributes = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12)]
-                    let attributedString = NSMutableAttributedString(string: tagTitle, attributes: attributes)
-                    
-                    let normalString = NSMutableAttributedString(string: tags)
-                    attributedString.append(normalString)
-                    cell.lblTagTitle.attributedText = attributedString
+                
+                if tagTitle != ""{
+                    if let addTags = objData?.adDetail.adTagsShow.value {
+                        let tags = ":  \(addTags)"
+                        let attributes = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12)]
+                        let attributedString = NSMutableAttributedString(string: tagTitle, attributes: attributes)
+                        
+                        let normalString = NSMutableAttributedString(string: tags)
+                        attributedString.append(normalString)
+                        cell.lblTagTitle.attributedText = attributedString
+                    }
                 }
+        
             }
             
             if let locationText = objData?.adDetail.location.title {
@@ -1097,7 +1105,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 AddsHandler.sharedInstance.ratingsAdds = successResponse.data.adRatting
                 self.adForest_populateData()
                 self.tableView.reloadData()
-                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 1)
+                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 1.5)
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)

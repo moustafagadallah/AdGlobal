@@ -12,13 +12,9 @@ import DeviceKit
 
 class Constants {
     struct  URL {
-        
-        static let ipAddress =  "https://adforest-wpml.scriptsbundle.com/"
     
-        //static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
-       //static let ipAddress =  "http://adforest-api.scriptsbundle.com/"
-        
-        static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
+        static let ipAddress = "https://www.globalon.app/"
+        static let baseUrl =  ipAddress + "/wp-json/adforest/v1/"
         
         static let homeData = "home"
         static let category = "ad_post/category"
@@ -37,6 +33,7 @@ class Constants {
         static let imageUpdate = "profile/image"
         static let userPublicProfile = "profile/public"
         static let blockedUsersList = "user/block"
+        static let blockedUsersChatList = "message/chat/userblocklist"
         static let unBlockUser = "user/unblock"
         static let blockUser = "user/block"
         
@@ -71,7 +68,7 @@ class Constants {
         static let sentOffers = "message"
         static let offerOnAds = "message/inbox"
         static let getSentOfferChatMessages = "message/chat"
-        static let sendmessage = "message/chat" 
+        static let sendmessage = "message/chat"
         static let offerOnAdsDetail = "message/offers"
         static let adDetailPopUpMsg = "message/popup"
         
@@ -92,30 +89,25 @@ class Constants {
         
         static let deleteAccount = "profile/delete/user_account"
         static let termsPage = "page"
-
+        
         static let sellerList = "sellers"
         
         static let appSettings = "app_extra"
         static let feedback = "app_extra/feedback"
+        
+        static let blockUserChat = "message/chat/userblock"
+        static let UnblockUserChat = "message/chat/userunblock"
+        
+        
     }
-   
 
     struct customCodes {
-        //Live
-        //static let purchaseCode = "aaBMQWH8vIWZjZOR07nEyJbOnqrzWbHk-ios"
-        //static let securityCode = "212PQoz1zAICAxvui55AZuSTNhajjTTs-ios"
-        
-        //Test
-        //static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
-        //static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
-        
-        static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk"
-        static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs"
+        static let purchaseCode = "ad22ea3d-6c18-4a43-896d-bbe88121fb89"
+        static let securityCode = "digitalad22ea3dupbeat"
     }
     
     struct googlePlacesAPIKey {
-        static let placesKey =  "AIzaSyDorvTuNOQlyBP3TmhCaRWjgfjl4P46MYM"
-
+        static let placesKey =  "AIzaSyBAojwX0DTKLAqG5qROcV-DV5IF8FJtbaw"
     }
     
     struct AppColor {
@@ -132,8 +124,7 @@ class Constants {
         static let phoneVerified = "#8ac249"
         static let phoneNotVerified = "#F25E5E"
     }
-    
-    
+
     struct NotificationName {
         static let updateUserProfile = "updateProfile"
         static let updateAddDetails = "updateAds"
@@ -187,13 +178,13 @@ class Constants {
     }
     
     //Convert data to json string
-   static func json(from object:Any) -> String? {
+    static func json(from object:Any) -> String? {
         guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
             return nil
         }
         return String(data: data, encoding: String.Encoding.utf8)
     }
-
+    
     
     static func dateFormatter(date: String) -> String {
         let dateFormatter = DateFormatter()
@@ -236,15 +227,15 @@ class Constants {
         return attributeString
     }
     
-   static func attributedString(from string: String, nonBoldRange: NSRange?) -> NSAttributedString {
+    static func attributedString(from string: String, nonBoldRange: NSRange?) -> NSAttributedString {
         let fontSize = UIFont.systemFontSize
         let attrs = [
-             NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: fontSize),
-             NSAttributedStringKey.foregroundColor: UIColor.black
+            NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: fontSize),
+            NSAttributedStringKey.foregroundColor: UIColor.black
         ]
         let nonBoldAttribute = [
             NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize),
-            ]
+        ]
         let attrStr = NSMutableAttributedString(string: string, attributes: attrs)
         if let range = nonBoldRange {
             attrStr.setAttributes(nonBoldAttribute, range: range)
@@ -260,7 +251,7 @@ class Constants {
         ]
         let nonBoldAttribute = [
             NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize),
-            ]
+        ]
         let attrStr = NSMutableAttributedString(string: string, attributes: attrs)
         if let range = nonBoldRange {
             attrStr.setAttributes(nonBoldAttribute, range: range)
@@ -320,14 +311,14 @@ class Constants {
             return false
         }
     }
-
+    
     public static var isIphoneX : Bool {
         
         let device = Device()
         
         switch device {
         case .iPhoneX, .simulator(.iPhoneX) :
-                 return true
+            return true
         default:
             return false
         }

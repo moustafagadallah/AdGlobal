@@ -72,7 +72,7 @@ protocol changeOtherGuestProtocol {
 }
 
 protocol leftMenuLangProtocol : class {
-    func changeViewController(_ menu: leftMenuLangSetting)
+    func changeViewControllerLang(_ menu: leftMenuLangSetting)
 }
 
 class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable , changeOtherMenuesProtocol , guestMenuProtocol, changeOtherGuestProtocol, changePagesProtocol, leftMenuProtocol,leftMenuLangProtocol {
@@ -262,7 +262,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func changeViewController(_ menu: leftMenuLangSetting) {
+    func changeViewControllerLang(_ menu: leftMenuLangSetting) {
         switch menu {
         case .language:
             self.slideMenuController()?.changeMainViewController(self.langController, close: true)
@@ -533,6 +533,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let objData =  UserHandler.sharedInstance.menuValuesArray[indexPath.row]
                 let img = UserHandler.sharedInstance.menuKeysArray[indexPath.row]
                 cell.lblName.text = objData
+                print(objData)
                 
                 switch img.lowercased() {
                 case "home" :

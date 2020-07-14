@@ -58,7 +58,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
             self.dataArray = self.newArray
             self.dynamicArray = AddsHandler.sharedInstance.objSearchArray
             self.dataArray.insert(contentsOf: AddsHandler.sharedInstance.objSearchArray, at: 2)
-            //self.tableView.reloadData()
+            self.tableView.reloadData()
         }
         
     }

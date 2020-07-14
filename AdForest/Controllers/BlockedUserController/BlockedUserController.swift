@@ -8,6 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import XLPagerTabStrip
 
 class BlockedUserController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable {
 
@@ -171,4 +172,13 @@ class BlockeduserCell: UITableViewCell {
         self.btnUnBlock?()
     }
     
+}
+
+extension BlockedUserController: IndicatorInfoProvider {
+    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        var pageTitle = "Blocked"
+       
+        
+        return IndicatorInfo(title: pageTitle)
+    }
 }

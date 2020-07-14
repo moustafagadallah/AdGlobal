@@ -14,6 +14,12 @@ class NetworkHandler {
 
     class func postRequest(url: String, parameters: Parameters?, success: @escaping (Any) -> Void, failure: @escaping (NetworkError) -> Void) {
         
+         var langCode = UserDefaults.standard.string(forKey: "langCode")
+        
+        if langCode == nil {
+            langCode = "en"
+        }
+        
         if Network.isAvailable {
             var headers: HTTPHeaders
             if UserDefaults.standard.bool(forKey: "isGuest") {
@@ -22,8 +28,9 @@ class NetworkHandler {
                     //just add security
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
-                    "Adforest-Request-From" : "ios"
-                ]
+                    "Adforest-Request-From" : "ios",
+                    "Adforest-Lang-Locale" : langCode
+                    ] as! HTTPHeaders
             }
              if UserDefaults.standard.bool(forKey: "isSocial") {
                 var email = ""
@@ -44,8 +51,9 @@ class NetworkHandler {
                     //just add security
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
-                    "Adforest-Request-From" : "ios"
-                ]
+                    "Adforest-Request-From" : "ios",
+                     "Adforest-Lang-Locale" : langCode
+                    ] as! HTTPHeaders
             }
             else {
                 var email = ""
@@ -65,8 +73,9 @@ class NetworkHandler {
                     //just add security
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
-                    "Adforest-Request-From" : "ios"
-                ]
+                    "Adforest-Request-From" : "ios",
+                     "Adforest-Lang-Locale" : langCode
+                    ] as! HTTPHeaders
             }
             let manager = Alamofire.SessionManager.default
             manager.session.configuration.timeoutIntervalForRequest = Constants.NetworkError.timeOutInterval
@@ -146,6 +155,8 @@ class NetworkHandler {
     
     class func postDataRequest(url: String, parameters: Parameters?, success: @escaping (Any) -> Void, failure: @escaping (NetworkError) -> Void) {
         
+         var langCode = UserDefaults.standard.string(forKey: "langCode")
+        
         if Network.isAvailable {
             
             var headers: HTTPHeaders
@@ -174,8 +185,9 @@ class NetworkHandler {
                     //just add security
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
-                     "Adforest-Request-From" : "ios"
-                ]
+                     "Adforest-Request-From" : "ios",
+                      "Adforest-Lang-Locale" : langCode
+                    ] as! HTTPHeaders
             }
             
             else {
@@ -201,8 +213,9 @@ class NetworkHandler {
                     //just add security
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
-                     "Adforest-Request-From" : "ios"
-                ]
+                     "Adforest-Request-From" : "ios",
+                      "Adforest-Lang-Locale" : langCode
+                    ] as! HTTPHeaders
             }
             print(headers)
             
@@ -223,12 +236,14 @@ class NetworkHandler {
     
     class func getRequest(url: String, parameters: Parameters?, success: @escaping (Any?) -> Void, failure: @escaping (NetworkError) -> Void) {
         
+        var langCode = UserDefaults.standard.string(forKey: "langCode")
+        
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = Constants.NetworkError.timeOutInterval
         
        var headers: HTTPHeaders
 
-        var langCode = UserDefaults.standard.string(forKey: "langCode")
+       
         if langCode == nil {
             langCode = "en"
         }

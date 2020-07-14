@@ -134,6 +134,7 @@ class OffersonAdsDetailController: UIViewController, UITableViewDelegate, UITabl
         chatVC.sender_id = objData.messageSenderId
         chatVC.receiver_id = objData.messageReceiverId
         chatVC.messageType = "receive"
+        chatVC.isBlocked = objData.is_block
         self.navigationController?.pushViewController(chatVC, animated: true)
     }
     

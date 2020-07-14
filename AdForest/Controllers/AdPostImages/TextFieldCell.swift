@@ -58,6 +58,7 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
     
     @IBAction func txtEditingStart(_ sender: UITextField) {
         if fieldName == "ad_bidding_time" && fieldType == "textfield"{
+            sender.isEnabled = false
             let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.date, selectedDate: Date(), doneBlock: {
                 picker, value, index in
                 print("value = \(value!)")
@@ -67,21 +68,22 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 let selectedDate = dateFormatter.string(from: value as! Date)
                 self.txtType.text = selectedDate
-                
                 self.delegate?.textVal(value:selectedDate , indexPath: self.inde ,fieldType: "textfield",section:self.section,fieldNam: self.fieldName)
+                 sender.isEnabled = true
                 return
             }, cancel: { ActionStringCancelBlock in return }, origin: sender as! UIView)
             datePicker?.show()
+            sender.isEnabled = true
+        }else{
+             sender.isEnabled = true
         }
     }
     
     @IBAction func txtEditingChanged(_ sender: UITextField) {
-
         if let text = sender.text {
-            //delegate?.changeText(value: text, fieldTitle: fieldName)
-
-                delegate?.textVal(value: text, indexPath: inde,fieldType: "textfield",section:section,fieldNam: fieldName)
-     
+            delegate?.textVal(value: text, indexPath: inde,fieldType: "textfield",section:section,fieldNam: fieldName)
         }
     }
+    
+    
 }

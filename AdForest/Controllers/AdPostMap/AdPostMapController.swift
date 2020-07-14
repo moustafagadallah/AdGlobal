@@ -18,7 +18,7 @@ import JGProgressHUD
 
 
 class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate , UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate, NVActivityIndicatorViewable, SubCategoryDelegate {
-  
+    
     //MARK:- Outlets
     
     @IBOutlet weak var containerView: UIView! {
@@ -119,7 +119,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     
     var latitude = ""
     var longitude = ""
-   // var objFieldData = [AdPostField]()
+    // var objFieldData = [AdPostField]()
     var valueArray = [String]()
     
     var localVariable = ""
@@ -145,6 +145,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     var selectedCountry = ""
     var isTermCond = false
     var termCondURL = ""
+    let defaults = UserDefaults.standard
     
     
     //MARK:- View Life Cycle
@@ -157,13 +158,33 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         map.settings.myLocationButton = true
         
         for item in objArray {
-           print(item.fieldTypeName, item.fieldName, item.fieldVal, item.fieldType)
+            print(item.fieldTypeName, item.fieldName, item.fieldVal, item.fieldType)
         }
         
         let whiteColorAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.white]
         let attributePlaceHolder = NSAttributedString(string: "Search", attributes: whiteColorAttribute)
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributePlaceHolder
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes(whiteColorAttribute, for: .normal)
+        
+        
+        if defaults.bool(forKey: "isRtl") {
+            txtName.textAlignment = .right
+            txtNumber.textAlignment = .right
+            txtAddress.textAlignment = .right
+            txtLatitude.textAlignment = .right
+            txtLongitude.textAlignment = .right
+            txtTermCondition.textAlignment = .right
+            oltPopup.contentHorizontalAlignment = .right
+        } else {
+            txtName.textAlignment = .left
+            txtNumber.textAlignment = .left
+            txtAddress.textAlignment = .left
+            txtLatitude.textAlignment = .left
+            txtLongitude.textAlignment = .left
+            txtTermCondition.textAlignment = .left
+            oltPopup.contentHorizontalAlignment = .left
+        }
+        
         
     }
 
@@ -615,7 +636,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         if address == "" {
             self.txtAddress.shake(6, withDelta: 10, speed: 0.06)
         }else if isTermCond == false{
-             self.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)
+            self.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)
         }
         else {
             var parameter: [String: Any] = [
@@ -674,6 +695,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     self.navigationController?.popToRootViewController(animated: true)
                 })
                 self.presentVC(alert)
+                self.imageIdArray.removeAll()
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)

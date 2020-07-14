@@ -409,7 +409,7 @@ class UserHandler {
             let dictionary = successResponse as! [String: Any]
             let objOfferAds = OfferAdsRoot(fromDictionary: dictionary)
             success(objOfferAds)
-        }) { (error) in
+        }) { (error) in 
             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
@@ -428,6 +428,33 @@ class UserHandler {
     }
     
     //MARK:- Send message
+    
+    class func blockUserChat(parameter: NSDictionary, success: @escaping(BlockUserChatRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.blockUserChat
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objChat = BlockUserChatRoot(fromDictionary: dictionary)
+            success(objChat)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    
+    class func UnblockUserChat(parameter: NSDictionary, success: @escaping(BlockUserChatRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.UnblockUserChat
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objChat = BlockUserChatRoot(fromDictionary: dictionary)
+            success(objChat)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    
+    
+    
     
     class func sendMessage(parameter: NSDictionary, success: @escaping(SentOfferChatRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         let url = Constants.URL.baseUrl+Constants.URL.sendmessage
@@ -492,6 +519,19 @@ class UserHandler {
              failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
+    
+    class func blockedUsersChatList(success: @escaping(BlockedUserChatListRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.blockedUsersChatList
+        print(url)
+        NetworkHandler.getRequest(url: url, parameters: nil, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objUser = BlockedUserChatListRoot(fromDictionary: dictionary)
+            success(objUser)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    
     
     //MARK:- Un Block User
     class func unBlockUser(parameter: NSDictionary, success: @escaping(UserForgot)-> Void, failure: @escaping(NetworkError)-> Void) {

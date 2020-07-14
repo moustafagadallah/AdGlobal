@@ -93,7 +93,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
         cell.imgCountry.sd_setShowActivityIndicatorView(true)
         cell.imgCountry.sd_setIndicatorStyle(.gray)
         cell.imgCountry.sd_setImage(with:URL(string: url!) , completed: nil)
-        cell.lblLanguage.text = langArr[indexPath.row].translated_name
+        cell.lblLanguage.text = langArr[indexPath.row].native_name
         cell.btnCode.setTitle(langArr[indexPath.row].code, for: .normal)
        
         return cell
@@ -119,16 +119,16 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
         let collectionViewSize = collectionView.frame.size.width - padding
         if Constants.isiPadDevice{
             if languageStyle == "1"{
-                 return CGSize(width: collectionViewSize/1.7, height:125)
+                 return CGSize(width: collectionViewSize, height:65)
             }else{
-                 return CGSize(width: collectionViewSize/2 - 6, height:105)
+                 return CGSize(width: collectionViewSize, height:65)
             }
         }
         else{
             if languageStyle == "1"{
-                return CGSize(width: collectionViewSize/1.7, height:125)
+                return CGSize(width: collectionViewSize, height:65)
             }else{
-                return CGSize(width: collectionViewSize/2 - 6, height:105)
+                return CGSize(width: collectionViewSize, height:65)
             }
         }
     }
@@ -211,7 +211,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
                 self.lblPick.text = successResponse.data.wpml_header_title_1
                 self.lblLang.text = successResponse.data.wpml_header_title_2
                 self.imgLogo.sd_setImage(with: URL(string: successResponse.data.wpml_logo), completed: nil)
-                self.languageStyle = successResponse.data.language_style
+               // self.languageStyle = successResponse.data.language_style
                 self.title = successResponse.data.wpml_menu_text
                 self.collectionView.reloadData()
             

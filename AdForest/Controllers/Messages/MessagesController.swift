@@ -80,6 +80,9 @@ class MessagesController: ButtonBarPagerTabStripViewController, NVActivityIndica
         let SB = UIStoryboard(name: "Main", bundle: nil)
         let sentOffers = SB.instantiateViewController(withIdentifier: "SentOffersController") as! SentOffersController
         let addsOffer = SB.instantiateViewController(withIdentifier: "OffersOnAdsController") as! OffersOnAdsController
+        //let blockedController = SB.instantiateViewController(withIdentifier: "BlockedUserChatViewController") as! BlockedUserChatViewController
+        
+        
         let childVC = [sentOffers, addsOffer]
         return childVC
     }

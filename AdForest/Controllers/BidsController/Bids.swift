@@ -33,10 +33,15 @@ class Bids: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActi
         }
     }
     
+    @IBOutlet weak var viewBid: UIView!
+    @IBOutlet weak var lblBid: UILabel!
+    
+    
     //MARK:- Properties
     var dataArray = [BidsBid]()
-    var isBid = false
+    var isBid = true
     var defaults = UserDefaults.standard
+    let bgColor = UserDefaults.standard.string(forKey: "mainColor")
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -55,6 +60,7 @@ class Bids: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActi
             self.dataArray = AddsHandler.sharedInstance.biddersArray
             
             if self.dataArray.count == 0 && self.isBid {
+            
                 self.tableView.isHidden = false
                 self.lblNoData.isHidden = false
                 self.lblNoData.text = data?.message
@@ -67,11 +73,24 @@ class Bids: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActi
                 self.tableView.isHidden = true
                 self.lblNoData.isHidden = false
                 self.lblNoData.text = data?.message
+                
             }
             else {
                 self.tableView.isHidden = false
+                
                 self.tableView.reloadData()
             }
+            
+            if self.isBid == true{
+                self.viewBid.isHidden = true
+            }else{
+                
+                self.viewBid.isHidden = false
+                self.viewBid.backgroundColor = UIColor(hex: self.bgColor!)
+                self.lblBid.text = data?.message
+            }
+            
+            
         }
     }
     

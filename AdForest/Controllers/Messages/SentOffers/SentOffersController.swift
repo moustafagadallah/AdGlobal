@@ -82,6 +82,7 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let objData = dataArray[indexPath.row]
         
+        
         if let title = objData.messageAdTitle {
             cell.lblName.text = title
         }
@@ -111,6 +112,8 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
         chatVC.sender_id = objData.messageSenderId
         chatVC.receiver_id = objData.messageReceiverId
         chatVC.messageType = "sent"
+        chatVC.isBlocked = objData.is_block
+        
         self.navigationController?.pushViewController(chatVC, animated: true)
     }
     
@@ -144,6 +147,7 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.currentPage = successResponse.data.pagination.currentPage
                 self.maximumPage = successResponse.data.pagination.maxNumPages
                 self.dataArray = successResponse.data.sentOffers.items
+                
                 self.tableView.reloadData()
             } else {
                 if successResponse.data.isRedirec == true{
@@ -195,3 +199,4 @@ extension SentOffersController: IndicatorInfoProvider {
         return IndicatorInfo(title: pageTitle)
     }
 }
+

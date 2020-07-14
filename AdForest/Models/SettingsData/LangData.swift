@@ -11,7 +11,7 @@ struct LangData {
     
     var code : String!
     var flag_url : String!
-    //var native_name : String!
+    var native_name : String!
     var translated_name : String!
     var locale : String!
     
@@ -22,7 +22,7 @@ struct LangData {
     init(fromDictionary dictionary: [String:Any]){
         code = dictionary["code"] as? String
         flag_url = dictionary["flag_url"] as? String
-        //native_name = dictionary["native_name"] as? String
+        native_name = dictionary["native_name"] as? String
         translated_name = dictionary["translated_name"] as? String
         locale = dictionary["locale"] as? String
         
@@ -40,9 +40,9 @@ struct LangData {
         if flag_url != nil{
             dictionary["flag_url"] = flag_url
         }
-//        if native_name != nil{
-//            dictionary["native_name"] = native_name
-//        }
+        if native_name != nil{
+            dictionary["native_name"] = native_name
+        }
         if translated_name != nil{
             dictionary["translated_name"] = translated_name
         }

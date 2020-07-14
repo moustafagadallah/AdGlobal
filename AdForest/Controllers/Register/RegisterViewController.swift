@@ -60,6 +60,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     @IBOutlet weak var lblOr: UILabel!
     
     @IBOutlet weak var buttonFB: FBSDKLoginButton!
+    @IBOutlet weak var btnFb: UIButton!
+    @IBOutlet weak var heightConstraintSocial: NSLayoutConstraint!
     
 //    @IBOutlet weak var buttonFB: UIButton! {
 //        didSet {
@@ -94,6 +96,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     var defaults = UserDefaults.standard
     var isVerifivation = false
     var isVerifyOn = false
+    let loginManager = FBSDKLoginManager()
     
     
     //MARK:- Application Life Cycle
@@ -222,9 +225,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             }
             
             if isShowFacebook && isShowGoogle {
+                
+                self.btnFb.isHidden = false
                 self.buttonFB.isHidden = false
                 self.buttonGoogle.isHidden = false
-                 self.btnGoogle.isHidden = false // new
+                self.btnGoogle.isHidden = false // new
                 if let fbText = objData?.facebookBtn {
                    // self.buttonFB.setTitle(fbText, for: .normal)
                 }
@@ -235,9 +240,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 
             else if isShowFacebook && isShowGoogle == false {
                 self.buttonFB.isHidden = false
+                self.btnFb.isHidden = false
+                self.buttonGoogle.isHidden = true
+                self.btnGoogle.isHidden = true
                 self.buttonFB.translatesAutoresizingMaskIntoConstraints = false
-                buttonFB.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
-                buttonFB.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
+//                buttonFB.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
+//                buttonFB.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
                 if let fbText = objData?.facebookBtn {
                    // self.buttonFB.setTitle(fbText, for: .normal)
                 }
@@ -246,18 +254,31 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             else if isShowGoogle && isShowFacebook == false {
                 self.buttonGoogle.isHidden = false
                 self.btnGoogle.isHidden = false // new
+                self.buttonFB.isHidden = true
+                self.btnFb.isHidden = true
+                btnGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 self.buttonGoogle.translatesAutoresizingMaskIntoConstraints = false
                 self.btnGoogle.translatesAutoresizingMaskIntoConstraints = false //new
-                buttonGoogle.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
-                btnGoogle.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true // new
-                buttonGoogle.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
-                btnGoogle.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true // new
+                self.heightConstraintSocial.constant -= 55
+//                buttonGoogle.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
+//                btnGoogle.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true // new
+//                buttonGoogle.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
+//                btnGoogle.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true // new
                 
                 
                 if let googletext = objData?.googleBtn {
                     //self.buttonGoogle.setTitle(googletext, for: .normal)
                 }
             }
+            
+            else if isShowFacebook == false && isShowGoogle == false{
+                self.buttonGoogle.isHidden = true
+                self.btnGoogle.isHidden = true
+                self.btnFb.isHidden = true
+                self.buttonFB.isHidden = true
+            }
+            
         }
     }
     
@@ -343,23 +364,23 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     
     
     
-    @IBAction func actionFacebook(_ sender: FBSDKLoginButton) {
-        let loginManager = FBSDKLoginManager()
-        
-        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
-            if error != nil {
-                print(error?.localizedDescription ?? "Nothing")
-            }
-            else if (result?.isCancelled)! {
-                print("Cancel")
-            }
-            else if error == nil {
-                self.userProfileDetails()
-            } else {
-            }
-        }
-        
-    }
+//    @IBAction func actionFacebook(_ sender: FBSDKLoginButton) {
+//
+//
+//        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
+//            if error != nil {
+//                print(error?.localizedDescription ?? "Nothing")
+//            }
+//            else if (result?.isCancelled)! {
+//                print("Cancel")
+//            }
+//            else if error == nil {
+//                self.userProfileDetails()
+//            } else {
+//            }
+//        }
+//
+//    }
     
 //    @IBAction func actionFacebook(_ sender: Any) {
 //        let loginManager = FBSDKLoginManager()
@@ -392,7 +413,26 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     }
     
     
+    
     //MARK:- Facebook Delegate Methods
+    
+    
+    @IBAction func btnLoginFbOk(_ sender: UIButton) {
+        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "Nothing")
+            }
+            else if (result?.isCancelled)! {
+                print("Cancel")
+            }
+            else if error == nil {
+                self.userProfileDetails()
+            } else {
+            }
+        }
+    
+    }
+    
     
     func userProfileDetails() {
         if (FBSDKAccessToken.current() != nil) {

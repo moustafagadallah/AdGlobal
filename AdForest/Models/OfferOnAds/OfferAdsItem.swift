@@ -14,6 +14,7 @@ struct OfferAdsItem{
     var messageAdImg : [OfferAdsMessageAdImage]!
     var messageAdTitle : String!
     var messageReadStatus : Bool!
+    var is_block : String!
     
     
     /**
@@ -30,6 +31,7 @@ struct OfferAdsItem{
         }
         messageAdTitle = dictionary["message_ad_title"] as? String
         messageReadStatus = dictionary["message_read_status"] as? Bool
+        is_block = dictionary["is_block"] as? String
     }
     
     /**

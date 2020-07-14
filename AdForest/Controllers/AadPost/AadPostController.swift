@@ -205,6 +205,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 cell.txtType.text = fieldValue
             }
             cell.fieldName = objData.fieldTypeName
+            
             cell.delegateText = self
             return cell
         }
@@ -215,17 +216,26 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 cell.lblType.text = title
             }
             
-            if let fieldValue = objData.fieldVal {
-                cell.oltPopup.setTitle(fieldValue, for: .normal)
-            }
+//            if let fieldValue = objData.fieldVal {
+//                cell.oltPopup.setTitle(fieldValue, for: .normal)
+//            }
             var i = 1
             for item in objData.values {
                 if item.id == "" {
                     continue
                 }
                 if i == 1 {
-                    cell.oltPopup.setTitle(item.name, for: .normal)
-                    cell.selectedKey = String(item.id)
+                    
+                    if cell.selectedValue == ""{
+                        cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                    }else{
+                        cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
+                        //cell.oltPopup.setTitle(item.name, for: .normal)
+                        cell.selectedKey = String(item.id)
+                    }
+                    
+                   // cell.oltPopup.setTitle(item.name, for: .normal)
+                   // cell.selectedKey = String(item.id)
                 }
                 i = i + 1
             }
@@ -251,6 +261,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
             }
             cell.fieldName = objData.fieldTypeName
             cell.delegatePopup = self
+            
             return cell
         }
         return UITableViewCell()

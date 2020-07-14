@@ -72,7 +72,7 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             self.adForest_deleteImage(param: param as NSDictionary)
         }
         
-         self.rotateImageAppropriately(cell.imgPictures.image)
+       //  self.rotateImageAppropriately(cell.imgPictures.image)
         return cell
     }
     

@@ -30,8 +30,6 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
-    
     //MARK:- Properties
     
     private lazy var uploadingProgressBar: JGProgressHUD = {
@@ -479,6 +477,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 if let title = objData.title {
                     cell.lblName.text = title
                 }
+                
                 var i = 1
                 for item in objData.values {
                     if item.id == "" {
@@ -490,9 +489,25 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             cell.oltPopup.setTitle(name, for: .normal)
                         }
                     }
+                    
                     if i == 1 {
-                        cell.oltPopup.setTitle(item.name, for: .normal)
-                        cell.selectedKey = String(item.id)
+                        
+                         print(cell.selectedValue)
+                        
+                        if isfromEditAd {
+                            cell.oltPopup.setTitle(item.name, for: .normal)
+                            cell.selectedKey = String(item.id)
+                        }else{
+                            if cell.selectedValue == ""{
+                                cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                                cell.selectedKey = String(item.id)
+                            }else{
+                                cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
+                                cell.selectedKey = String(item.id)
+                            }
+                        }
+                      //  cell.oltPopup.setTitle(item.name, for: .normal)
+                      //  cell.selectedKey = String(item.id)
                     }
                     i = i + 1
                 }
@@ -540,6 +555,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.section = 2
                 return cell
             }
+                
             else if objData.fieldType == "checkbox" {
                 let cell: CheckBoxCell = tableView.dequeueReusableCell(withIdentifier: "CheckBoxCell", for: indexPath) as! CheckBoxCell
                 
@@ -552,6 +568,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.tableView.reloadData()
                 return cell
             }
+                
             else if objData.fieldType == "textfield_url" {
                 let cell: AdPostURLCell = tableView.dequeueReusableCell(withIdentifier: "AdPostURLCell", for: indexPath) as! AdPostURLCell
                 
@@ -578,6 +595,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.delegate = self
                 return cell
             }
+                
             else if objData.fieldType == "radio" {
 
                 let cell: AdpostRadioTableViewCell = tableView.dequeueReusableCell(withIdentifier: "AdpostRadioTableViewCell", for: indexPath) as! AdpostRadioTableViewCell
@@ -800,7 +818,6 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
     }
     
     func textValDate(value: String, indexPath: Int, fieldType: String, section: Int,fieldNam:String) {
-    
         if fieldType == "textfield_date"{
             var obj = AdPostField()
             obj.fieldType = "textfield_date"
@@ -812,7 +829,6 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
             objArray.append(obj)
             customArray.append(obj)
         }
-        
     }
     
     func textValDesc(value: String, indexPath: Int, fieldType: String, section: Int,fieldNam:String) {

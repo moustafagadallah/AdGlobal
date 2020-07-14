@@ -16,7 +16,7 @@ struct SentOfferChat{
     var img : String!
     var text : String!
     var type : String!
-    
+  
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -28,6 +28,7 @@ struct SentOfferChat{
         img = dictionary["img"] as? String
         text = dictionary["text"] as? String
         type = dictionary["type"] as? String
+       
     }
     
     /**
@@ -36,6 +37,7 @@ struct SentOfferChat{
     func toDictionary() -> [String:Any]
     {
         var dictionary = [String:Any]()
+       
         if adId != nil{
             dictionary["ad_id"] = adId
         }

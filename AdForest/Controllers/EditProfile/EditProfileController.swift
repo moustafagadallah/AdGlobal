@@ -14,7 +14,8 @@ import GoogleMaps
 import GooglePlacePicker
 import NVActivityIndicatorView
 import JGProgressHUD
-
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 
 class EditProfileController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -51,11 +52,8 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
     var dataArray = [ProfileDetailsData]()
     let defaults = UserDefaults.standard
     
-   
-    
     
     //MARK:- View Life Cycle
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -285,6 +283,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 
                 var canDeleteAccount = false
+                var isDelFb = false
                 
                 if let canDelete = extraData?.data.canDeleteAccount {
                     canDeleteAccount = canDelete
@@ -391,6 +390,8 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     self.defaults.set(false, forKey: "isLogin")
                     self.defaults.set(false, forKey: "isGuest")
                     self.defaults.set(false, forKey: "isSocial")
+                    let loginManager = FBSDKLoginManager()
+                    loginManager.logOut()
                     self.appDelegate.moveToLogin()
                 })
                 self.presentVC(alert)

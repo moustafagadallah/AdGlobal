@@ -76,6 +76,8 @@ class OffersOnAdsController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: MessagesCell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesCell
         let objData = dataArray[indexPath.row]
+        
+        
     
         for item in objData.messageAdImg {
             if let imgUrl = URL(string: item.thumb) {
@@ -102,6 +104,7 @@ class OffersOnAdsController: UIViewController, UITableViewDelegate, UITableViewD
         let objdata = dataArray[indexPath.row]
         let offerDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "OffersonAdsDetailController") as! OffersonAdsDetailController
         offerDetailVC.ad_id = objdata.adId
+      
         self.navigationController?.pushViewController(offerDetailVC, animated: true)
     }
     

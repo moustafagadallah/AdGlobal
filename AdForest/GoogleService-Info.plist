@@ -2,39 +2,37 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
-	<string>ca-app-pub-3940256099942544/2934735716</string>
-	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
-	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>170168176816-cni27t9d6mkg9mmidp62hhm0urm4vlfn.apps.googleusercontent.com</string>
+	<string>696692404451-q39c99hfbdpr39oa4g6gfrhibe1hoprv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.170168176816-cni27t9d6mkg9mmidp62hhm0urm4vlfn</string>
+	<string>com.googleusercontent.apps.696692404451-q39c99hfbdpr39oa4g6gfrhibe1hoprv</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>696692404451-iveb6rs7mthil1onndelfoe6gfhg7flf.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDorvTuNOQlyBP3TmhCaRWjgfjl4P46MYM</string>
+	<string>AIzaSyBAojwX0DTKLAqG5qROcV-DV5IF8FJtbaw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>170168176816</string>
+	<string>696692404451</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.GlixenTech.AdForestApp</string>
+	<string>com.GlobalOnClassfield.App</string>
 	<key>PROJECT_ID</key>
-	<string>adforest-ab45e</string>
+	<string>globalon-bbe5c</string>
 	<key>STORAGE_BUCKET</key>
-	<string>adforest-ab45e.appspot.com</string>
+	<string>globalon-bbe5c.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
 	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false></false>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
 	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:170168176816:ios:fc787efc4fd5673a</string>
+	<string>1:696692404451:ios:552cadbf2e7ebd40a555d6</string>
 	<key>DATABASE_URL</key>
-	<string>https://adforest-ab45e.firebaseio.com</string>
+	<string>https://globalon-bbe5c.firebaseio.com</string>
 </dict>
 </plist>

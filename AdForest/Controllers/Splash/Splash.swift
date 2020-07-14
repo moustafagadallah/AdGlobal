@@ -88,6 +88,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.mainColor, forKey: "mainColor")
                 self.appDelegate.customizeNavigationBar(barTintColor: Constants.hexStringToUIColor(hex: successResponse.data.mainColor))
                 self.defaults.set(successResponse.data.isRtl, forKey: "isRtl")
+                UserDefaults.standard.set(successResponse.data.gmapLang, forKey: "langCod")
                 self.defaults.set(successResponse.data.notLoginMsg, forKey: "notLogin")
                 self.defaults.set(successResponse.data.isAppOpen, forKey: "isAppOpen")
                 self.defaults.set(successResponse.data.showNearby, forKey: "showNearBy")
@@ -95,7 +96,9 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 //Save Shop title to show in Shop Navigation Title
                 self.defaults.set(successResponse.data.menu.shop, forKey: "shopTitle")
                 self.isAppOpen = successResponse.data.isAppOpen
-                self.isWplOn = successResponse.data.is_wpml_active
+                if successResponse.data.is_wpml_active != nil{
+                     self.isWplOn = successResponse.data.is_wpml_active
+                }
                 UserDefaults.standard.set(self.isWplOn, forKey: "isWpOn")
                 UserDefaults.standard.set(successResponse.data.wpml_menu_text, forKey: "meuText")
                 //Offers title
@@ -106,7 +109,12 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 UserHandler.sharedInstance.objSettings = successResponse.data
                 UserHandler.sharedInstance.objSettingsMenu = successResponse.data.menu.submenu.pages
                 UserHandler.sharedInstance.menuKeysArray = successResponse.data.menu.dynamicMenu.keys
-                UserHandler.sharedInstance.menuValuesArray = successResponse.data.menu.dynamicMenu.array
+                
+                if UserHandler.sharedInstance.menuKeysArray.contains("wpml_menu_text"){
+                    UserHandler.sharedInstance.menuValuesArray = successResponse.data.menu.dynamicMenu.array
+                    UserHandler.sharedInstance.menuValuesArray.removeLast()
+                }
+                
                 if successResponse.data.menu.isShowMenu.blog == true{
                     self.settingBlogArr.append(successResponse.data.menu.blog)
                     UserDefaults.standard.set(true, forKey: "isBlog")

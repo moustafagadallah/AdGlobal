@@ -108,6 +108,7 @@ class LocationDetailController: UIViewController, UICollectionViewDelegate, UICo
         } else {
             let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
             categoryVC.categoryID = objData.termId
+            categoryVC.isFromLocation = true
             self.navigationController?.pushViewController(categoryVC, animated: true)
         }
     }

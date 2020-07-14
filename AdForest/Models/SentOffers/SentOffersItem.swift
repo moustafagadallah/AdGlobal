@@ -18,6 +18,7 @@ struct SentOffersItem {
     var messageReadStatus : Bool!
     var messageReceiverId : String!
     var messageSenderId : String!
+    var is_block : String!
     
     
     /**
@@ -38,6 +39,8 @@ struct SentOffersItem {
         messageReadStatus = dictionary["message_read_status"] as? Bool
         messageReceiverId = dictionary["message_receiver_id"] as? String
         messageSenderId = dictionary["message_sender_id"] as? String
+        is_block = dictionary["is_block"] as? String
+
     }
     
     /**
@@ -73,6 +76,9 @@ struct SentOffersItem {
         }
         if messageSenderId != nil{
             dictionary["message_sender_id"] = messageSenderId
+        }
+        if is_block != nil{
+            dictionary["is_block"] = is_block
         }
         return dictionary
     }

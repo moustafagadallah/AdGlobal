@@ -32,15 +32,19 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewD
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Pages"
         self.addBackButtonToNavigationBar()
         self.googleAnalytics(controllerName: "Pages Controller")
         if type == "simple" {
             let param:[String: Any] = ["page_id": page_id]
             print(param)
             self.adForest_pagesData(param: param as NSDictionary)
-        } else {
-            guard let userEmail = UserDefaults.standard.string(forKey: "email") else {return}
-            guard let userPassword = UserDefaults.standard.string(forKey: "password") else {return}
+        } else if type == "simple" || type != "simple" {
+           // guard let userEmail = UserDefaults.standard.string(forKey: "email") else {return}
+            //guard let userPassword = UserDefaults.standard.string(forKey: "password") else {return}
+
+            let userEmail = UserDefaults.standard.string(forKey: "email")
+            let userPassword = UserDefaults.standard.string(forKey: "password")
             
             let emailPass = "\(userEmail):\(userPassword)"
             let encodedString = emailPass.data(using: String.Encoding.utf8)!
@@ -79,8 +83,10 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewD
         UserHandler.termsConditions(parameter: param, success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-                self.title = successResponse.data.pageTitle
+               
+                
                 if let htmlString = successResponse.data.pageContent {
+                     self.title = successResponse.data.pageTitle
                     self.webView.loadHTMLString(htmlString, baseURL: nil)
                 }
             }

@@ -136,7 +136,6 @@
 		182652C520765694007F6A21 /* StripePaymentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182652C420765694007F6A21 /* StripePaymentData.swift */; };
 		182652C7207656B0007F6A21 /* StripePaymentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182652C6207656B0007F6A21 /* StripePaymentForm.swift */; };
 		182652C9207656CB007F6A21 /* StripePaymentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182652C8207656CB007F6A21 /* StripePaymentError.swift */; };
-		1826689320C1126400A70B1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1826689220C1126300A70B1C /* GoogleService-Info.plist */; };
 		1826689620C14AED00A70B1C /* UserConfirmationRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826689520C14AED00A70B1C /* UserConfirmationRoot.swift */; };
 		1826689820C14AFF00A70B1C /* UserConfirmationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826689720C14AFF00A70B1C /* UserConfirmationData.swift */; };
 		1826689B20C167EB00A70B1C /* PagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826689A20C167EB00A70B1C /* PagesController.swift */; };
@@ -393,9 +392,14 @@
 		188EC238210207AC0002A2D2 /* ShopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188EC237210207AC0002A2D2 /* ShopHandler.swift */; };
 		189280A220DCB4A300BFBCD1 /* HomeNearAdsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189280A120DCB4A300BFBCD1 /* HomeNearAdsCell.swift */; };
 		189DC78B213FA35B007FC150 /* UserPublicReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DC78A213FA35B007FC150 /* UserPublicReply.swift */; };
+		189E4090231FD66C00605804 /* BlockedUserChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E408F231FD66C00605804 /* BlockedUserChatViewController.swift */; };
+		189E4092231FD6BF00605804 /* BlockedUserChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E4091231FD6BF00605804 /* BlockedUserChatTableViewCell.swift */; };
+		189E4095231FDA8500605804 /* BlockedUserChatListRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E4094231FDA8500605804 /* BlockedUserChatListRoot.swift */; };
+		189E4097231FDAB900605804 /* BlockedUserChatListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E4096231FDAB800605804 /* BlockedUserChatListData.swift */; };
 		189E886A20724DAE00ABB6A3 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E886920724DAE00ABB6A3 /* FileManager.swift */; };
 		189E886D2072508800ABB6A3 /* UpdateImageRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E886C2072508800ABB6A3 /* UpdateImageRoot.swift */; };
 		189E886F2072509B00ABB6A3 /* UpdateImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E886E2072509B00ABB6A3 /* UpdateImageData.swift */; };
+		18A18FA1231E8B1E0070B6CD /* BlockUserChatRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A18FA0231E8B1D0070B6CD /* BlockUserChatRoot.swift */; };
 		18A31FDF213E4EF000A5B6EB /* AddRatingRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A31FDE213E4EF000A5B6EB /* AddRatingRoot.swift */; };
 		18A31FE6213E95A200A5B6EB /* PublicUserRatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A31FE5213E95A200A5B6EB /* PublicUserRatingController.swift */; };
 		18A31FE9213E9F0300A5B6EB /* UserPublicRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A31FE8213E9F0300A5B6EB /* UserPublicRating.swift */; };
@@ -421,6 +425,7 @@
 		18AD93C0206D199200330ABF /* BlogDetailPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD93BF206D199200330ABF /* BlogDetailPagination.swift */; };
 		18AECFB2217DB6AE004C1DF9 /* CatIconsColumnBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AECFB1217DB6AE004C1DF9 /* CatIconsColumnBtn.swift */; };
 		18AF770820E639A1006408DB /* SwiftyAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF770720E639A1006408DB /* SwiftyAd.swift */; };
+		18B1048E2334CFD400DB5AE6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18B1048D2334CFD400DB5AE6 /* GoogleService-Info.plist */; };
 		18B11FD6209E08C3005A5E85 /* SearchCategoryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B11FD5209E08C3005A5E85 /* SearchCategoryDetail.swift */; };
 		18B34B962164B4F600F8FA89 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B34B952164B4F600F8FA89 /* LoadMoreCell.swift */; };
 		18B34B982164B4FE00F8FA89 /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B34B972164B4FE00F8FA89 /* LoadMoreCell.xib */; };
@@ -685,7 +690,6 @@
 		182652C420765694007F6A21 /* StripePaymentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentData.swift; sourceTree = "<group>"; };
 		182652C6207656B0007F6A21 /* StripePaymentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentForm.swift; sourceTree = "<group>"; };
 		182652C8207656CB007F6A21 /* StripePaymentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentError.swift; sourceTree = "<group>"; };
-		1826689220C1126300A70B1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1826689520C14AED00A70B1C /* UserConfirmationRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfirmationRoot.swift; sourceTree = "<group>"; };
 		1826689720C14AFF00A70B1C /* UserConfirmationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfirmationData.swift; sourceTree = "<group>"; };
 		1826689A20C167EB00A70B1C /* PagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesController.swift; sourceTree = "<group>"; };
@@ -943,9 +947,14 @@
 		188EC237210207AC0002A2D2 /* ShopHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopHandler.swift; sourceTree = "<group>"; };
 		189280A120DCB4A300BFBCD1 /* HomeNearAdsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNearAdsCell.swift; sourceTree = "<group>"; };
 		189DC78A213FA35B007FC150 /* UserPublicReply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPublicReply.swift; sourceTree = "<group>"; };
+		189E408F231FD66C00605804 /* BlockedUserChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUserChatViewController.swift; path = erSwift/BlockedUserChatViewController.swift; sourceTree = "<group>"; };
+		189E4091231FD6BF00605804 /* BlockedUserChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUserChatTableViewCell.swift; path = llSwift/BlockedUserChatTableViewCell.swift; sourceTree = "<group>"; };
+		189E4094231FDA8500605804 /* BlockedUserChatListRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUserChatListRoot.swift; path = emplate/BlockedUserChatListRoot.swift; sourceTree = "<group>"; };
+		189E4096231FDAB800605804 /* BlockedUserChatListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockedUserChatListData.swift; path = emplate/BlockedUserChatListData.swift; sourceTree = "<group>"; };
 		189E886920724DAE00ABB6A3 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		189E886C2072508800ABB6A3 /* UpdateImageRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateImageRoot.swift; sourceTree = "<group>"; };
 		189E886E2072509B00ABB6A3 /* UpdateImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateImageData.swift; sourceTree = "<group>"; };
+		18A18FA0231E8B1D0070B6CD /* BlockUserChatRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockUserChatRoot.swift; path = emplate/BlockUserChatRoot.swift; sourceTree = "<group>"; };
 		18A31FDE213E4EF000A5B6EB /* AddRatingRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingRoot.swift; sourceTree = "<group>"; };
 		18A31FE5213E95A200A5B6EB /* PublicUserRatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserRatingController.swift; sourceTree = "<group>"; };
 		18A31FE8213E9F0300A5B6EB /* UserPublicRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPublicRating.swift; sourceTree = "<group>"; };
@@ -972,6 +981,7 @@
 		18AECFB1217DB6AE004C1DF9 /* CatIconsColumnBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatIconsColumnBtn.swift; sourceTree = "<group>"; };
 		18AF770520E5F95B006408DB /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		18AF770720E639A1006408DB /* SwiftyAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyAd.swift; sourceTree = "<group>"; };
+		18B1048D2334CFD400DB5AE6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18B11FD5209E08C3005A5E85 /* SearchCategoryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryDetail.swift; sourceTree = "<group>"; };
 		18B34B952164B4F600F8FA89 /* LoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 		18B34B972164B4FE00F8FA89 /* LoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
@@ -979,7 +989,7 @@
 		18B6A3FC21941F3B00B708D4 /* PaymentSuccessController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessController.swift; sourceTree = "<group>"; };
 		18B6F4512163A0A6006C9EEF /* SwiftyAdConsentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyAdConsentManager.swift; sourceTree = "<group>"; };
 		18BBD0BC20F74FC2002F640A /* ShopController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopController.swift; sourceTree = "<group>"; };
-		18BBFA832051098B0067662F /* AdForest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdForest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18BBFA832051098B0067662F /* Global On Classifieds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Global On Classifieds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18BBFA862051098B0067662F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18BBFA8B2051098C0067662F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18BBFA8E2051098C0067662F /* AdForest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AdForest.xcdatamodel; sourceTree = "<group>"; };
@@ -2093,6 +2103,24 @@
 			path = HomeNearAds;
 			sourceTree = "<group>";
 		};
+		189E408E231FD63400605804 /* BlockedUserChatController */ = {
+			isa = PBXGroup;
+			children = (
+				189E4091231FD6BF00605804 /* BlockedUserChatTableViewCell.swift */,
+				189E408F231FD66C00605804 /* BlockedUserChatViewController.swift */,
+			);
+			path = BlockedUserChatController;
+			sourceTree = "<group>";
+		};
+		189E4093231FDA5C00605804 /* BlockedUserChatList */ = {
+			isa = PBXGroup;
+			children = (
+				189E4096231FDAB800605804 /* BlockedUserChatListData.swift */,
+				189E4094231FDA8500605804 /* BlockedUserChatListRoot.swift */,
+			);
+			path = BlockedUserChatList;
+			sourceTree = "<group>";
+		};
 		189E886820724D9F00ABB6A3 /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2108,6 +2136,14 @@
 				189E886E2072509B00ABB6A3 /* UpdateImageData.swift */,
 			);
 			path = ImageUpdate;
+			sourceTree = "<group>";
+		};
+		18A18F9F231E8AD20070B6CD /* blockUserChat */ = {
+			isa = PBXGroup;
+			children = (
+				18A18FA0231E8B1D0070B6CD /* BlockUserChatRoot.swift */,
+			);
+			path = blockUserChat;
 			sourceTree = "<group>";
 		};
 		18A31FDD213E4D7100A5B6EB /* AddRating */ = {
@@ -2246,7 +2282,7 @@
 		18BBFA842051098B0067662F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				18BBFA832051098B0067662F /* AdForest.app */,
+				18BBFA832051098B0067662F /* Global On Classifieds.app */,
 				18BBFA9A2051098C0067662F /* AdForestTests.xctest */,
 				18BBFAA52051098C0067662F /* AdForestUITests.xctest */,
 			);
@@ -2257,7 +2293,7 @@
 			isa = PBXGroup;
 			children = (
 				18522C2A20B5439F00FC7F38 /* AdForest.entitlements */,
-				1826689220C1126300A70B1C /* GoogleService-Info.plist */,
+				18B1048D2334CFD400DB5AE6 /* GoogleService-Info.plist */,
 				18BBFACB20510F620067662F /* Models */,
 				18BBFABA205109BA0067662F /* Helper */,
 				18BBFAB7205109960067662F /* AppDelegate */,
@@ -2302,6 +2338,7 @@
 		18BBFAB8205109A30067662F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				189E408E231FD63400605804 /* BlockedUserChatController */,
 				07AED45F22B23A5900FA5967 /* LangController */,
 				183C65D8215BA1C9004A94EC /* FeedbackController */,
 				182C8B862158BE970007DFF9 /* SettingsController */,
@@ -2414,6 +2451,8 @@
 		18BBFACB20510F620067662F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				189E4093231FDA5C00605804 /* BlockedUserChatList */,
+				18A18F9F231E8AD20070B6CD /* blockUserChat */,
 				18C32C3921412E420005D568 /* ShopData */,
 				1886778D20B5492B00235E3A /* FirebaseToken */,
 				185BBEEF20AFF8E9004748D5 /* NearByAddSearch */,
@@ -2938,7 +2977,7 @@
 			);
 			name = AdForest;
 			productName = AdForest;
-			productReference = 18BBFA832051098B0067662F /* AdForest.app */;
+			productReference = 18BBFA832051098B0067662F /* Global On Classifieds.app */;
 			productType = "com.apple.product-type.application";
 		};
 		18BBFA992051098C0067662F /* AdForestTests */ = {
@@ -3056,12 +3095,12 @@
 				180519DC215A113100F74662 /* AboutAppCell.xib in Resources */,
 				18A5503A213400CE002FCD02 /* SearchSectionCell.xib in Resources */,
 				181C88322052CDB50067B176 /* AddsStatusCell.xib in Resources */,
+				18B1048E2334CFD400DB5AE6 /* GoogleService-Info.plist in Resources */,
 				187467F5214F828400B7F28E /* SearchNowButtonCell.xib in Resources */,
 				18F5C8EF2135641B006710AC /* AdPostURLCell.xib in Resources */,
 				181C88182052618A0067B176 /* MessagesCell.xib in Resources */,
 				185B13C4207CA58900914AF0 /* ReplyCell.xib in Resources */,
 				18C55C68213677A700FD07FD /* CalendarCell.xib in Resources */,
-				1826689320C1126400A70B1C /* GoogleService-Info.plist in Resources */,
 				181C882D2052BFAA0067B176 /* ProfileCell.xib in Resources */,
 				180519E2215A19C100F74662 /* AppShareCell.xib in Resources */,
 				18BBFA912051098C0067662F /* Assets.xcassets in Resources */,
@@ -3325,6 +3364,7 @@
 				184EDAD42078957000A25228 /* AddDetailRoot.swift in Sources */,
 				18191A6120737D4300FF67C8 /* UserRatingForm.swift in Sources */,
 				185B3C89207E534B00EDBBB4 /* TopBidders.swift in Sources */,
+				189E4092231FD6BF00605804 /* BlockedUserChatTableViewCell.swift in Sources */,
 				18196DE92148EC7300F6515E /* LocationDetailController.swift in Sources */,
 				180519D8215A0BBB00F74662 /* AppSettingAbout.swift in Sources */,
 				18191A5920737CCC00FF67C8 /* UserRatingRoot.swift in Sources */,
@@ -3448,6 +3488,7 @@
 				18C89D3E20A573EB00EE8EF1 /* AdPostFeaturedAdNotify.swift in Sources */,
 				07A70C90221650C7002ADAEF /* RadioColorAdCollectionViewCell.swift in Sources */,
 				181888942081EB7D008736F7 /* SettingsMessagesScreen.swift in Sources */,
+				18A18FA1231E8B1E0070B6CD /* BlockUserChatRoot.swift in Sources */,
 				182690ED208764A900E2C966 /* CategoryFeatureAd.swift in Sources */,
 				184EDB08207898F400A25228 /* AddDetailImage.swift in Sources */,
 				186A9F9F2080DA6E008E646C /* PublicProfileAdPrice.swift in Sources */,
@@ -3457,6 +3498,7 @@
 				07DF08BC2202DD3A008F9736 /* RadioColorCollectionViewCell.swift in Sources */,
 				184EDAF0207897AC00A25228 /* AddDetailCallPopup.swift in Sources */,
 				182690E92087646500E2C966 /* CategoryExtra.swift in Sources */,
+				189E4090231FD66C00605804 /* BlockedUserChatViewController.swift in Sources */,
 				1818C5942060D2FD001E41B2 /* UserRegisterRoot.swift in Sources */,
 				185A544B21A2C39E00396D35 /* NotificationParser.swift in Sources */,
 				18BBFAEF205113AE0067662F /* FacebookAuthentication.swift in Sources */,
@@ -3486,6 +3528,7 @@
 				07A70C94221687A9002ADAEF /* NumericRangeTableViewCell.swift in Sources */,
 				182690A62087288F00E2C966 /* HomeFirebase.swift in Sources */,
 				1817EE2320A5D4FB005D4995 /* CheckBoxCell.swift in Sources */,
+				189E4095231FDA8500605804 /* BlockedUserChatListRoot.swift in Sources */,
 				183C65D5215B9520004A94EC /* AppSettingFeedback.swift in Sources */,
 				186A9F872080D912008E646C /* PublicProfileData.swift in Sources */,
 				18DA0742205F965A0021FA7E /* ShareCell.swift in Sources */,
@@ -3703,6 +3746,7 @@
 				18191A50207352FB00FF67C8 /* ProfileUpdatePageTitle.swift in Sources */,
 				180998B620A304B90093C3CF /* DropDownCell.swift in Sources */,
 				18C32C34214127900005D568 /* SellersController.swift in Sources */,
+				189E4097231FDAB900605804 /* BlockedUserChatListData.swift in Sources */,
 				18B11FD6209E08C3005A5E85 /* SearchCategoryDetail.swift in Sources */,
 				180519D0215A0B5100F74662 /* AppSettingFaq.swift in Sources */,
 				18BBFADE20510FA90067662F /* SettingsConfirmation.swift in Sources */,
@@ -3882,17 +3926,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Muhammad Jawad Arshad (299YT2HJN8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Muhammad Jawad Arshad (299YT2HJN8)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Mohamed Elsayed (T44C3H4Q8Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 3D42832GGZ;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = T44C3H4Q8Z;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GlobalOnClassfield.App;
+				PRODUCT_NAME = "Global On Classifieds";
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = adForestDevNew;
+				PROVISIONING_PROFILE_SPECIFIER = GlobalOnLIveIOS;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -3907,17 +3953,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Mohamed Elsayed (T44C3H4Q8Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 3D42832GGZ;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = T44C3H4Q8Z;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GlobalOnClassfield.App;
+				PRODUCT_NAME = "Global On Classifieds";
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = adForestDevNew;
+				PROVISIONING_PROFILE_SPECIFIER = GlobalOnLIveIOS;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

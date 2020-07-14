@@ -10,11 +10,15 @@ import UIKit
 
 class LangCollectionViewCell: UICollectionViewCell {
     
-        @IBOutlet weak var viewBg: UIView!
+    @IBOutlet weak var viewBg: UIView!
     @IBOutlet weak var imgCountry: UIImageView!
     @IBOutlet weak var lblLanguage: UILabel!
     @IBOutlet weak var btnCode: UIButton!
     
-    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        viewBg.addShadow()
+        
+    }
     
 }

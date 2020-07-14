@@ -57,12 +57,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
 //    }
     
     
+    @IBOutlet weak var btnFb: UIButton!
     @IBOutlet weak var buttonFBLogin: FBSDKLoginButton!
     
     @IBOutlet weak var btnGoogleLog: GIDSignInButton!
     
     
     
+    @IBOutlet weak var socialLoginHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var buttonGoogleLogin: GIDSignInButton! {
         didSet {
             buttonGoogleLogin.roundCorners()
@@ -93,6 +95,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     var getLoginDetails = [LoginData]()
     var defaults = UserDefaults.standard
     var isVerifyOn = false
+    let loginManager = FBSDKLoginManager()
+    
+    var isDelFb = UserDefaults.standard.bool(forKey: "delFb")
+    
     
     // MARK: Application Life Cycle
     override func viewDidLoad() {
@@ -102,6 +108,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         GIDSignIn.sharedInstance().delegate = self
         self.adForest_loginDetails()
         txtFieldsWithRtl()
+    
+    }
+    
+    
+    func fbLogin(){
+    
+        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "Nothing")
+            }
+            else if (result?.isCancelled)! {
+                print("Cancel")
+            }
+            else if error == nil {
+                self.userProfileDetails()
+            } else {
+                
+            }
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,7 +180,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             }
             
             if let bgColor = defaults.string(forKey: "mainColor") {
-                self.containerViewImage.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
+                self.containerViewImage.backgroundColor = UIColor.white //Constants.hexStringToUIColor(hex: bgColor)
                 self.buttonSubmit.layer.borderColor = Constants.hexStringToUIColor(hex: bgColor).cgColor
                 self.buttonGuestLogin.layer.borderColor = Constants.hexStringToUIColor(hex: bgColor).cgColor
                 self.buttonSubmit.setTitleColor(Constants.hexStringToUIColor(hex: bgColor), for: .normal)
@@ -227,6 +253,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             
             if isShowFacebook && isShowGoogle {
                 self.buttonFBLogin.isHidden = false
+                self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false //New
                 
@@ -240,30 +267,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         
           else if isShowFacebook && isShowGoogle == false {
                 self.buttonFBLogin.isHidden = false
-                self.buttonFBLogin.translatesAutoresizingMaskIntoConstraints = false
-                buttonFBLogin.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
-                buttonFBLogin.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
+                self.btnFb.isHidden = false
+                //socialLoginHeightConstraint.constant -= 60
+                self.buttonGoogleLogin.isHidden = true
+                self.btnGoogleLog.isHidden = true
+                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonFBLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                //                btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                //self.buttonFBLogin.translatesAutoresizingMaskIntoConstraints = false
+                //buttonFBLogin.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
+                //buttonFBLogin.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
                 if let fbText = objData?.facebookBtn {
                     //self.buttonFBLogin.setTitle(fbText, for: .normal)
                 }
             }
-                
+
            else if isShowGoogle && isShowFacebook == false {
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false // New
                 self.buttonGoogleLogin.translatesAutoresizingMaskIntoConstraints = false
                 self.btnGoogleLog.translatesAutoresizingMaskIntoConstraints = false // New
-                buttonGoogleLogin.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
-                btnGoogleLog.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true //new
-                
-                buttonGoogleLogin.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
-                 btnGoogleLog.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true // New
-               
+                socialLoginHeightConstraint.constant -= 50
+                self.buttonFBLogin.isHidden = true
+                self.btnFb.isHidden = true
+                btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                //buttonGoogleLogin.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
+                //btnGoogleLog.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true //new
+
+                //buttonGoogleLogin.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
+                 //btnGoogleLog.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true // New
+
                 if let googletext = objData?.googleBtn {
                     //self.buttonGoogleLogin.setTitle(googletext, for: .normal)
-                }    
+                }
             }
             else if isShowFacebook == false && isShowGoogle == false {
+                self.lblOr.isHidden = true
+                
                 self.containerViewSocialButton.isHidden = true
                 if isShowGuestButton {
                     self.buttonGuestLogin.isHidden = false
@@ -276,6 +317,34 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                     self.buttonGuestLogin.isHidden = true
                 }
             }
+//            else if isShowFacebook == false {
+//
+//                buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+//                btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+//                socialLoginHeightConstraint.constant -= 50
+//                self.buttonFBLogin.isHidden = true
+//                self.btnFb.isHidden = true
+//
+//                self.buttonGoogleLogin.isHidden = false
+//                self.btnGoogleLog.isHidden = false
+//            }else if isShowGoogle == false{
+//                self.buttonGoogleLogin.isHidden = true
+//                self.btnGoogleLog.isHidden = true
+//                self.buttonFBLogin.isHidden = false
+//                self.btnFb.isHidden = false
+//                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+//                buttonFBLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+//
+//            }else if isShowFacebook  {
+//                self.buttonFBLogin.isHidden = false
+//                self.btnFb.isHidden = false
+//            }else if isShowGoogle {
+//                self.buttonGoogleLogin.isHidden = false
+//                self.btnGoogleLog.isHidden = false
+//            }
+//
+            
+            
         }
     }
     
@@ -291,6 +360,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     }
     
     func adForest_logIn() {
+        
         guard let email = txtEmail.text else {
             return
         }
@@ -318,24 +388,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         }
     }
     
-    @IBAction func actionFBLogin(_ sender: FBSDKLoginButton) {
-//        let loginManager = FBSDKLoginManager()
-//        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
-//            if error != nil {
-//                print(error?.localizedDescription ?? "Nothing")
-//            }
-//            else if (result?.isCancelled)! {
-//                print("Cancel")
-//            }
-//            else if error == nil {
-//                self.userProfileDetails()
-//            } else {
-//            }
-//        }
+    
+    
+//    @IBAction func actionFBLogin(_ sender: UIButton) {
+//
+//        fbLogin()
+//
+//    }
+//    
+    
+    @IBAction func btnLoginfBoK(_ sender: UIButton) {
+        fbLogin()
+        
     }
-    
-    
-//    @IBAction func actionFBLogin(_ sender: FBSDKButton) {
+    //    @IBAction func actionFBLogin(_ sender: FBSDKButton) {
 //        let loginManager = FBSDKLoginManager()
 //        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
 //            if error != nil {
@@ -354,7 +420,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     
     
 //    @IBAction func actionFBLogin(_ sender: Any) {
-//        let loginManager = FBSDKLoginManager()
+//        //let loginManager = FBSDKLoginManager()
 //        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
 //            if error != nil {
 //                print(error?.localizedDescription ?? "Nothing")
@@ -488,6 +554,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             self.presentVC(alert)
         }
     }
+
     
     // Login User
     func adForest_loginUser(parameters: NSDictionary) {
