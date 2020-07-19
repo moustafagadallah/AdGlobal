@@ -13,7 +13,7 @@ import DeviceKit
 class Constants {
     struct  URL {
     
-        static let ipAddress = "https://www.globalon.app/"
+        static let ipAddress = "https://www.globalon.ae/"
         static let baseUrl =  ipAddress + "/wp-json/adforest/v1/"
         
         static let homeData = "home"
