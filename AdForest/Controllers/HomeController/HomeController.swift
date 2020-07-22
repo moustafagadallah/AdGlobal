@@ -1008,15 +1008,17 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
             
-            var msgLogin = ""
+//            var msgLogin = ""
+//
+//            if let msg = self.defaults.string(forKey: "notLogin") {
+//                msgLogin = msg
+//            }
+//
+//
+//            let alert = Constants.showBasicAlert(message: msgLogin)
             
-            if let msg = self.defaults.string(forKey: "notLogin") {
-                msgLogin = msg
-            }
-           
-            
-            let alert = Constants.showBasicAlert(message: msgLogin)
-            self.presentVC(alert)
+             let regVC =  self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
+            self.presentVC(regVC)
             
             
         
