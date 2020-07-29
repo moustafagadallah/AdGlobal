@@ -457,7 +457,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if section == 0 {
             if defaults.bool(forKey: "isLogin") == false {
                 if (UserHandler.sharedInstance.objSettings?.menu.isShowMenu.packageField)! == false {
-                    value = 3
+                    value = 0
                 } else {
                     value = 4
                 }
@@ -509,9 +509,9 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     else if row == 1 {
                         cell.lblName.text = objData?.menu.search
                     }
-                    else if row == 2 {
-                        cell.lblName.text = objData?.menu.packages
-                    }
+//                    else if row == 2 {
+//                        cell.lblName.text = objData?.menu.packages
+//                    }
                     else if row == 3 {
                         cell.lblName.text = objData?.menu.login
                     }
@@ -653,7 +653,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
         }
-        else if section == 3{
+        else if section == 3 {
             
             let isWpOn = UserDefaults.standard.bool(forKey: "isWpOn")
             if isWpOn == true{

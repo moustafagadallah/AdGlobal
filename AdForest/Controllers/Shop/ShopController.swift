@@ -8,17 +8,22 @@
 
 import UIKit
 import DropDown
+import WebKit
 
-class ShopController: UIViewController, UIWebViewDelegate {
+class ShopController: UIViewController, WKUIDelegate {
 
     //MARK:- Outlets
-    @IBOutlet weak var webView: UIWebView!{
-        didSet {
-            webView.delegate =  self
-            webView.isOpaque = false
-            webView.backgroundColor = UIColor.clear
+
+    
+    weak var webView: WKWebView! {
+        didSet{
+        
+        webView.uiDelegate =  self
+        webView.isOpaque = false
+        webView.backgroundColor = UIColor.clear
         }
     }
+  
     
     //MARK:- Properties
     let cartButton = UIButton(type: .custom)
@@ -63,7 +68,7 @@ class ShopController: UIViewController, UIWebViewDelegate {
         if UserDefaults.standard.bool(forKey: "isSocial") {
             request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
         }
-        self.webView.loadRequest(request)
+        self.webView.load(request)
     
     }
     
@@ -87,7 +92,7 @@ class ShopController: UIViewController, UIWebViewDelegate {
             if UserDefaults.standard.bool(forKey: "isSocial") {
                 urlRequest.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
             }
-            self.webView.loadRequest(urlRequest)
+            self.webView.load(urlRequest)
             return true
         }
         return true
@@ -168,7 +173,7 @@ class ShopController: UIViewController, UIWebViewDelegate {
             if UserDefaults.standard.bool(forKey: "isSocial") {
                 request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
             }
-            self.webView.loadRequest(request)
+            self.webView.load(request)
         }
     }
 }

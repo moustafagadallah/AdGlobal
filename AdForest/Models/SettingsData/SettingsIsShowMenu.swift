@@ -24,7 +24,7 @@ struct settingsIsShowMenu{
         blog = dictionary["blog"] as? Bool
         message = dictionary["message"] as? Bool
         packageField = dictionary["package"] as? Bool
-        sellers = dictionary["sellers"] as? Bool
+      //  sellers = dictionary["sellers"] as? Bool
         shop = dictionary["shop"] as? Bool
         settings = dictionary["settings"] as? Bool
     }
@@ -44,9 +44,9 @@ struct settingsIsShowMenu{
         if packageField != nil{
             dictionary["package"] = packageField
         }
-        if sellers != nil{
-            dictionary["sellers"] = sellers
-        }
+//        if sellers != nil{
+//            dictionary["sellers"] = sellers
+//        }
         if shop != nil{
             dictionary["shop"] = shop
         }

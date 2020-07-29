@@ -538,6 +538,7 @@
 		18F48468205AA43000DC4D7B /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F48467205AA43000DC4D7B /* Label.swift */; };
 		18F5C8EE2135641B006710AC /* AdPostURLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5C8EC2135641B006710AC /* AdPostURLCell.swift */; };
 		18F5C8EF2135641B006710AC /* AdPostURLCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F5C8ED2135641B006710AC /* AdPostURLCell.xib */; };
+		6FDFCD3624CF4D4E0049BE52 /* LeftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBFAFC205154F40067662F /* LeftController.swift */; };
 		AB5D6118CFB004420A4C06D3 /* Pods_AdForest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */; };
 /* End PBXBuildFile section */
 
@@ -3769,6 +3770,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FDFCD3624CF4D4E0049BE52 /* LeftController.swift in Sources */,
 				18BBFAAA2051098C0067662F /* AdForestUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3929,10 +3931,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 98JBF52LZC;
 				INFOPLIST_FILE = AdForest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AdForst.app;
@@ -3955,10 +3957,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 98JBF52LZC;
 				INFOPLIST_FILE = AdForest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AdForst.app;

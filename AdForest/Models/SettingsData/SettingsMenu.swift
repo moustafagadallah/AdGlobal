@@ -22,16 +22,15 @@ struct SettingsMenu {
     var messages : String!
     var myAds : String!
     var others : String!
-    var packages : String!
+    //var packages : String!
     var profile : String!
     var register : String!
     var search : String!
     var submenu : SettingsSubMenu!
     
     var shop : String!
-    var sellers : String!
+ //   var sellers : String!
     var dynamicMenu : SettingsDynamicMenu!
-
     var appSettings : String!
 
     
@@ -54,14 +53,14 @@ struct SettingsMenu {
         messages = dictionary["messages"] as? String
         myAds = dictionary["my_ads"] as? String
         others = dictionary["others"] as? String
-        packages = dictionary["packages"] as? String
+   //     packages = dictionary["packages"] as? String
         profile = dictionary["profile"] as? String
         register = dictionary["register"] as? String
         search = dictionary["search"] as? String
         if let submenuData = dictionary["submenu"] as? [String:Any]{
             submenu = SettingsSubMenu(fromDictionary: submenuData)
         }
-        sellers = dictionary["Sellers"] as? String
+       // sellers = dictionary["Sellers"] as? String
         shop = dictionary["shop"] as? String
         
         if let dynamicMenuData = dictionary["dynamic_menu"] as? [String:Any]{
@@ -112,9 +111,9 @@ struct SettingsMenu {
         if others != nil{
             dictionary["others"] = others
         }
-        if packages != nil{
-            dictionary["packages"] = packages
-        }
+//        if packages != nil{
+//            dictionary["packages"] = packages
+//        }
         if profile != nil{
             dictionary["profile"] = profile
         }
@@ -127,9 +126,9 @@ struct SettingsMenu {
         if submenu != nil{
             dictionary["submenu"] = submenu.toDictionary()
         }
-        if sellers != nil{
-            dictionary["Sellers"] = sellers
-        }
+//        if sellers != nil{
+//            dictionary["Sellers"] = sellers
+//        }
         if shop != nil{
             dictionary["shop"] = shop
         }

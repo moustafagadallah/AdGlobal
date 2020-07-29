@@ -12,15 +12,18 @@ import WebKit
 import NVActivityIndicatorView
 import WebKit
 
-class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewDelegate {
+class PagesController: UIViewController, NVActivityIndicatorViewable, WKUIDelegate {
 
     //MARK:- Outlets
-    @IBOutlet weak var webView: UIWebView!{
-        didSet {
-            webView.delegate =  self
-            webView.isOpaque = false
-            webView.backgroundColor = UIColor.clear
-        }
+    
+    
+@IBOutlet weak var webView: WKWebView! {
+    didSet{
+        
+        webView.uiDelegate = self
+        webView.isOpaque = false
+        webView.backgroundColor = UIColor.clear
+    }
     }
     
     //MARK:- Properties
@@ -57,7 +60,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewD
             if UserDefaults.standard.bool(forKey: "isSocial") {
                 request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
             }
-            self.webView.loadRequest(request)
+            self.webView.load(request)
         }
     }
     

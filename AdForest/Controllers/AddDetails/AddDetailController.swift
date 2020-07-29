@@ -17,6 +17,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //MARK:- Outlets
     
+   
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self

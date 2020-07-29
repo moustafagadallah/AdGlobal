@@ -7,18 +7,18 @@
 //
 
 import UIKit
+import WebKit
 
 class WebViewCell: UITableViewCell {
 
-    @IBOutlet weak var heightWebView: NSLayoutConstraint!
-    @IBOutlet weak var webView: UIWebView! {
+    @IBOutlet weak var webView: WKWebView! {
         didSet {
-           // webView.delegate = self
-            webView.isOpaque = false
+              webView.isOpaque = false
         }
     }
-    
-    
+    @IBOutlet weak var heightWebView: NSLayoutConstraint!
+   
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none

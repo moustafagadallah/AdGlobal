@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import WebKit
 
-class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIWebViewDelegate {
+class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,WKUIDelegate {
    
     
     //MARK:- Outlets
     
     
+    @IBOutlet weak var webView: WKWebView!
     
     @IBOutlet weak var heightConstraintWebView: NSLayoutConstraint!
-    @IBOutlet weak var webView: UIWebView!
+    
     @IBOutlet weak var containerView: UIView! {
         didSet {
             containerView.addShadowToView()
@@ -55,7 +57,7 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
         //collectionView.reloadData()
         self.setupView()
         webView.scrollView.isScrollEnabled = false
-        webView.delegate = self
+        webView.uiDelegate = self
     }
 
     override func layoutSubviews() {
@@ -135,7 +137,6 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
 
 
 class AddDetailDescriptionCollectionCell : UICollectionViewCell {
-    
     
    
     @IBOutlet weak var imgViewColor: UIImageView!

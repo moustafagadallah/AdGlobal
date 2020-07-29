@@ -79,7 +79,7 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
     
     //MARK:- Table View Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 8
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -633,16 +633,18 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     }
     
     @IBAction func actionPostAdd(_ sender: Any) {
-        if address == "" {
-            self.txtAddress.shake(6, withDelta: 10, speed: 0.06)
-        }else if isTermCond == false{
-            self.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)
-        }
-        else {
+//        if address == "" {
+//            self.txtAddress.shake(6, withDelta: 10, speed: 0.06)
+//        }else if isTermCond == false{
+//            self.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)
+//        }
+//        else{
+        
+        
             var parameter: [String: Any] = [
                 "images_array": imageIdArray,
                 "ad_phone": self.txtNumber.text!, //phone_number,
-                "ad_location":  address,
+                "ad_location":  address ?? "Cairo",
                 "location_lat": latitude,
                 "location_long": longitude,
                 "ad_country": selectedID,   //selectedCountry,
@@ -682,7 +684,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
              //self.dummy(param: parameter as NSDictionary)
             self.adForest_postAd(param: parameter as NSDictionary)
         }
-    }
+    //}
     
     //MARK:- API Call
     //Post Add

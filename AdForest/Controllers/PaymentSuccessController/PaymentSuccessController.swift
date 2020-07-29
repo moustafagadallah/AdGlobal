@@ -8,8 +8,9 @@
 
 import UIKit
 import NVActivityIndicatorView
+import WebKit
 
-class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActivityIndicatorViewable, UIWebViewDelegate {
+class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActivityIndicatorViewable, WKUIDelegate {
     
     //MARK:- Outlets
     @IBOutlet weak var scrollBar: UIScrollView! {
@@ -22,9 +23,11 @@ class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActiv
     @IBOutlet weak var buttonCancel: UIButton!
     @IBOutlet weak var imgLogo: UIImageView!
     @IBOutlet weak var lblResponse: UILabel!
-    @IBOutlet weak var webView: UIWebView! {
+  
+
+    @IBOutlet weak var webView: WKWebView! {
         didSet {
-            webView.delegate = self
+            webView.uiDelegate = self
             webView.isOpaque = false
             webView.backgroundColor = UIColor.white
         }
@@ -71,7 +74,9 @@ class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActiv
     }
     
     //to set webview size with amount of data
+    
     func webViewDidFinishLoad(_ webView: UIWebView) {
+        
         webView.frame.size.height = 1
         webView.frame.size = webView.sizeThatFits(.zero)
     }

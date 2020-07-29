@@ -21,7 +21,7 @@ struct HomeIsShowMenu {
     init(fromDictionary dictionary: [String:Any]){
         blog = dictionary["blog"] as? Bool
         message = dictionary["message"] as? Bool
-        packageField = dictionary["package"] as? Bool
+      //  packageField = dictionary["package"] as? Bool
     }
     
     /**
@@ -36,9 +36,9 @@ struct HomeIsShowMenu {
         if message != nil{
             dictionary["message"] = message
         }
-        if packageField != nil{
-            dictionary["package"] = packageField
-        }
+//        if packageField != nil{
+//            dictionary["package"] = packageField
+//        }
         return dictionary
     }
     

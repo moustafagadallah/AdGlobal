@@ -10,7 +10,7 @@ import Foundation
 
 struct SettingsArray{
     
-    var sellers : String!
+   // var sellers : String!
     var favAds : String!
     var featuredAds : String!
     var home : String!
@@ -27,7 +27,7 @@ struct SettingsArray{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        sellers = dictionary["Sellers"] as? String
+       // sellers = dictionary["Sellers"] as? String
         favAds = dictionary["fav_ads"] as? String
         featuredAds = dictionary["featured_ads"] as? String
         home = dictionary["home"] as? String
@@ -46,9 +46,9 @@ struct SettingsArray{
     func toDictionary() -> [String:Any]
     {
         var dictionary = [String:Any]()
-        if sellers != nil{
-            dictionary["Sellers"] = sellers
-        }
+//        if sellers != nil{
+//            dictionary["Sellers"] = sellers
+//        }
         if favAds != nil{
             dictionary["fav_ads"] = favAds
         }

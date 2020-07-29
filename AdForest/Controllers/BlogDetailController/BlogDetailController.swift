@@ -8,8 +8,9 @@
 
 import UIKit
 import NVActivityIndicatorView
+import WebKit
 
-class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UIWebViewDelegate {
+class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, WKUIDelegate {
 
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -184,7 +185,7 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             let htmlString = objData.post.desc
             let htmlHeight = contentHeight[indexPath.row]
             cell.webView.tag = indexPath.row
-            cell.webView.delegate = self
+            cell.webView.uiDelegate = self
             cell.webView.loadHTMLString(htmlString!, baseURL: nil)
             cell.webView.scrollView.isScrollEnabled = false
 //            let stringSimple = htmlString?.html2String
