@@ -140,7 +140,7 @@
                 {
                     NSMutableArray *mutableArray = [@[array[1]] mutableCopy];
                     continentsDict[array[0]] = mutableArray;
-                    [self.continents addObject:array[0]];
+                    [_continents addObject:array[0]];
                 }
             }
             else if (array.count == 3)
@@ -159,7 +159,7 @@
                 {
                     NSMutableArray *mutableArray = [@[string3] mutableCopy];
                     continentsDict[string0] = mutableArray;
-                    [self.continents addObject:string0];
+                    [_continents addObject:string0];
                 }
             }
         }

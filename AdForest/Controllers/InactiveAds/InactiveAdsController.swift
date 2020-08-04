@@ -85,7 +85,7 @@ class InactiveAdsController: UIViewController, UIScrollViewDelegate, UICollectio
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
             #selector(refreshTableView),
-                                 for: UIControlEvents.valueChanged)
+                                 for: UIControl.Event.valueChanged)
         refreshControl.tintColor = UIColor.red
         
         return refreshControl

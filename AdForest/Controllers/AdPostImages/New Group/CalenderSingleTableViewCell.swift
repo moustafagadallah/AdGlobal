@@ -55,7 +55,7 @@ class CalenderSingleTableViewCell: UITableViewCell {
     }
     
     @IBAction func actionCalendar(_ sender: Any) {
-        let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.date, selectedDate: Date(), doneBlock: {
+        let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePicker.Mode.date, selectedDate: Date(), doneBlock: {
             picker, value, index in
             print("value = \(value!)")
             print("index = \(index!)")

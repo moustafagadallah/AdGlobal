@@ -37,7 +37,7 @@ class TermsConditionsController: UIViewController , UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 44
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         let param: [String: Any] = ["page_id": page_id]
         print(param)

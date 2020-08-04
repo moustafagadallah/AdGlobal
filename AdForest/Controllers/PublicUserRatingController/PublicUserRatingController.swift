@@ -166,7 +166,7 @@ class PublicUserRatingController: UIViewController, UITableViewDelegate, UITable
         let section = indexPath.section
         switch section {
         case 0, 1:
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
         case 2:
             if isShowForm {
                 return  220

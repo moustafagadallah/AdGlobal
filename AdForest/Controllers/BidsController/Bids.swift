@@ -208,7 +208,7 @@ class Bids: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActi
                 height = 0
             }
             else {
-                  height =  UITableViewAutomaticDimension
+                height =  UITableView.automaticDimension
             }
         }
         else if section == 1 {

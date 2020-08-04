@@ -30,7 +30,7 @@ extension FileManager {
         
         let path = try! FileManager.default.url(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask, appropriateFor: nil, create: false)
         let imagePath = path.appendingPathComponent(name + extention)
-        let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
+        let jpgImageData = image.jpegData(compressionQuality: 1.0)
         do {
             try jpgImageData!.write(to: imagePath)
             

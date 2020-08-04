@@ -116,6 +116,7 @@ open class OpalImagePickerRootViewController: UIViewController {
         return delegate?.imagePickerNumberOfExternalItems?(imagePicker) != nil
     }
     
+    private var isCompleted = false
     private var photosCompleted = 0
     private var savedImages: [UIImage] = []
     private var imagesDict: [IndexPath: UIImage] = [:]
@@ -130,7 +131,7 @@ open class OpalImagePickerRootViewController: UIViewController {
         return cache
     }()
     
-    fileprivate weak var rightExternalCollectionViewConstraint: NSLayoutConstraint?
+    private weak var rightExternalCollectionViewConstraint: NSLayoutConstraint?
     
     /// Initializer
     public required init() {
@@ -143,6 +144,7 @@ open class OpalImagePickerRootViewController: UIViewController {
     }
     
     private func setup() {
+        guard let view = view else { return }
         fetchPhotos()
         
         let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: OpalImagePickerCollectionViewLayout())
@@ -189,6 +191,8 @@ open class OpalImagePickerRootViewController: UIViewController {
     }
     
     private func setupTabs() {
+        guard let view = view else { return }
+        
         edgesForExtendedLayout = UIRectEdge()
         navigationController?.navigationBar.isTranslucent = false
         toolbar.isTranslucent = false
@@ -203,7 +207,7 @@ open class OpalImagePickerRootViewController: UIViewController {
             let title = delegate?.imagePickerTitleForExternalItems?(imagePicker) {
             tabSegmentedControl.setTitle(title, forSegmentAt: 1)
         }
-
+        
         NSLayoutConstraint.activate([
             toolbar.constraintEqualTo(with: topLayoutGuide, receiverAttribute: .top, otherAttribute: .bottom),
             toolbar.constraintEqualTo(with: view, attribute: .left),
@@ -265,6 +269,11 @@ open class OpalImagePickerRootViewController: UIViewController {
         self.doneButton = doneButton
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        isCompleted = false
+    }
+    
     @objc func cancelTapped() {
         dismiss(animated: true) { [weak self] in
             guard let imagePicker = self?.navigationController as? OpalImagePickerController else { return }
@@ -273,7 +282,8 @@ open class OpalImagePickerRootViewController: UIViewController {
     }
     
     @objc func doneTapped() {
-        guard let imagePicker = navigationController as? OpalImagePickerController else { return }
+        guard let imagePicker = navigationController as? OpalImagePickerController,
+            !isCompleted else { return }
         
         let indexPathsForSelectedItems = selectedIndexPaths
         let externalIndexPaths = externalSelectedIndexPaths
@@ -382,6 +392,8 @@ open class OpalImagePickerRootViewController: UIViewController {
     }
     
     @objc private func segmentTapped(_ sender: UISegmentedControl) {
+        guard let view = view else { return }
+        
         showExternalImages = sender.selectedSegmentIndex == 1
         
         //Instantiate right constraint if needed

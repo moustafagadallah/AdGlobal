@@ -68,15 +68,15 @@ class CheckBoxCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource 
         
         cell.btnFull = { () in
 
-            if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
-                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+            if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.checkmark {
+                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
                     if self.valueArray.contains(objData.id) {
                 }
                 else {
                 }
             }
             else {
-                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.checkmark
                     if self.valueArray.contains(objData.id) {
                 }
                 else {

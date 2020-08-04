@@ -111,7 +111,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
             #selector(refreshTableView),
-                                 for: UIControlEvents.valueChanged)
+                                 for: UIControl.Event.valueChanged)
         refreshControl.tintColor = UIColor.red
         
         return refreshControl
@@ -125,7 +125,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.refreshButton()
         self.googleAnalytics(controllerName: "Chat Controller")
         tableView.estimatedRowHeight = 70
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         txtMessage.delegate = self
         if UserDefaults.standard.string(forKey: "fromNotification") == "1"{
             btnClose.isHidden = false
@@ -223,7 +223,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func keyboardHandling(){
         
         //if Constants.isIphoneX == true  {
-            NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIResponder.keyboardWillShowNotification, object: nil)
             keyboardManager.enable = false
             keyboardManager.enableAutoToolbar = false
        // }else{
@@ -234,7 +234,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @objc func showKeyboard(notification: Notification) {
-        if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let frame = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height
             self.tableView.contentInset.bottom = height
             self.tableView.scrollIndicatorInsets.bottom = height
@@ -242,7 +242,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count - 1, section: 0), at: .bottom, animated: true)
             }
         }
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             self.bottomConstraint.constant = keyboardHeight
@@ -364,7 +364,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let image = UIImage(named: "bubble_se")
                     cell.imgPicture.image = image!
                         .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
+                            UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),
                                         resizingMode: .stretch)
                         .withRenderingMode(.alwaysTemplate)
                     cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
@@ -376,7 +376,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let image = UIImage(named: "bubble_sent")
                     cell.imgPicture.image = image!
                         .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
+                            UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),
                                         resizingMode: .stretch)
                         .withRenderingMode(.alwaysTemplate)
                     cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
@@ -402,7 +402,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let image = UIImage(named: "bubble_sent")
                     cell.imgBackground.image = image!
                         .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
+                            UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),
                                         resizingMode: .stretch)
                         .withRenderingMode(.alwaysTemplate)
                     cell.txtMessage.text = message
@@ -415,7 +415,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let image = UIImage(named: "bubble_se")
                     cell.imgBackground.image = image!
                         .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
+                            UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),
                                         resizingMode: .stretch)
                         .withRenderingMode(.alwaysTemplate)
                     cell.txtMessage.text = message
@@ -667,7 +667,7 @@ public extension UIColor {
         let scanner = Scanner(string: hex)
         var hexValue: CUnsignedLongLong = 0
         if scanner.scanHexInt64(&hexValue) {
-            switch (hex.characters.count) {
+            switch (hex.count) {
             case 3:
                 red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
                 green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0

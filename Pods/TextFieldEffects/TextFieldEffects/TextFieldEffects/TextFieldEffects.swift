@@ -92,7 +92,7 @@ open class TextFieldEffects : UITextField {
     
     override open var text: String? {
         didSet {
-            if let text = text, text.isNotEmpty {
+            if let text = text, text.isNotEmpty || isFirstResponder {
                 animateViewsForTextEntry()
             } else {
                 animateViewsForTextDisplay()
@@ -104,9 +104,9 @@ open class TextFieldEffects : UITextField {
     
     override open func willMove(toSuperview newSuperview: UIView!) {
         if newSuperview != nil {
-            NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidEndEditing), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: self)
+            NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidEndEditing), name: UITextField.textDidEndEditingNotification, object: self)
             
-            NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidBeginEditing), name: NSNotification.Name.UITextFieldTextDidBeginEditing, object: self)
+            NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidBeginEditing), name: UITextField.textDidBeginEditingNotification, object: self)
         } else {
             NotificationCenter.default.removeObserver(self)
         }

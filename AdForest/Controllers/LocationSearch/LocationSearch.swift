@@ -79,7 +79,7 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Location Search")
        
-        let whiteColorAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.black]
+        let whiteColorAttribute: [NSAttributedString.Key: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.black]
         let attributePlaceHolder = NSAttributedString(string: "Search", attributes: whiteColorAttribute)
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributePlaceHolder
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes(whiteColorAttribute, for: .normal)

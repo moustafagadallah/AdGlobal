@@ -549,7 +549,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 if tagTitle != ""{
                     if let addTags = objData?.adDetail.adTagsShow.value {
                         let tags = ":  \(addTags)"
-                        let attributes = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12)]
+                        let attributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)]
                         let attributedString = NSMutableAttributedString(string: tagTitle, attributes: attributes)
                         
                         let normalString = NSMutableAttributedString(string: tags)
@@ -918,7 +918,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         }
             
         else if section == 2 {
-            height = UITableViewAutomaticDimension
+            height = UITableView.automaticDimension
         }
             
         else if section == 3 {
@@ -926,11 +926,11 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 height = 30
             }
             else {
-                height = UITableViewAutomaticDimension
+                height = UITableView.automaticDimension
             }
         }
         else if section == 4 {
-            height = UITableViewAutomaticDimension
+            height = UITableView.automaticDimension
         }
         else if section == 5 {
             let objData = AddsHandler.sharedInstance.objAddDetails

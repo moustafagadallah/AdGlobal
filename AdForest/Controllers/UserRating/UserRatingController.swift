@@ -165,10 +165,10 @@ class UserRatingController: UIViewController, UITableViewDelegate, UITableViewDa
         let section = indexPath.section
         var height : CGFloat = 0.0
         if section == 0 {
-            height =  UITableViewAutomaticDimension
+            height =  UITableView.automaticDimension
         }
         else if section == 1 {
-            height = UITableViewAutomaticDimension
+            height = UITableView.automaticDimension
         }
         return height
     }

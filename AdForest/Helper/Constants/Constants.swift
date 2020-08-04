@@ -172,8 +172,8 @@ class Constants {
     }
     
     static func showBasicAlert (message: String) -> UIAlertController{
-        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         return alert
     }
     
@@ -221,20 +221,20 @@ class Constants {
     
     static func crossString (titleStr : String) -> NSMutableAttributedString {
         let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: titleStr)
-        attributeString.addAttribute(NSAttributedStringKey.baselineOffset, value: 1, range: NSMakeRange(0, attributeString.length ))
-        attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length  ))
-        attributeString.addAttribute(NSAttributedStringKey.strikethroughColor, value: UIColor.black, range:  NSMakeRange(0, attributeString.length))
+        attributeString.addAttribute(NSAttributedString.Key.baselineOffset, value: 1, range: NSMakeRange(0, attributeString.length ))
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length  ))
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughColor, value: UIColor.black, range:  NSMakeRange(0, attributeString.length))
         return attributeString
     }
     
     static func attributedString(from string: String, nonBoldRange: NSRange?) -> NSAttributedString {
         let fontSize = UIFont.systemFontSize
         let attrs = [
-            NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: fontSize),
-            NSAttributedStringKey.foregroundColor: UIColor.black
+            NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: fontSize),
+            NSAttributedString.Key.foregroundColor: UIColor.black
         ]
         let nonBoldAttribute = [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
         ]
         let attrStr = NSMutableAttributedString(string: string, attributes: attrs)
         if let range = nonBoldRange {
@@ -246,11 +246,11 @@ class Constants {
     static func labelString(from string: String, nonBoldRange: NSRange?) -> NSAttributedString {
         let fontSize = UIFont.systemFontSize
         let attrs = [
-            NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: fontSize),
-            NSAttributedStringKey.foregroundColor: UIColor.black
+            NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: fontSize),
+            NSAttributedString.Key.foregroundColor: UIColor.black
         ]
         let nonBoldAttribute = [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
         ]
         let attrStr = NSMutableAttributedString(string: string, attributes: attrs)
         if let range = nonBoldRange {

@@ -161,7 +161,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             print(item.fieldTypeName, item.fieldName, item.fieldVal, item.fieldType)
         }
         
-        let whiteColorAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.white]
+        let whiteColorAttribute: [NSAttributedString.Key: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.white]
         let attributePlaceHolder = NSAttributedString(string: "Search", attributes: whiteColorAttribute)
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributePlaceHolder
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes(whiteColorAttribute, for: .normal)
@@ -477,7 +477,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     
     // MARK: - Map
     func centerMapOnLocation (location: CLLocation){
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        let coordinateRegion = MKCoordinateRegionecenter: (location.coordinate,latitudinalMeters:  regionRadius * 2.0,longitudinalMeters:  regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     func addAnnotations(coords: [CLLocation]){

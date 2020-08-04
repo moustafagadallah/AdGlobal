@@ -574,7 +574,7 @@ class NetworkHandler {
             var i = 0
             for image in imagesArray {
           
-                if let imageData = UIImageJPEGRepresentation(image, 0.5) {
+                if let imageData = image.jpegData(compressionQuality: 0.5) {
                 
                 print(imageData)
                 multipartFormData.append(imageData,  withName: "nverness\(i).jpg", fileName: "Inverness\(i).jpg" , mimeType: "image/jpeg")

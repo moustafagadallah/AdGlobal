@@ -9,9 +9,11 @@
 
 **OpalImagePicker** is a multiple selection Image Picker for iOS written in Swift. Meant to be a drop in replacement for UIImagePickerController. Compatible with both Swift and Objective-C.
 
-## Swift 3 and Swift 4 Compatibility
-- **Swift 4.x**: >= 1.5.0 - Latest is 1.7.1 [Download here](https://github.com/opalorange/OpalImagePicker/releases/tag/1.7.1).
-- **Swift 3.x**: Latest compatible version is 1.4.0 [Download here](https://github.com/opalorange/OpalImagePicker/releases/tag/1.4.0). If you are using CocoaPods be sure to fix the release (`pod 'OpalImagePicker', '~> 1.4.0'`)
+##  Swift 4 and 5 Compatibility
+- **Swift 5.0**: >= 2.1.0 - Latest is 2.1.0 [Download here](https://github.com/opalorange/OpalImagePicker/releases/tag/2.1.0).
+- **Swift 4.2**: >= 2.0.0 - Latest is 2.0.0 [Download here](https://github.com/opalorange/OpalImagePicker/releases/tag/2.0.0).
+- **Swift 4.0**: >= 1.5.0 - Latest is 1.7.1 [Download here](https://github.com/opalorange/OpalImagePicker/releases/tag/1.7.1).
+CocoaPods be sure to fix the release (`pod 'OpalImagePicker', '~> 2.1.0'`)
 
 ## Usage
 
@@ -37,15 +39,13 @@ present(imagePicker, animated: true, completion: nil)
 **OpalImagePicker** has three delegate methods to notify you when images have been selected, or the picker has been cancelled. This is only necessary if you choose not to use the **presentOpalImagePickerController(_:animated:select:cancel:completion:)** function.
 
 ```swift
-optional func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage])
 optional func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset])
 optional func imagePickerDidCancel(_ picker: OpalImagePickerController)
 ```
 
-**OpalImagePicker** also allows you to use external images. You may want to use images from Facebook, Instagram, or Twitter for example. You can do this either using the delegate methods below or the following function in Swift **presentOpalImagePickerController(_: animated: maximumSelectionsAllowed: numberOfExternalItems: externalItemsTitle: externalURLForIndex: selectImages: selectAssets: selectExternalURLs: cancel: completion:)** function.
+**OpalImagePicker** also allows you to use external images. You may want to use images from Facebook, Instagram, or Twitter for example. You can do this either using the delegate methods below or the following function in Swift **presentOpalImagePickerController(_: animated: maximumSelectionsAllowed: numberOfExternalItems: externalItemsTitle: externalURLForIndex: selectAssets: selectExternalURLs: cancel: completion:)** function.
 
 ```swift
-optional func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage])
 optional func imagePickerNumberOfExternalItems(_ picker: OpalImagePickerController) -> Int
 optional func imagePicker(_ picker: OpalImagePickerController, imageURLforExternalItemAtIndex index: Int) -> URL?    
 optional func imagePickerTitleForExternalItems(_ picker: OpalImagePickerController) -> String
@@ -93,8 +93,8 @@ pod 'OpalImagePicker'
 ## Requirements
 
 - iOS 8.0+
-- Xcode 8.3+
-- Swift 3.1+
+- Xcode 9.0+
+- Swift 4 to 5.0
 
 ## Author
 

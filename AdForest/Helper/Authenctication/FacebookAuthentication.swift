@@ -13,8 +13,8 @@ class FacebookAuthentication {
 
     class var token: String? {
         
-        if FBSDKAccessToken.current() != nil {
-            return FBSDKAccessToken.current().tokenString
+        if AccessToken.current != nil {
+            return AccessToken.current.tokenString
         } else {
             return nil
         }
@@ -22,7 +22,7 @@ class FacebookAuthentication {
 
     class var isLoggedIn: Bool {
     
-        return FBSDKAccessToken.current() != nil
+        return AccessToken.current != nil
     
     }
     
@@ -30,7 +30,7 @@ class FacebookAuthentication {
     
         if isLoggedIn {
             
-            let loginManager = FBSDKLoginManager()
+            let loginManager = LoginManager()
             loginManager.logOut()
         }
     }

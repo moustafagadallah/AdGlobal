@@ -555,7 +555,7 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     func adForest_openGallery() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
             self.appDel.presentController(ShowVC: imagePicker)
         }
         else {

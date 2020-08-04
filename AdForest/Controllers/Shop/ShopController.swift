@@ -72,7 +72,7 @@ class ShopController: UIViewController, WKUIDelegate {
     
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         if navigationType == .linkClicked {
             var userEmail = ""
             var userPassword = ""

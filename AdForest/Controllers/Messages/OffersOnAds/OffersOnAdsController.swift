@@ -35,7 +35,7 @@ class OffersOnAdsController: UIViewController, UITableViewDelegate, UITableViewD
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
             #selector(refreshTableView),
-                                 for: UIControlEvents.valueChanged)
+                                 for: UIControl.Event.valueChanged)
         if let mainColor = defaults.string(forKey: "mainColor") {
             refreshControl.tintColor = Constants.hexStringToUIColor(hex: mainColor)
         }

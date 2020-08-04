@@ -81,7 +81,7 @@ class CalendarCell: UITableViewCell {
     
     @IBAction func btnMaxDateClicked(_ sender: UIButton) {
         
-        let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.date, selectedDate: Date(), doneBlock: {
+        let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePicker.Mode.date, selectedDate: Date(), doneBlock: {
             picker, value, index in
             print("value = \(value!)")
             print("index = \(index!)")

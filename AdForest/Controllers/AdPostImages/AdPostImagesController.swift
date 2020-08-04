@@ -393,7 +393,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
           
             cell.btnUploadImage = { () in
                 
-                let actionSheet = UIAlertController(title: "Select", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+                let actionSheet = UIAlertController(title: "Select", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
                 actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) -> Void in
                     let imagePickerConroller = UIImagePickerController()
                     imagePickerConroller.delegate = self
@@ -703,7 +703,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if (info[UIImagePickerControllerOriginalImage] as? UIImage) != nil {
+        if (info[UIImagePickerControllerOriginalImage.rawValue] as? UIImage) != nil {
             if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
     
                 self.photoArray = [pickedImage]

@@ -33,7 +33,7 @@ extension UILabel {
     func underlineLabel() {
         if let textString = self.text {
             let attributedString = NSMutableAttributedString(string: textString)
-            attributedString.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: attributedString.length - 1))
+            attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length - 1))
             attributedText = attributedString
         }
     }
@@ -42,7 +42,7 @@ extension UILabel {
 
 extension NSMutableAttributedString {
     @discardableResult func bold(_ text: String) -> NSMutableAttributedString {
-        let attrs: [NSAttributedStringKey: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 12)!]
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 12)!]
         let boldString = NSMutableAttributedString(string:text, attributes: attrs)
         append(boldString)
         

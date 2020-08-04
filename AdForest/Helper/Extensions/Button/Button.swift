@@ -48,7 +48,7 @@ extension UIButton {
         guard let text = self.titleLabel?.text else { return }
         print(text)
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.count))
+        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: text.count))
         
         self.setAttributedTitle(attributedString, for: .normal)
     }
@@ -60,24 +60,24 @@ extension UIButton {
         guard let text = self.titleLabel?.text else { return }
         
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.count))
+        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: text.count))
         
         self.setAttributedTitle(attributedString, for: .normal)
     }
 }
 
 class UnderlineTextButton: UIButton {
-    override func setTitle(_ title: String?, for state: UIControlState) {
+    override func setTitle(_ title: String?, for state: UIControl.State) {
         super.setTitle(title, for: .normal)
         self.setAttributedTitle(self.attributedString(), for: .normal)
     }
     
     private func attributedString() -> NSAttributedString? {
         let attributes = [
-            NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15),
-            NSAttributedStringKey.foregroundColor : UIColor.red,
-            NSAttributedStringKey.underlineStyle : NSUnderlineStyle.styleSingle.rawValue
-            ] as [NSAttributedStringKey : Any]
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
+            NSAttributedString.Key.foregroundColor : UIColor.red,
+            NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
+            ] as [NSAttributedString.Key : Any]
         let attributedString = NSAttributedString(string: self.currentTitle!, attributes: attributes)
         return attributedString
     }

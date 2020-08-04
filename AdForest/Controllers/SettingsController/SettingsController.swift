@@ -219,13 +219,13 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
         switch  section {
         case 0:
             if isShowAboutApp {
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             } else {
                 return 0
             }
         case 1:
             if isShowAppVersion {
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             } else {
                 return 0
             }
@@ -243,7 +243,7 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
             }
         case 4:
             if isShowFeedback {
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             } else {
                 return 0
             }

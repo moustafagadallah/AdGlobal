@@ -68,10 +68,11 @@ public struct ButtonBarPagerTabStripSettings {
         // only used if button bar is created programaticaly and not using storyboards or nib files
         public var buttonBarHeight: CGFloat?
     }
+
     public var style = Style()
 }
 
-open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
     public var settings = ButtonBarPagerTabStripSettings()
 
@@ -265,21 +266,24 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
                 .compactMap { (indexPath: IndexPath) -> IndexPath? in
                     return (indexPath.item >= 0 && indexPath.item < buttonBarView.numberOfItems(inSection: indexPath.section)) ? indexPath : nil
                 }
+
             if !indexPathsToReload.isEmpty {
                 buttonBarView.reloadItems(at: indexPathsToReload)
             }
         }
+
         return cells
     }
 
     // MARK: - UICollectionViewDelegateFlowLayut
-    @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         guard let cellWidthValue = cachedCellWidths?[indexPath.row] else {
             fatalError("cachedCellWidths for \(indexPath.row) must not be nil")
         }
         return CGSize(width: cellWidthValue, height: collectionView.frame.size.height)
     }
-    
+
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard indexPath.item != currentIndex else { return }
 
@@ -320,7 +324,6 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         let indicatorInfo = childController.indicatorInfo(for: self)
 
         cell.label.text = indicatorInfo.title
-        cell.accessibilityLabel = indicatorInfo.accessibilityLabel
         cell.label.font = settings.style.buttonBarItemFont
         cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
@@ -344,7 +347,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
             }
         }
         cell.isAccessibilityElement = true
-        cell.accessibilityLabel = cell.label.text
+        cell.accessibilityLabel = indicatorInfo.accessibilityLabel ?? cell.label.text
         cell.accessibilityTraits.insert([.button, .header])
         return cell
     }

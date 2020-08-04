@@ -65,9 +65,9 @@ extension UIImageView {
 }
 
 extension UIImageView {
-    func blur(style: UIBlurEffectStyle?) {
+    func blur(style: UIBlurEffect.Style?) {
         
-        var blurStyle: UIBlurEffectStyle
+        var blurStyle: UIBlurEffect.Style
         
         if let style = style {
             blurStyle = style
@@ -84,7 +84,7 @@ extension UIImageView {
 }
 
 extension UIImageView {
-    func downloadImageFrom(link: String, contentMode: UIViewContentMode?) {
+    func downloadImageFrom(link: String, contentMode: UIView.ContentMode?) {
         URLSession.shared.dataTask( with: URL(string:link)!, completionHandler: {
             (data, response, error) -> Void in
             DispatchQueue.main.async {
@@ -98,7 +98,7 @@ extension UIImageView {
 
 extension UIImageView {
     func tintImageColor(color : UIColor) {
-        self.image = self.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        self.image = self.image!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.tintColor = color
     }
 }

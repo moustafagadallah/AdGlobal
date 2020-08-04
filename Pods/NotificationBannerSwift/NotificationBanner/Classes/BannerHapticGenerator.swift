@@ -23,9 +23,9 @@ public enum BannerHaptic {
     case medium
     case heavy
     case none
-    //UIImpactFeedbackGenerator.FeedbackStyle
+
     @available(iOS 10.0, *)
-    var impactStyle: UIImpactFeedbackStyle? {
+    var impactStyle: UIImpactFeedbackGenerator.FeedbackStyle? {
         switch self {
         case .light: return .light
         case .medium: return .medium

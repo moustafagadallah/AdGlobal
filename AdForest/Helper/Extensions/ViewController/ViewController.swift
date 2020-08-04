@@ -156,7 +156,7 @@ extension UIViewController {
     
     ///EZSE: Removes keyboardWillShowNotification()'s NotificationCenter Observer
     open func removeKeyboardWillShowNotification() {
-        self.removeNotificationObserver(NSNotification.Name.UIKeyboardWillShow.rawValue)
+        self.removeNotificationObserver(NSNotification.Name.UIResponder.keyboardWillShowNotification.rawValue)
     }
     
     ///EZSE: Removes keyboardDidShowNotification()'s NotificationCenter Observer
@@ -318,8 +318,8 @@ extension UIViewController {
     open func presentDetail(_ viewControllerToPresent: UIViewController) {
         let transition = CATransition()
         transition.duration = 0.24
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
         self.view.window!.layer.add(transition, forKey: kCATransition)
         
         present(viewControllerToPresent, animated: false)
@@ -328,8 +328,8 @@ extension UIViewController {
     open func dismissDetail() {
         let transition = CATransition()
         transition.duration = 0.24
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
         self.view.window!.layer.add(transition, forKey: kCATransition)
         
         dismiss(animated: false)
@@ -351,9 +351,9 @@ extension UIViewController {
     
     ///EZSE: Adds the specified view controller as a child of the current view controller.
     open func addAsChildViewController(_ vc: UIViewController, toView: UIView) {
-        self.addChildViewController(vc)
+        self.addChild(vc)
         toView.addSubview(vc.view)
-        vc.didMove(toParentViewController: self)
+        vc.didMove(toParent: self)
     }
     
     ///EZSE: Adds image named: as a UIImageView in the Background
@@ -362,7 +362,7 @@ extension UIViewController {
         let imageView = UIImageView(frame: view.frame)
         imageView.image = image
         view.addSubview(imageView)
-        view.sendSubview(toBack: imageView)
+        view.sendSubviewToBack(imageView)
     }
     
     ///EZSE: Adds UIImage as a UIImageView in the Background
@@ -370,7 +370,7 @@ extension UIViewController {
         let imageView = UIImageView(frame: view.frame)
         imageView.image = image
         view.addSubview(imageView)
-        view.sendSubview(toBack: imageView)
+        view.sendSubviewToBack(imageView)
     }
     
     #if os(iOS)

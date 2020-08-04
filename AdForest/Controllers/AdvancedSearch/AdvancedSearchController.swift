@@ -686,7 +686,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
     func DateValuesMax(MaxDate: String, MinDate: String, fieldType: String, indexPath: Int,fieldTypeName:String) {
         
         if fieldType == "textfield_date" {
-            print("Index Path Selected \(indexPath,MinDate,MaxDate,fieldType)")
+           
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = "\(MinDate)|\(MaxDate)"
@@ -727,7 +727,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
     
     func SeekBarValue(seekBarVal: String, fieldType: String, indexPath: Int,fieldTypeName:String) {
         if fieldType == "seekbar" {
-            print("Index Path Selected \(indexPath,seekBarVal,fieldType)")
+    
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = seekBarVal
@@ -738,7 +738,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
     
     func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int,fieldTypeName:String) {
         if fieldType == "glocation_textfield" {
-            print("Index Path Selected \(indexPath,searchAuto,fieldType)")
+        
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = searchAuto
@@ -761,7 +761,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
     
     func checkBoxArrFunc(selectedText: [String], fieldType: String, indexPath: Int,fieldTypeName: String) {
         if fieldType == "checkbox" {
-            print("Index Path Selected \(indexPath,selectedText , fieldType)")
+           
             //dataArray[indexPath].fieldVal = "\(colorCode)"
             let cell = tableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as! CheckBoxButtonCell
             cell.btnCheckBox.titleLabel?.text = selectedText.joined(separator: ",")
@@ -776,7 +776,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
     
     func colorValue(colorCode: String, fieldType: String, indexPath: Int,fieldTypeNam:String) {
        if fieldType == "radio_color" {
-        print("Index Path Selected \(indexPath,colorCode , fieldType)")
+   
         //dataArray[indexPath].fieldVal = "\(colorCode)"
         var obj = SearchData()
         obj.fieldType = fieldType
@@ -789,7 +789,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
     func rangeValues(minRange: CGFloat, maxRange: CGFloat, fieldType: String, indexPath: Int,fieldTypeName:String) {
         if fieldType == "number_range" {
           //  let cell = tableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as! RangeValuesTableViewCell
-            print("Index Path Selected \(indexPath, minRange, maxRange, fieldType)")
+         
             let intMin = Int(minRange)
             let intMax = Int(maxRange)
             //dataArray[indexPath].fieldVal = "\(intMin)-\(intMax)"

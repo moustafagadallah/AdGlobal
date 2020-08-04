@@ -6,6 +6,10 @@
 //
 //
 
+import UIKit
+#if SWIFT_PACKAGE
+import ImageSlideshow
+#endif
 import Alamofire
 import AlamofireImage
 
@@ -14,7 +18,7 @@ import AlamofireImage
 public class AlamofireSource: NSObject, InputSource {
     /// url to load
     public var url: URL
-    
+
     /// placeholder used before image is loaded
     public var placeholder: UIImage?
 
@@ -41,9 +45,17 @@ public class AlamofireSource: NSObject, InputSource {
     }
 
     public func load(to imageView: UIImageView, with callback: @escaping (UIImage?) -> Void) {
-        imageView.af_setImage(withURL: self.url, placeholderImage: placeholder, filter: nil, progress: nil) { (response) in
-            callback(response.result.value)
+        imageView.af.setImage(withURL: self.url, placeholderImage: placeholder, filter: nil, progress: nil) { [weak self] (response) in
+            switch response.result {
+                case .success(let image):
+                    callback(image)
+                case .failure:
+                    callback(self?.placeholder)
+            }
         }
     }
 
+    public func cancelLoad(on imageView: UIImageView) {
+        imageView.af.cancelImageRequest()
+    }
 }

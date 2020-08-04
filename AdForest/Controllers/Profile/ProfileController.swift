@@ -456,7 +456,7 @@ class UserProfileInformationCell: UITableViewCell {
     var clickNumberVerified: (()->())?
     var btnBlockUser: (()->())?
     
-    var attributes : [NSAttributedStringKey : Any] = [
+    var attributes : [NSAttributedString.Key : Any] = [
         NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15),
         NSAttributedStringKey.foregroundColor : UIColor.white,
         NSAttributedStringKey.underlineStyle : 1]

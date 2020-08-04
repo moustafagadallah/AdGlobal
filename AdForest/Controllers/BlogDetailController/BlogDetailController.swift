@@ -346,10 +346,10 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             height = contentHeight[indexPath.row] + 80
         }
         else if section == 2 {
-            height = UITableViewAutomaticDimension
+            height = UITableView.automaticDimension
         }
         else if section == 3 {
-            height = UITableViewAutomaticDimension
+            height = UITableView.automaticDimension
         }
         else if section == 4 {
             if defaults.bool(forKey: "isGuest") {

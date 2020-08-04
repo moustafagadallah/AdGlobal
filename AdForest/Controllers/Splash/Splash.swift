@@ -197,6 +197,6 @@ extension UserDefaults {
     }
     
     func set(_ imageArray: [UIImage], forKey key: String) {
-        self.set(imageArray.compactMap({ UIImagePNGRepresentation($0) }), forKey: key)
+        self.set(imageArray.compactMap({ $0.pngData() }), forKey: key)
     }
 }
