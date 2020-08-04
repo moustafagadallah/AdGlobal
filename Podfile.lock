@@ -3,21 +3,28 @@ PODS:
   - Alamofire (4.6.0)
   - AlamofireImage (3.3.0):
     - Alamofire (~> 4.5)
-  - Bolts (1.9.0):
-    - Bolts/AppLinks (= 1.9.0)
-    - Bolts/Tasks (= 1.9.0)
-  - Bolts/AppLinks (1.9.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.0)
+  - AppAuth (1.4.0):
+    - AppAuth/Core (= 1.4.0)
+    - AppAuth/ExternalUserAgent (= 1.4.0)
+  - AppAuth/Core (1.4.0)
+  - AppAuth/ExternalUserAgent (1.4.0)
   - Cosmos (13.0.0)
   - DeviceKit (1.4.0)
   - DropDown (2.0.2)
-  - FBSDKCoreKit (4.29.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.29.0):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.29.0):
-    - FBSDKCoreKit
+  - FBSDKCoreKit (7.1.1):
+    - FBSDKCoreKit/Basics (= 7.1.1)
+    - FBSDKCoreKit/Core (= 7.1.1)
+  - FBSDKCoreKit/Basics (7.1.1)
+  - FBSDKCoreKit/Core (7.1.1):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (7.1.1):
+    - FBSDKLoginKit/Login (= 7.1.1)
+  - FBSDKLoginKit/Login (7.1.1):
+    - FBSDKCoreKit (~> 7.1.1)
+  - FBSDKShareKit (7.1.1):
+    - FBSDKShareKit/Share (= 7.1.1)
+  - FBSDKShareKit/Share (7.1.1):
+    - FBSDKCoreKit (~> 7.1.1)
   - Firebase/Auth (4.8.0):
     - Firebase/Core
     - FirebaseAuth (= 4.4.1)
@@ -65,10 +72,9 @@ PODS:
     - GooglePlaces (= 3.0.3)
   - GooglePlaces (3.0.3):
     - GoogleMaps/Base (= 3.0.3)
-  - GoogleSignIn (4.1.1):
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
-    - GTMOAuth2 (~> 1.0)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
   - GoogleToolboxForMac/DebugUtils (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
@@ -98,7 +104,8 @@ PODS:
   - "GoogleUtilities/NSData+zlib (5.5.0)"
   - GoogleUtilities/Reachability (5.5.0):
     - GoogleUtilities/Logger
-  - GTMOAuth2 (1.1.6):
+  - GTMAppAuth (1.0.0):
+    - AppAuth/Core (~> 1.0)
     - GTMSessionFetcher (~> 1.1)
   - GTMSessionFetcher (1.1.12):
     - GTMSessionFetcher/Full (= 1.1.12)
@@ -126,7 +133,7 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
   - OpalImagePicker (2.0.0)
-  - PersonalizedAdConsent (1.0.3)
+  - PersonalizedAdConsent (1.0.5)
   - Protobuf (3.5.0)
   - RangeSeekSlider (1.7.0)
   - SDWebImage (4.2.3):
@@ -139,7 +146,7 @@ PODS:
   - TextFieldEffects (1.4.0)
   - "UITextField+Shake (1.2.1)"
   - XLPagerTabStrip (8.1.0)
-  - YouTubePlayer (0.4.0)
+  - YouTubePlayer (0.7.2)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0
@@ -178,17 +185,13 @@ DEPENDENCIES:
   - YouTubePlayer
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - ActionSheetPicker-3.0
     - Alamofire
     - AlamofireImage
-    - Bolts
     - Cosmos
     - DeviceKit
     - DropDown
-    - FBSDKCoreKit
-    - FBSDKLoginKit
-    - FBSDKShareKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -198,13 +201,8 @@ SPEC REPOS:
     - Google-Mobile-Ads-SDK
     - GoogleAnalytics
     - GoogleAppMeasurement
-    - GoogleMaps
-    - GooglePlacePicker
-    - GooglePlaces
-    - GoogleSignIn
     - GoogleToolboxForMac
     - GoogleUtilities
-    - GTMOAuth2
     - GTMSessionFetcher
     - ImageSlideshow
     - IQKeyboardManagerSwift
@@ -214,7 +212,6 @@ SPEC REPOS:
     - NotificationBannerSwift
     - NVActivityIndicatorView
     - OpalImagePicker
-    - PersonalizedAdConsent
     - Protobuf
     - RangeSeekSlider
     - SDWebImage
@@ -225,19 +222,30 @@ SPEC REPOS:
     - TextFieldEffects
     - "UITextField+Shake"
     - XLPagerTabStrip
+  trunk:
+    - AppAuth
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
+    - GoogleSignIn
+    - GTMAppAuth
+    - PersonalizedAdConsent
     - YouTubePlayer
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Cosmos: af3973becc045af335b64498c9812034876b7661
   DeviceKit: fa74d97499660e88081718b16688e19217595dba
   DropDown: 75562633a203f57a917021b4edb96c76f293b0ec
-  FBSDKCoreKit: 6f139173dc63a1deaff4430a55f2fe5bb222d2af
-  FBSDKLoginKit: 56a057ca6822535ea0faa25f57a7c41edb697fd4
-  FBSDKShareKit: 18a2cd118aef11dd657fe7e8b64bae5c719088b2
+  FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
+  FBSDKLoginKit: 1a61d79e2b25e2fc0d03dccab1e34b38bbdf2546
+  FBSDKShareKit: 00a055c1999b099596e00212dd1c0600c6697019
   Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
   FirebaseAuth: dc0dd403beca5b2b016aac89c2d0b8dad1c81926
@@ -248,12 +256,12 @@ SPEC CHECKSUMS:
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleAppMeasurement: 1624046ab1bcc5e170061a56ef5679000b079c8e
   GoogleMaps: fd5c9fa58871781b9fb94d4936f19c69fe60ce32
-  GooglePlacePicker: 0c90898945f02ef36cce86fc9a107e1c5d3d26b1
+  GooglePlacePicker: 02326873b8f923fc1f82ad694c33a625a8f6a728
   GooglePlaces: f09e76993c9c3ee4af8f4f7f535bb94d6aa3b649
-  GoogleSignIn: 3fdaa34a2ba04dbd7a25d7db39aecb0da98d5bdc
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
-  GTMOAuth2: e8b6512c896235149df975c41d9a36c868ab7fba
+  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   ImageSlideshow: 1bb0e610e28a71e8936d57265d882f61714a470b
   IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
@@ -263,7 +271,7 @@ SPEC CHECKSUMS:
   NotificationBannerSwift: 5d0191ae57c4b38e484dab4912e32d1ed99fce61
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   OpalImagePicker: efc91612ef5b3849314801f68fddc26200da9435
-  PersonalizedAdConsent: b50a8a5d6065b6db23121e8fcc0dce2ae983f6ea
+  PersonalizedAdConsent: dbecabb3467df967c16d9cebc2ef4a8890e4bbd8
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   RangeSeekSlider: 0386c5a9aa5ebcb2fa5238e8a627280cf46c7c0a
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
@@ -274,8 +282,8 @@ SPEC CHECKSUMS:
   TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
   XLPagerTabStrip: 22d4c58200d7c105e0e407ab6bfd01a5d85014be
-  YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
+  YouTubePlayer: 2b5f2830d8f9b2cde942083211291e382c9e6bd5
 
-PODFILE CHECKSUM: 06b8c0ef4dd7891ae56459278131e622985fb7f7
+PODFILE CHECKSUM: 27b109d7fef40b8d5a456d471214ff3b02586ad1
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

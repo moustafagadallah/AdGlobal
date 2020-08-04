@@ -14,7 +14,7 @@ import NVActivityIndicatorView
 import SDWebImage
 import UITextField_Shake
 
-class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable, GIDSignInUIDelegate, GIDSignInDelegate, UIScrollViewDelegate{
+class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable,  GIDSignInDelegate, UIScrollViewDelegate{
     
     //MARK:- Outlets
     @IBOutlet weak var scrollView: UIScrollView! {
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     
     
     @IBOutlet weak var btnFb: UIButton!
-    @IBOutlet weak var buttonFBLogin: FBSDKLoginButton!
+    @IBOutlet weak var buttonFBLogin: FBLoginButton!
     
     @IBOutlet weak var btnGoogleLog: GIDSignInButton!
     
@@ -95,7 +95,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     var getLoginDetails = [LoginData]()
     var defaults = UserDefaults.standard
     var isVerifyOn = false
-    let loginManager = FBSDKLoginManager()
+    let loginManager = LoginManager()
     
     var isDelFb = UserDefaults.standard.bool(forKey: "delFb")
     
@@ -104,7 +104,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
-        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance()?.delegate = self
+      //  GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         self.adForest_loginDetails()
         txtFieldsWithRtl()
@@ -114,7 +115,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     
     func fbLogin(){
     
-        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
+        loginManager.logIn(permissions: ["email", "public_profile"], from: self) { (result, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "Nothing")
             }
@@ -497,8 +498,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     //MARK:- Facebook Delegate Methods
     
     func userProfileDetails() {
-        if (FBSDKAccessToken.current() != nil) {
-            FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, first_name, last_name, email, gender, picture.type(large)"]).start { (connection, result, error) in
+        if (AccessToken.current != nil) {
+            GraphRequest(graphPath: "/me", parameters: ["fields": "id, name, first_name, last_name, email, gender, picture.type(large)"]).start { (connection, result, error) in
                 if error != nil {
                     print(error?.localizedDescription ?? "Nothing")
                     return
@@ -525,11 +526,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             }
         }
     }
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton!) {
         
     }
     
-    func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
+    func loginButtonWillLogin(_ loginButton: FBLoginButton!) -> Bool {
         
         return true
     }

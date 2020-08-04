@@ -390,7 +390,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     self.defaults.set(false, forKey: "isLogin")
                     self.defaults.set(false, forKey: "isGuest")
                     self.defaults.set(false, forKey: "isSocial")
-                    let loginManager = FBSDKLoginManager()
+                    let loginManager = LoginManager()
                     loginManager.logOut()
                     self.appDelegate.moveToLogin()
                 })

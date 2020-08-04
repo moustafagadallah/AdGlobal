@@ -11,7 +11,7 @@ import FBSDKLoginKit
 import GoogleSignIn
 import NVActivityIndicatorView
 
-class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollViewDelegate, NVActivityIndicatorViewable, GIDSignInUIDelegate, GIDSignInDelegate {
+class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollViewDelegate, NVActivityIndicatorViewable, GIDSignInDelegate {
     
     //MARK:- Outlets
     
@@ -59,7 +59,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     }
     @IBOutlet weak var lblOr: UILabel!
     
-    @IBOutlet weak var buttonFB: FBSDKLoginButton!
+    @IBOutlet weak var buttonFB: FBLoginButton!
     @IBOutlet weak var btnFb: UIButton!
     @IBOutlet weak var heightConstraintSocial: NSLayoutConstraint!
     
@@ -96,7 +96,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     var defaults = UserDefaults.standard
     var isVerifivation = false
     var isVerifyOn = false
-    let loginManager = FBSDKLoginManager()
+    let loginManager = LoginManager()
     
     
     //MARK:- Application Life Cycle
@@ -104,7 +104,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
-        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance()?.delegate = self
+       // GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         self.adForest_registerData()
         txtFieldsWithRtl()
@@ -418,7 +419,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     
     
     @IBAction func btnLoginFbOk(_ sender: UIButton) {
-        loginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
+        loginManager.logIn(permissions: ["email", "public_profile"], from: self) { (result, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "Nothing")
             }
@@ -435,8 +436,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     
     
     func userProfileDetails() {
-        if (FBSDKAccessToken.current() != nil) {
-            FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, first_name, last_name, email, gender, picture.type(large)"]).start { (connection, result, error) in
+        if (AccessToken.current != nil) {
+            GraphRequest(graphPath: "/me", parameters: ["fields": "id, name, first_name, last_name, email, gender, picture.type(large)"]).start { (connection, result, error) in
                 if error != nil {
                     print(error?.localizedDescription ?? "Nothing")
                     return
@@ -460,11 +461,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             }
         }
     }
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton!) {
         
     }
     
-    func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
+    func loginButtonWillLogin(_ loginButton: FBLoginButton!) -> Bool {
         return true
     }
     

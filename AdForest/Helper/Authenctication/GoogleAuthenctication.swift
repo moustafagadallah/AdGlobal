@@ -18,7 +18,7 @@ class GoogleAuthenctication {
     }
     
     class var isLooggedIn: Bool {
-        return getInstance().hasAuthInKeychain()
+        return getInstance().hasPreviousSignIn()
     }
     
     class func signIn() {
@@ -26,7 +26,8 @@ class GoogleAuthenctication {
     }
     
     class func signInSilenty() {
-        getInstance().signInSilently()
+        getInstance().signIn()
+       // getInstance().signInSilently()
     }
     
     class func signOut() {
