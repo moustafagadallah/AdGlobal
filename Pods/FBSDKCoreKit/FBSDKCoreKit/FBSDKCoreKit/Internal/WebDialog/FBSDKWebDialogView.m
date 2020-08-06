@@ -23,7 +23,6 @@
 #import "FBSDKWebDialogView.h"
 
 #import <WebKit/WebKit.h>
-
 #import "FBSDKCloseIcon.h"
 #import "FBSDKError.h"
 #import "FBSDKInternalUtility.h"

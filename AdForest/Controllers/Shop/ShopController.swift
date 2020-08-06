@@ -10,22 +10,23 @@ import UIKit
 import DropDown
 import WebKit
 
-class ShopController: UIViewController, WKUIDelegate {
+class ShopController: UIViewController, WKUIDelegate  , WKNavigationDelegate{
 
     //MARK:- Outlets
 
-    
-    weak var webView: WKWebView! {
-        didSet{
-        
-        webView.uiDelegate =  self
-        webView.isOpaque = false
-        webView.backgroundColor = UIColor.clear
+    @IBOutlet weak var webView: WKWebView! {
+        didSet {
+            webView.uiDelegate =  self
+            webView.navigationDelegate = self
+            webView.isOpaque = false
+           webView.backgroundColor = UIColor.clear
         }
     }
-  
+    
+
     
     //MARK:- Properties
+    
     let cartButton = UIButton(type: .custom)
     let defaults = UserDefaults.standard
     var delegate :leftMenuProtocol?
@@ -69,34 +70,39 @@ class ShopController: UIViewController, WKUIDelegate {
             request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
         }
         self.webView.load(request)
+      
     
     }
-    
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if navigationType == .linkClicked {
-            var userEmail = ""
-            var userPassword = ""
-            if let email = defaults.string(forKey: "email") {
-                userEmail = email
-            }
-            if let password = defaults.string(forKey: "password") {
-                userPassword = password
-            }
-            let emailPass = "\(userEmail):\(userPassword)"
-            let encodedString = emailPass.data(using: String.Encoding.utf8)!
-            let base64String = encodedString.base64EncodedString(options: [])
-            print(base64String)
-            var urlRequest = request
-            urlRequest.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
-            urlRequest.setValue("body", forHTTPHeaderField: "Adforest-Shop-Request")
-            if UserDefaults.standard.bool(forKey: "isSocial") {
-                urlRequest.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
-            }
-            self.webView.load(urlRequest)
-            return true
+        
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        
+        var userEmail = ""
+        var userPassword = ""
+        if let email = defaults.string(forKey: "email") {
+            userEmail = email
         }
-        return true
+        if let password = defaults.string(forKey: "password") {
+            userPassword = password
+        }
+        let emailPass = "\(userEmail):\(userPassword)"
+        let encodedString = emailPass.data(using: String.Encoding.utf8)!
+        let base64String = encodedString.base64EncodedString(options: [])
+        print(base64String)
+        var urlRequest = navigationAction.request
+        urlRequest.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
+        urlRequest.setValue("body", forHTTPHeaderField: "Adforest-Shop-Request")
+        if UserDefaults.standard.bool(forKey: "isSocial") {
+            urlRequest.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
+        }
+        
+        self.webView.load(urlRequest)
+        
+        
+        decisionHandler(.allow)
     }
+    
+    
     
     //MARK:- Custom
     func addBackButtonToNavigationBar() {

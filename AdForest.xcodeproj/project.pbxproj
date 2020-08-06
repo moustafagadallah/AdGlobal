@@ -3931,7 +3931,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 98JBF52LZC;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -3957,7 +3957,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 98JBF52LZC;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

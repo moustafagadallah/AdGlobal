@@ -9,13 +9,17 @@
 import UIKit
 import WebKit
 
-class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,WKUIDelegate {
+class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,WKUIDelegate, WKNavigationDelegate {
    
     
     //MARK:- Outlets
     
     
-    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var webView: WKWebView! {
+        didSet {
+            webView.navigationDelegate = self
+        }
+    }
     
     @IBOutlet weak var heightConstraintWebView: NSLayoutConstraint!
     

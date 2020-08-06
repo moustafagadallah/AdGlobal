@@ -10,7 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 import WebKit
 
-class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, WKUIDelegate {
+class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, WKUIDelegate , WKNavigationDelegate{
 
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -368,12 +368,13 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
         return height
     }
 
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.navigationDelegate = self
         if contentHeight[webView.tag] != 0.0 {
-            return
-        }
+                   return
+               }
         contentHeight[webView.tag] = webView.scrollView.contentSize.height
-        tableView.reloadRows(at: [IndexPath(row: webView.tag, section: 0)], with: .automatic )
+            tableView.reloadRows(at: [IndexPath(row: webView.tag, section: 0)], with: .automatic )
     }
     
     

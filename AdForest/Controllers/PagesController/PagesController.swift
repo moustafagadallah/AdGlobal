@@ -12,7 +12,7 @@ import WebKit
 import NVActivityIndicatorView
 import WebKit
 
-class PagesController: UIViewController, NVActivityIndicatorViewable, WKUIDelegate {
+class PagesController: UIViewController, NVActivityIndicatorViewable, WKUIDelegate , WKNavigationDelegate {
 
     //MARK:- Outlets
     
@@ -22,6 +22,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, WKUIDelega
         
         webView.uiDelegate = self
         webView.isOpaque = false
+        webView.navigationDelegate = self
         webView.backgroundColor = UIColor.clear
     }
     }
