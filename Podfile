@@ -14,7 +14,6 @@ target 'AdForest' do
     
     #Google Login With Firebase
     pod 'GoogleSignIn'
-    pod 'Firebase/Auth'
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
     pod 'GoogleAnalytics'
@@ -74,7 +73,7 @@ target 'AdForest' do
     pod 'RangeSeekSlider'
     
     #AdMob
-    pod 'Google-Mobile-Ads-SDK', '~> 7.42'
+    pod 'Google-Mobile-Ads-SDK', '~> 7.63.0'
     pod 'PersonalizedAdConsent'
     
     #In App Purchases

@@ -79,7 +79,8 @@ class SearchSectionCell: UITableViewCell, UITextFieldDelegate {
         let categoryVC = storyboard.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
         categoryVC.searchText = searchText
         categoryVC.isFromTextSearch = true
-        self.viewController()?.navigationController?.pushViewController(categoryVC, animated: true)
+      //  self.viewController()?.navigationController?.pushViewController(categoryVC, animated: true)
+        
     }
     
     //MARK:- IBActions

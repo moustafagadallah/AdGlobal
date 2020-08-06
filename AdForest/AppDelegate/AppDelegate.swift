@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
     
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let keyboardManager = IQKeyboardManager.sharedManager()
+    let keyboardManager = IQKeyboardManager.shared
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let defaults = UserDefaults.standard
     var deviceFcmToken = "0"

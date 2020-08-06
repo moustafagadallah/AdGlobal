@@ -42,7 +42,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    let keyboardManager = IQKeyboardManager.sharedManager()
+    let keyboardManager = IQKeyboardManager.shared
     
     //MARK:- Properties
     

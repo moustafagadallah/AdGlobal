@@ -90,7 +90,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
    
     
     //MARK:- Properties
-    let keyboardManager = IQKeyboardManager.sharedManager()
+    let keyboardManager = IQKeyboardManager.shared
     let defaults = UserDefaults.standard
     var ad_id = ""
     var sender_id = ""
